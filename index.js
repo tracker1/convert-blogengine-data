@@ -21,10 +21,16 @@ async function main() {
     }
     
     //console.log({tags,cats,maplinks});
-    if (!(await fs.exists(path.resolve(__dirname,'../output')))) {
-      await fs.mkdir(path.resolve(__dirname,'../output'));
+    if (!(await fs.exists(path.resolve(__dirname,'./output')))) {
+      await fs.mkdir(path.resolve(__dirname,'./output'));
     }
-    await fs.writeFile(path.resolve('../output/legacy-post-paths.json'), JSON.stringify(maplinks, null, 2), 'utf8');
+
+    //console.log(JSON.stringify(maplinks, null, 2);    
+    await fs.writeFile(
+        path.resolve(__dirname,'./output/legacy-post-paths.json'), 
+        JSON.stringify(maplinks.sort(m => m.to), null, 2), 
+        'utf8'
+    );
     
   } catch(err) {
     console.error(err.message, err.stack.replace(/\\n/,'\n'));
