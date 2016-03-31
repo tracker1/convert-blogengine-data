@@ -4,6 +4,7 @@ import getPostList from './lib/post-list';
 import readPost from './lib/post-read';
 import writePost from './lib/post-write';
 import getLegacyLinks from './lib/post-legacy-links';
+import patchPostFiles from './lib/post-files';
 
 async function main() {
   try {
@@ -14,9 +15,12 @@ async function main() {
     var posts = await getPostList();
     for (var p of posts) {
       var post = await readPost(p);
+      
       tags = unique(tags.concat(post.tags));
       cats = unique(cats.concat(post.categories));
       maplinks = maplinks.concat(await getLegacyLinks(post));
+      
+      await patchPostFiles(post);
       await writePost(post);
     }
     
