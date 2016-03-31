@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Some hardware fun..</title>
+  <description />
+  <content>&lt;p&gt;I just got my &lt;a href="http://www.msicomputer.com/product/p_spec.asp?model=Wind_PC&amp;amp;class=npc"&gt;MSI Wind Barebones&lt;/a&gt; desktop unit a few days ago.&amp;nbsp; I had been looking at some of the net-media players around, and honestly it seems like most of them have some sketchy reviews.&amp;nbsp; When I saw this unit at &lt;a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16856167032"&gt;Newegg&lt;/a&gt;, I had to order one.&amp;nbsp; I'd been looking at Atom based Mini-ITX boards, and cases, and this barebones came in under what the board and case of similar style would have been.&amp;nbsp; I didn't get a Mini PCIe wireless board for it, I wasn't aware it had such a slot until after I recieved the unit. [more]&lt;/p&gt;
+&lt;p&gt;&lt;img style="float: right; margin-left: 1em" src="/image.axd?picture=MS-6496-06S.jpg" alt="" /&gt;Well, I've loaded my trusty &lt;a href="http://www.ubuntu.com/"&gt;Ubuntu 8.04&lt;/a&gt;, and &lt;a href="http://xbmc.org/"&gt;XBMC Media Center&lt;/a&gt; on the thing, and really like it a lot.&amp;nbsp; I am able to play most of my videos without issue.&amp;nbsp; Though most of my complaints would be centered around XBMC, given that the Linux port is fairly new, and actively worked on, I can give some slack.&amp;nbsp; I am able to play most 720p video I have without issue on it.&amp;nbsp; I'm using 720x400 for the screen resolution on my desktop monitor.&amp;nbsp; I'll buy a VGA to RGB adapter cable in a few weeks.&lt;/p&gt;
+&lt;p&gt;For general business use, email, and web browsing it is absolutely the best value out there bar none.&amp;nbsp; It's also quite small and sips power.&amp;nbsp; I'm looking forward to seeing some of the prebuilt options coming from various vendors in the following months.&amp;nbsp; I had an 80gb SATA drive, so all I needed was the ram (2GB G-Skill), and the DVD drive.. got a burner, because the SATA DVD readers weren't that far off in pricing.&amp;nbsp; My total with shipping was under $225.&lt;/p&gt;
+&lt;p&gt;I did have to install a &lt;a href="http://www.jamesonwilliams.com/hardy-r8168.html"&gt;driver for the Realtek 8111C network adapter in Ubuntu Hardy&lt;/a&gt; though, I found a script that made this relatively painless though.&lt;/p&gt;
+&lt;p&gt;In the next couple weeks I may try out Windows XP and XBMC Windows, as well as an OSx86 Hackintosh install, just to see how well it works out.&amp;nbsp; I'll probably stick with Linux, for the lower overhead in the long run, but will definitely have some fun with this thing.&amp;nbsp;&amp;nbsp; If you have any Media Center / Media Player applications you can recommend I try, let me know.&amp;nbsp; I'm also interested in running some classic emulators on it as well Mame, NES, Sega, etc...&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&amp;nbsp;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-08-19 23:11:00</pubDate>
+  <lastModified>2009-07-08 21:28:04</lastModified>
+  <raters>3</raters>
+  <rating>5</rating>
+  <slug>Some-hardware-fun</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>c1634b2b-612e-4c1e-8a68-5d876e51a257</category>
+    <category>17ad4b29-3481-449c-b8fa-180baf551eea</category>
+    <category>f4ccdf18-f963-4860-9ad6-4b0bd4cbb830</category>
+    <category>5e0a23d3-93af-45f7-9d4e-9bf19666232a</category>
+  </categories>
+  <notifications />
+</post>

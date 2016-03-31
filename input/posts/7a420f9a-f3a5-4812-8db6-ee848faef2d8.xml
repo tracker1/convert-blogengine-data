@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>JavaScript Books That Should Be Required Reading</title>
+  <description>These are some of my recommended books for reading and getting a better grasp on JavaScript.</description>
+  <content>&lt;div&gt;
+	&lt;p&gt;
+		I often get asked what books I recommend for developers looking to get 
+		more into JavaScript.  Often they're looking for something specific to a 
+		given framework, most often jQuery.  Although there are some great jQuery 
+		and a couple of jQueryUI books as well, I'd recommend the following books 
+		first and formost for those with some knowledge of JavaScript, but wanting
+		to get a better grasp.
+	&lt;/p&gt;
+	&lt;p&gt;
+		The first half of this year I read through eight recently published 
+		books centered around JavaScript and these are the one's I would 
+		recommend.  
+	&lt;/p&gt;
+	&lt;p&gt;
+		&lt;div style="float:left;"&gt;&lt;a href="http://www.amazon.com/gp/product/0596517742?ie=UTF8&amp;tag=frugcode-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0596517742"&gt;&lt;img src="/image.axd?picture=2010%2f9%2fjavascript-the-good-parts.jpg" alt="Book Cover--JavaScript: The Good Parts" /&gt;&lt;/a&gt;&lt;/div&gt;
+		&lt;a href="http://www.amazon.com/gp/product/0596517742?ie=UTF8&amp;tag=frugcode-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0596517742"&gt;JavaScript: The Good Parts&lt;/a&gt; 
+		is one of two JavaScript books that I feel should be required reading for all 
+		web developers.  Even if you've jumped into JS and don't care to start 
+		with entry level re-hashes, this is a great read.  I don't agree 100% 
+		with &lt;a href="http://javascript.crockford.com/"&gt;Douglas Crockford&lt;/a&gt;'s 
+		views.  However, this is a great read that will give some insightful 
+		concepts and ideas.  Also worth looking at is 
+		&lt;a href="http://www.yuiblog.com/crockford/"&gt;Crockford's video series on YUI Blog&lt;/a&gt;.
+		&lt;br style="clear:left;"/&gt;
+	&lt;/p&gt;
+	&lt;p style="clear:left;margin-top:1em;"&gt;
+		&lt;div style="float:left;"&gt;&lt;a href="http://www.amazon.com/gp/product/0596522304?ie=UTF8&amp;tag=frugcode-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0596522304"&gt;&lt;img src="/image.axd?picture=2010%2f9%2feven-faster-web-sites.jpg" alt="Book Cover--Even Faster Web Sites" /&gt;&lt;/a&gt;&lt;/div&gt;
+		&lt;a href="http://www.amazon.com/gp/product/0596522304?ie=UTF8&amp;tag=frugcode-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0596522304"&gt;Even Faster Web Sites: Performance Best Practices for Web Developers&lt;/a&gt; 
+		is the other book I feel should be required reading for all web developers, 
+		and even designers.  It covers a lot of great examples of how JavaScript 
+		and other elemental decisions in the design and markup of a site impact 
+		performance.  There isn't as much specific to JS as 
+		&lt;a href="http://www.amazon.com/gp/product/059680279X?ie=UTF8&amp;tag=frugcode-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=059680279X"&gt;High Performance JavaScript (Build Faster Web Application Interfaces)&lt;/a&gt;, 
+		which is another good read. There's about a 50% overlap between the two 
+		books, and I feel that the former is a much more important read and 
+		reading both will get very redundant, very quickly. [more]
+	&lt;/p&gt;
+	&lt;p&gt;
+		&lt;br /&gt;Along with the books above, I would also suggest taking a look at the following books as well...
+&lt;br /&gt;
+	&lt;/p&gt;
+	&lt;p&gt;
+		&lt;div style="float:left;"&gt;&lt;a href="http://www.amazon.com/gp/product/0596101996?ie=UTF8&amp;tag=frugcode-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0596101996"&gt;&lt;img src="/image.axd?picture=2010%2f9%2fjavascript-the-definitive-guide.jpg" alt="Book Cover--JavaScript: The Definitive Guide" /&gt;&lt;/a&gt;&lt;/div&gt;
+		&lt;a href="http://www.amazon.com/gp/product/0596101996?ie=UTF8&amp;tag=frugcode-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0596101996"&gt;JavaScript: The Definitive Guide&lt;/a&gt; 
+		is a book that every beginning web developer should have on their bookshelf.  If you 
+		want a more novice friendly text, I would suggest the 
+		&lt;a href="http://www.amazon.com/gp/product/0470526912?ie=UTF8&amp;tag=frugcode-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0470526912"&gt;JavaScript Bible&lt;/a&gt;
+		(&lt;em&gt;I'm linking to the 2010 version, which should be out in October.&lt;/em&gt;).  
+		The definitive guide is a bit better as a reference text, the bible is 
+		better as a learning text.
+		&lt;br style="clear:left;"/&gt;
+	&lt;/p&gt;
+	&lt;p style="clear:left;margin-top:1em;"&gt;
+		&lt;div style="float:left;"&gt;&lt;a href="http://www.amazon.com/gp/product/159059908X?ie=UTF8&amp;tag=frugcode-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=159059908X"&gt;&lt;img src="/image.axd?picture=2010%2f9%2fpro-javascript-design-patterns.jpg" alt="Book Cover--Pro JavaScript Design Patterns" /&gt;&lt;/a&gt;&lt;/div&gt;
+		&lt;a href="http://www.amazon.com/gp/product/159059908X?ie=UTF8&amp;tag=frugcode-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=159059908X"&gt;Pro JavaScript Design Patterns&lt;/a&gt; is another book worth looking at.
+		Though I honestly feel that there will usually be simpler solutions to 
+		most given problems, reading this book provides a gateway to several good 
+		thought experiments and can provide some insightful ideas on how to 
+		resolve some common issues with design patterns.
+		&lt;br style="clear:left;"/&gt;
+	&lt;/p&gt;
+	&lt;p&gt;
+		If you're first starting out, I would go through The 
+		Definitive Guide, before looking into The Good Parts, or Even Faster 
+		Web Sites.  Beyond this, there are a lot of blogs out there covering 
+		JavaScript from many different vantage points, and lots of frameworks 
+		and tools out there.  I feel that these books are a great starting 
+		point to understanding JavaScript better and a greater understanding of 
+		how JavaScript works, instead of blindly cutting and pasting framework 
+		examples.
+	&lt;/p&gt;
+&lt;/div&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-09-15 10:38:00</pubDate>
+  <lastModified>2010-10-29 14:13:56</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>javascript-books-2010</slug>
+  <tags>
+    <tag>javascript</tag>
+    <tag>books</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

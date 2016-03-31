@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>newuser09876</author>
+  <title>Creating A Modern Web Application - Part 2 (Working with HTML5 and CSS3)</title>
+  <description />
+  <content>&lt;p&gt;This is Part 2 in a series on creating a web application utilizing modern  techniques in order to deliver a fast, cohesive site.  The index for this series  can be found at the end of &lt;a href="http://frugalcoder.us/post/2010/10/25/modern-web-apps-part001.aspx"&gt;part 1 in this series&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img style="float:left; margin-right:0.5em;" src="/image.axd?picture=2010%2f10%2ffiles.png" alt="file structure" /&gt;&lt;/p&gt;
+&lt;div&gt;&lt;a href="http://demo.frugalcoder.us/modern-web-app/part-002/demo/index.html"&gt;View the Part2 demo page.&lt;/a&gt; &lt;br /&gt; &lt;a href="http://demo.frugalcoder.us/modern-web-app/part-002/part2-demo.zip"&gt;Download the Part2 demo.&lt;/a&gt;&lt;/div&gt;
+&lt;p&gt;As you can see on the left, we are starting out with a fairly simple  file structure.  In order to keep things simple, we are going to assume  that this is going to be run from the root of the website.&lt;/p&gt;
+&lt;p&gt;The first thing I'd like to do is point out the PIE.htc file in the  root directory.  This comes from the &lt;a href="http://css3pie.com/"&gt;CSS3PIE&lt;/a&gt; project and will be used to aid IE6-8 in rendering CSS3 features such as  rounded borders and background gradients.  There isn't full support for  every feature of CSS3, and there are a couple of quirks.  However, this is  still a far better use of resources to work around these minor IEOLD issues  rather than having the additional images and markup needed to do  rounded corners and background gradients via other, more traditional  methods.&lt;/p&gt;
+&lt;p&gt;Second, I'd like to point out that I'm starting off with two JavaScript files in place.  First is the wonderful  &lt;a href="http://code.google.com/p/html5shiv/"&gt;html5shiv&lt;/a&gt; which adds support for  HTML5 tags in IE6-8.  The second is &lt;a href="http://github.com/rafaelp/css_browser_selector"&gt;css_browser_selector.js&lt;/a&gt;, which adds specific classes to the HTML (documentElement) element in order to write  clean CSS rules when possible. This functionality is only useful when JavaScript  is enabled, so it should be used sparingly.  As IE is still the browser king, with several quirky variations  on rendering, we'll also be adding in some conditional elements in order to target  specific IE versions in our CSS.  The other JavaScript file in the head&lt;/p&gt;
+&lt;p&gt;At this point I am going to point out that I've defined three stylesheets.  I've  created a general main.css as well as the addition of a main-ienew.css and  main-ieold.css.  Where the ienew variant will be fore IE9+ and the ieold will target IE6-8 specifically.  The main reason for this is because of some current  quirkiness in IE9 beta where it will load PIE.htc behavior on elements despite  being set not do to so.&lt;/p&gt;
+&lt;pre class="brush: css"&gt;example: #ieold .className { behavior: url(/PIE.htc); }&lt;/pre&gt;
+&lt;p&gt;At this point, I'm going to point out the actual markup of our starting page, then  go over the CSS that will be in place to support this.  This is a demonstration  of creating the rounded corners and background gradients only.  Other operations  will be covered in future articles.&lt;/p&gt;
+&lt;pre class="brush: html"&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;!-- Meta Data --&amp;gt;
+  &amp;lt;meta http-equiv="X-UA-Compatible" content="IE=99,chrome=1" /&amp;gt;
+  &amp;lt;meta name="description" content="" /&amp;gt;
+  &amp;lt;meta name="keywords" content="" /&amp;gt;
+  &amp;lt;link rel="shortcut icon" type="image/ico" href="/favicon.ico" /&amp;gt;
+
+  &amp;lt;title&amp;gt;Part 2 - Creating A Modern Web Application&amp;lt;/title&amp;gt;
+
+  &amp;lt;!-- Inject browser classes, and add support for HTML5 tags to IEOLD --&amp;gt;
+  &amp;lt;script src="assets/scripts/browser-extensions/html5shiv.js"&amp;gt;&amp;lt;/script&amp;gt;
+  &amp;lt;script src="assets/scripts/browser-extensions/css_browser_selector.js"&amp;gt;&amp;lt;/script&amp;gt;
+
+  &amp;lt;!-- core css markup --&amp;gt;
+  &amp;lt;link rel="stylesheet" type="text/css" href="assets/styles/common/main.css" /&amp;gt;
+  &amp;lt;!--[if gte IE 9]&amp;gt;&amp;lt;link rel="stylesheet" type="text/css" href="assets/styles/common/main-ienew.css" /&amp;gt;&amp;lt;![endif]--&amp;gt;
+  &amp;lt;!--[if lt IE 9]&amp;gt;&amp;lt;link rel="stylesheet" type="text/css" href="assets/styles/common/main-ieold.css" /&amp;gt;&amp;lt;![endif]--&amp;gt;
+
+  &amp;lt;!-- print css markup --&amp;gt;
+  &amp;lt;link rel="stylesheet" type="text/css" media="print" href="assets/styles/common/main-print.css" /&amp;gt;  
+&amp;lt;/head&amp;gt;&lt;/pre&gt;
+&lt;p&gt;Above you see the content through the HEAD section of the document.  We first start with the HTML5 DOCTYPE, which in essense tells the browser to  use whatever the newest/current rendering engine available has to offer.   Next we include some meta elements, the first of which &lt;code&gt;X-UA-Compatible&lt;/code&gt;. As of Internet Explorer version 8, the rendering engine for 7 and 8 are included,  unfortunately IE6 is not.  I suggest using IE Tester, or a stand-alone installer  for older IE version testing.  The X-UA-Compatible meta attribute can set the  IE renderer to be used and is set to 99 in our example to future-proof things.  If you come across issues with IE9 or later, this can be helpful to force the  older rendering until specific issues can be worked out.  You will also notice  the &lt;code&gt;chrome=1&lt;/code&gt; portion; which will tell IE browsers with the Chrome  Frame plugin installed to utilize the Chrome rendering engine where available.  I personally consider the Webkit rendering engine along with the V8 JavaScript  engine the gold standard to view against.  This may change in the future, but  for now, how it renders in Webkit (Chrome/Safari) should be considered how it  *should* be rendering.  This will give you the least resistance in adjusting  for non-compliant browsers.&lt;/p&gt;
+&lt;p&gt;After the typical meta elements for keywords, description and a link to the favicon.  The regular TITLE element is encluded.  It's worth noting that within the TITLE element,  you should have your specific section of the site first, followed by more generic  information.  In this case, I'm starting with the specific page's name, followed  by the title of the site/series.  This can help will SEO, as having the same  content in every title dilutes the value of that title across a site.&lt;/p&gt;
+&lt;p&gt;The first scripts we include are those that *must* be included in the head in  order to function properly, and before any stylesheets are loaded.  This will  reduce the impact of said scripts on the css that comes next.  After the main.css, I am including some conditional scripts for IENEW and IEOLD, where IEOLD is  anything prior to version 9 (our support target is 6-9), and IENEW is defined  as anything from version 9 on (which supports HTML5).  After the general  stylesheets we're including a css to establish print adjustments.  It's  important to establish a print media stylesheet that reduces the additional clutter  such as the header, footer and page margins in order for the printing experience  to be better.&lt;/p&gt;
+&lt;p&gt;On to the rest of the html file...&lt;/p&gt;
+&lt;pre class="brush: html"&gt;&amp;lt;body&amp;gt;
+&amp;lt;!--[if IE 6]&amp;gt;&amp;lt;div id="ie6" class="ie"&amp;gt;&amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 7]&amp;gt;&amp;lt;div id="ie7" class="ie"&amp;gt;&amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 8]&amp;gt;&amp;lt;div id="ie8" class="ie"&amp;gt;&amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 9]&amp;gt;&amp;lt;div id="ie9" class="ie"&amp;gt;&amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if lt IE 9]&amp;gt;&amp;lt;div id="ieold"&amp;gt;&amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if gte IE 9]&amp;gt;&amp;lt;div id="ienew"&amp;gt;&amp;lt;![endif]--&amp;gt;
+&amp;lt;![if !IE]&amp;gt;&amp;lt;div id="noie"&amp;gt;&amp;lt;![endif]&amp;gt;
+
+  &amp;lt;article class="grid_4"&amp;gt;
+    &amp;lt;hgroup&amp;gt;
+      &amp;lt;h2&amp;gt;Article/Section Title Goes Here&amp;lt;/h2&amp;gt;
+    &amp;lt;/hgroup&amp;gt;
+    &amp;lt;details&amp;gt;
+      &amp;lt;summary&amp;gt;This section has some interesting content.&amp;lt;/summary&amp;gt;
+      &amp;lt;div&amp;gt;
+        This section has some content that goes beyond the summary.
+      &amp;lt;/div&amp;gt;
+    &amp;lt;/details&amp;gt;
+  &amp;lt;/article&amp;gt;
+
+&amp;lt;!--[if IE 6]&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 7]&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 8]&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 9]&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if lt IE 9]&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if gte IE 9]&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;![endif]--&amp;gt;
+&amp;lt;![if !IE]&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;![endif]&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/pre&gt;
+&lt;p&gt;Within the BODY element, the first thing added is a number of DIV elements  surrounded by IE's conditional comments.  These comments allow for the CSS to  target a specific version of IE, or even a non IE browser without the need for  JavaScript (as added by the css_browser_selector.js), which can improve the  initial rendering.  It should be noted that we won't be avoiding JavaScript  and progressive enhancement, but one should be mindful of the rendering of a  page without JavaScript as this can help with visually impaired users as well  as the initial load impression of a given page/site.&lt;/p&gt;
+&lt;p&gt;Within the browser elements, we see some very semantic markup.  An ARTICLE element  is a container, which has an HGROUP (Header Group) element followed by a DETAILS  element.  The DETAILS element's first child is a SUMMARY element which contains the  relative information regarding the rest of the DETAILS section.  This can be thought  of as similar to the relationship of a LEGEND element inside of a FIELDSET.  Though  the SUMMARY element is meant to be used as an inline element, we'll be displaying  it as a block element.  These tags may seem very blog oriented, and in a way  they are.  However, they do make for some very natural containers, as well as  being far shorter than adding class names to meaningless nested div tags.  There  is also a SECTION element that's been added which can be used to contain multiple  ARTICLE tags for example.  The use of these tags at a higher level allow for very  simple CSS rules, and can minimize the risk of a conflict in structure for nested  tags from external resources or controls down the road.&lt;/p&gt;
+&lt;p&gt;Finally we get into the .css files.  I'll be stepping through the relevant  portions, though you'll be able to download the full demonstration as well as  view the demo page online.&lt;/p&gt;
+&lt;pre class="brush: css"&gt;h1, h2, h3, h4, h5, h6 {
+  margin:0;
+  border:0;
+  padding:0;  
+}
+
+/*sectioning content, (todo: use css grid) */
+.grid_4 {
+  display:block;
+  position: relative;
+  width: 400px;
+  z-index: 100;
+}&lt;/pre&gt;
+&lt;p&gt;First, I reset the margin/border/padding for Heading elements.  The next article  will have a more complete reset css attached, along with some @font-face declarations  to ensure a consistant rendering.  Next is the &lt;code&gt;.grid_4&lt;/code&gt; declaration  which will be replaced with a generated grid 12 css in the next article as well.&lt;/p&gt;
+&lt;pre class="brush: css"&gt;/*section header, gradient with rounded top-left and top-right border*/
+hgroup {
+  display:block;
+  color: #333333;
+  padding: 0.5em 1em 0.5em 1em;
+  border: 1px solid #999;
+  -webkit-border-radius: 0.6em 0.6em 0 0;
+  -moz-border-radius: 0.6em 0.6em 0 0;
+  border-radius: 0.6em 0.6em 0 0;
+  background: #dddddd;
+  background: -webkit-gradient(linear,left top,left bottom,color-stop(0.2,#eeeeee),color-stop(0.8,#cccccc));
+  background: -moz-linear-gradient(#eeeeee, #cccccc);
+  background: linear-gradient(#eeeeee, #cccccc);
+  -pie-background: linear-gradient(#eeeeee, #cccccc);
+}&lt;/pre&gt;
+&lt;p&gt;Here is where we start digging into the meat of this article.  Within the HGROUP  we specify the various implementations of &lt;code&gt;border-radius&lt;/code&gt; as this  attribute is only recently being formalized by the W3C, webkit (Chrome &amp;amp; Safari)  and Mozilla (Firefox) browsers created their own vender specific css attributes,  so we start with them.  They all follow the same format allowing you to specify  each corner's value in a clockwise fashion starting with the TOP-LEFT position.&lt;/p&gt;
+&lt;p&gt;After the &lt;code&gt;border-radius&lt;/code&gt; is defined, the background is then specified.  How this is done is to first specify a background color that will be used as a  fallback value.  After this, we specify the vendor specific implementations and  finally fallback to a common CSS3 implementation. You can find quite a bit of information on CSS gradients in this article.  It's  worth noting that the linked article has a few things that are at least  mis-represented in regards to IE9, I'll discuss these in more  detail when we reach part 5 in this series.&lt;/p&gt;
+&lt;p&gt;For now I'll note that the -pie-background is required for the CSS3PIE  implementation for IEOLD (6-8) and that the z-index for the grid_4 is also  related to a quirk in using PIE.htc.  You can see the contents of the  &lt;code&gt;main-ieold.css&lt;/code&gt; file below.&lt;/p&gt;
+&lt;pre class="brush: css"&gt;hgroup, details {
+  behavior: url(/PIE.htc);
+}&lt;/pre&gt;
+&lt;p&gt;&lt;img style="float:left; margin-right:0.5em;" src="/image.axd?picture=2010%2f10%2frendered.png" alt="rendering preview" /&gt;&lt;/p&gt;
+&lt;p&gt;Here we have a very short, very simple statement essentially telling the browser  to apply the PIE.htc component to the HGROUP and DETAILS elements (currently  the only ones using rounded corners or background-gradients.  Next, let's take a  quick look at the main-ienew.css.&lt;/p&gt;
+&lt;p&gt;As you can see; the effect is rather nice, you can modify this example  for your specific needs.  It's definitely much lighter on resources and download  speeds by not having to rely on heavy markup and images to accomplish this effect.  However, there is one caveat with IE9 currently.&lt;/p&gt;
+&lt;pre class="brush: css" style="clear:left;"&gt;hgroup {
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#eeeeee', endColorstr='#cccccc')";
+}
+
+details {
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff', endColorstr='#eeeeee')";
+}&lt;/pre&gt;
+&lt;p&gt;&lt;img style="clear:left; float:left; margin-right:0.5em;" src="/image.axd?picture=2010%2f10%2frendered-ie-error.png" alt="rendering preview IE9" /&gt;&lt;/p&gt;
+&lt;p&gt;IE9 supports the rounded corners internally, but the background gradients require  falling back to utilizing an ActiveX based filter control via the &lt;code&gt;-ms-filter&lt;/code&gt; property.  We didn't add this into the main css as we wanted to avoid the potential  for IE8 to interpret this attribute. IE9 seems to have a rendering  bug where in some cases it will render the background gradient outside of the  containing border (with a border-radius) as can be seen to the left.&lt;/p&gt;
+&lt;p&gt;&lt;br style="clear:left;" /&gt;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-10-28 17:36:00</pubDate>
+  <lastModified>2016-03-30 18:00:00</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Creating-A-Modern-Web-Application-Part-2-(Working-with-HTML5-and-CSS3)</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>48cb218a-b8a9-4fdd-a440-910d38689262</category>
+    <category>e2ccd013-693f-4358-a1cf-ae5b73c1d563</category>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

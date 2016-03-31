@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Paged Results in T-SQL</title>
+  <description>How to return a paged dataset with dynamic sorting from within a stored procedure.</description>
+  <content>  &lt;div class="text"&gt;&lt;p&gt;
+Okay, so I wanted to return a paged result set from a Stored Procedure in Microsoft SQL Server in T-SQL.  
+The results in question can be easily fed via a web service endpoint to a Silverlight, DHTML or other dynamic 
+grid.  My own use is to populate a &lt;a href="http://www.trirand.com/jqgridwiki/doku.php"&gt;jqGrid&lt;/a&gt;.
+&lt;/p&gt;
+&lt;p&gt;The features I need are to be able to return only the relevant results for the current page, as well as a 
+count of the total rows available.  I need to be able to input the current page number, an arbitrary page 
+size, as well as dynamically sort on a given column.  My real world use is a fairly complex set of joined 
+tables, with several input parameters, so I am going to limit me queries to one table with the following 
+format:
+
+&lt;/p&gt;
+
+&lt;pre class="brush: sql"&gt;CREATE TABLE MyList (
+    [id] UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+    [created] DATETIME NOT NULL DEFAULT GETDATE(),
+    [name] NVARCHAR(100) UNIQUE NOT NULL DEFAULT '',
+    [description] NVARCHAR(250) UNIQUE NOT NULL DEFAULT ''
+);&lt;/pre&gt;
+
+&lt;p&gt;
+[more]From here I'm going to want to do a stored procedure with the following signature:
+&lt;/p&gt;
+
+&lt;pre class="brush: sql"&gt;CREATE PROCEDURE [Get_MyList_Paged]
+    /*Paging Inputs*/
+    @Page_Size INT = 100,
+    @Page_Number INT = 1,
+    @Sort_Column VARCHAR(100),  /* ('created','name','description') */
+    @Sort_Direction VARCHAR(4), /* ('ASC','DESC') */
+    
+    /*Paging Total For Output*/
+    @Row_Count BIGINT OUT,
+    
+    /*Result Filters*/
+    @id UNIQUEIDENTIFIER,
+    @created_filter DATETIME,   /* ('ne','g','ge','e','le','l') */
+    @created_date DATETIME,
+    @name NVARCHAR(100),
+    @description NVARCHAR(500)
+AS
+BEGIN
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON;
+
+    /*========================================================================
+    Declare local variables
+    ========================================================================*/
+    -- TODO: Insert local variables
+    -- TODO: create a temporary space for paged result set
+    
+    /*========================================================================
+    Normalize Paging Parameters
+    ========================================================================*/
+    -- TODO: Setup FirstRecord and LastRecord for results
+    -- TODO: Ensure that sorting params are in the allowed fields
+    
+    /*========================================================================
+    Normalize Filter Parameters
+    ========================================================================*/
+    -- TODO: make certain that the input parameters are valid entries
+    
+    /*========================================================================
+    Prepare Results
+    ========================================================================*/
+    -- TODO: input the paged results into a temporary space
+    
+    /*========================================================================
+    Return Results
+    ========================================================================*/
+    -- TODO: return the output params, and select the return results
+END
+&lt;/pre&gt;
+
+&lt;p&gt;
+The signature makes it apparent that I will want to page my result set, as well as do a dynamic 
+sort for the results in addition to making some filtering options available. The next step is 
+to get the first and last record you will be able to return.&lt;/p&gt;
+
+&lt;pre class="brush: sql"&gt;    /*========================================================================
+    Declare local variables
+    ========================================================================*/
+    DECLARE @FirstRecord int
+    DECLARE @LastRecord int
+    
+    ...
+    
+    /*========================================================================
+    Normalize Paging Parameters
+    ========================================================================*/
+    --Fix invalid input for Page Size
+    SET @Page_Size = CASE 
+        WHEN @Page_Size IS NULL THEN 100
+        WHEN @Page_Size &lt; 1 THEN 100
+        ELSE @Page_Size
+    END;
+
+    --Fix invalid input for Page Number
+    SET @Page_Number = CASE
+        WHEN @Page_Number IS NULL THEN 1
+        WHEN @Page_Number &lt; 1 THEN 1
+        ELSE @Page_Number
+    END;
+
+    --starting record to use.
+    SET @FirstRecord = ((@Page_Number - 1) * @Page_Size) + 1
+
+    --last record to use.
+    SET @LastRecord = @FirstRecord + @Page_Size - 1
+
+&lt;/pre&gt;
+
+&lt;p&gt;
+The code above will normalize for the paged results, and set an appropriate default.  
+The @FirstRecord and @LastRecord are inclusive numbers to use for the current page's results.
+&lt;/p&gt;
+
+&lt;p&gt;
+Now that we have the paging parameters normalized, we should work on the sorting parameters.
+We want to make certain that our sort column and direction are valid...
+&lt;/p&gt;
+
+&lt;pre class="brush: sql"&gt;    ...
+
+    --ensure sort column is valid in the list
+    SET @Sort_Column = CASE
+        WHEN LOWER(@Sort_Column) IN ('created','name','description')
+            THEN LOWER(@Sort_Column)
+        ELSE
+            'created' --default
+    END
+    
+    --ensure sort direction is ASC or DESC
+    SET @Sort_Direction = CASE
+        WHEN LEFT(UPPER(COALESCE(@Sort_Direction, '')) + '    ', 4) = 'DESC' 
+            THEN 'DESC' --explicit descending
+        WHEN @Sort_Column = 'created' AND LEFT(UPPER(COALESCE(@Sort_Direction,'')) + '   ', 3) &lt;&gt; 'ASC' THEN
+            'DESC' --default for created date
+        ELSE 'ASC' --default otherwise
+    END;
+&lt;/pre&gt;
+&lt;p&gt;
+Here I've made certain that the @Sort_Column is set to an available sort option, otherwise it gets set to default.  
+For the sort direction, I make sure to reduce the direction to allow for the use of the longer terms ASCENDING and 
+DESCENDING, as well as making the default when the sort column is "created" to descending.  I feel that coding defensively 
+is important here.
+&lt;/p&gt;
+
+&lt;p&gt;
+Next up comes the input filters...
+&lt;/p&gt;
+
+&lt;pre class="brush:sql"&gt;    /*========================================================================
+    Normalize Filter Parameters
+    ========================================================================*/
+    --ensure that id is a valid non-default guid, or null
+    SET @id = CASE @id
+        WHEN '00000000-0000-0000-0000-000000000000' THEN null
+        ELSE @id
+    END
+    
+    --When an id is specified, only search on the id
+    IF (@id IS NOT NULL)
+    BEGIN
+        --set all other input filters to null
+        SET @created_filter = null
+        SET @created_date = null
+        SET @name = null
+        SET @description = null
+    END
+    ELSE
+    BEGIN
+        --validate other input filters
+
+        -- @created_date
+        SET @created_date = DATEADD(dd, 0, DATEDIFF(dd, 0, @created_date))
+        
+        -- @created_filter
+        SET @created_filter = CASE
+            WHEN LOWER(@created_filter) in ('ne','g','ge','e','le','l') THEN
+                LOWER(@created_filter)
+            ELSE
+                null
+        END;
+        
+        -- created filtering needs a date and a filter
+        IF (@created_filter IS NULL OR @created_date IS NULL)
+        BEGIN
+            SET @created_date = null
+            SET @created_filter = null
+        END;
+        
+        
+        -- @name - if it's an empty string, make it null
+        SET @name = CASE 
+            WHEN COALESCE(LTRIM(RTRIM(@name)), '') = ''
+                THEN null
+            ELSE
+                LTRIM(RTRIM(@name))
+        END;
+        
+        
+        -- @description - if it's an empty string, make it null
+        SET @description = CASE 
+            WHEN COALESCE(LTRIM(RTRIM(@description)), '') = ''
+                THEN null
+            ELSE
+                LTRIM(RTRIM(@description))
+        END;
+
+    END
+&lt;/pre&gt;
+
+&lt;p&gt;Okay, now all of our inputs have been normalized for better searching further down.  It's 
+worth noting, that I am normalizing the @created_date to the date portion only, if you are 
+using UTC in your database, you'll want to avoid this, and stick with your external 
+date-time localized to UTC for the stored procedure.&lt;/p&gt;
+
+&lt;p&gt;In order to prepare the results, we are first going to create a temporary table within the 
+stored procedure in order to store our paged result set.  I am going to use this temporary space 
+in order to separate the individual row number, and row count from the returned results.  You'll want
+to add this next section into the bottom of your local variable declaration.&lt;/p&gt;
+
+&lt;pre class="brush: sql"&gt;    DECLARE @PagedResults AS TABLE (
+        [id] UNIQUEIDENTIFIER,
+        [created] DATETIME,
+        [name] NVARCHAR(100),
+        [description] NVARCHAR(500),
+        [Row_Number] BIGINT,
+        [Row_Count] BIGINT
+    );&lt;/pre&gt;
+
+    
+&lt;p&gt;
+This temporary space will include each of the columns that we want to return as well as a Row_Number which is 
+used for the results paging, as well as a Row_Count which is used for the output parameter.  Most client-side 
+grids will determin their own paging based on a total row count that gets returned in the remote call.
+&lt;/p&gt;
+
+&lt;p&gt;Next we will set up our results, first I'm going to show you a shell of how the selection will work.&lt;/p&gt;
+
+&lt;pre class="brush: sql"&gt;    /*========================================================================
+    Prepare Results
+    ========================================================================*/
+    WITH MyTempArea AS (
+        SELECT TOP (@LastRecord)
+            [id],
+            [created],
+            [name],
+            [description],
+            ROW_NUMBER() OVER (
+                /*ORDER BY HERE*/
+            ) AS [Row_Number],
+            COUNT(*) OVER () AS [Row_Count]
+        FROM
+            MyList
+        /*WHERE CLAUSE HERE */
+    )
+    INSERT INTO @PagedResults
+    SELECT * FROM [MyTempArea] WHERE [Row_Number] &gt;= @FirstRecord;&lt;/pre&gt;
+
+&lt;p&gt;
+The template above is a general template in order to produce a paged result set.  The WITH statement 
+defines a given query that is used as part of the later select.  The "TOP (@LastRecord)" will limit 
+the inner query to the upper result limit.  The ROW_NUMBER method gives each result a number, the sorting 
+will be whatever sorting is done inside the OVER statement with the ROW_NUMBER method, and the COUNT(*) will
+give a total row count available from the inner query.  The WHERE clause can be defined within the inner 
+query.  Finally the results, starting with @FirstRecord will be inserted into @PagedResults for further use.
+&lt;/p&gt;
+
+&lt;p&gt;Next we'll expand on handling the sorting dynamically.&lt;/p&gt;
+
+&lt;pre class="brush: sql"&gt;    ....
+            ROW_NUMBER() OVER (
+                ORDER BY
+                    CASE WHEN(@Sort_Direction = 'ASC') THEN CASE WHEN @Sort_Column='created'      THEN [created] END END ASC,
+                    CASE WHEN(@Sort_Direction = 'ASC') THEN CASE WHEN @Sort_Column='name'         THEN [name] END END ASC,
+                    CASE WHEN(@Sort_Direction = 'ASC') THEN CASE WHEN @Sort_Column='description'  THEN [description'] END END ASC,
+                    CASE WHEN(@Sort_Direction = 'DESC') THEN CASE WHEN @Sort_Column='created'     THEN [created] END END DESC,
+                    CASE WHEN(@Sort_Direction = 'DESC') THEN CASE WHEN @Sort_Column='name'        THEN [name] END END DESC,
+                    CASE WHEN(@Sort_Direction = 'DESC') THEN CASE WHEN @Sort_Column='description' THEN [description'] END END DESC
+            ) AS [Row_Number]
+    ....
+&lt;/pre&gt;
+&lt;p&gt;
+Again the reason this sorting happens within the ROW_NUMBER method's OVER, is calling the 
+ROW_NUMBER will sort the results by ROW_NUMBER.  The sorting itself may seem somewhat 
+confusing, in essense for each column that may be part of a sort, you will want to have a 
+CASE statement for that pair, if you need a multicolumn sort, then do the same case 
+statement with the other column in the THEN portion.  You can't include the ASC and DESC 
+as part of thw CASE statement, but you can do the column names.  It's necessary to do the 
+nested WHEN clause in order to prevent correlation between the different column's types in 
+SQL's query optimizer.  Next to the paging, the dynamic handling of sorting is the most 
+complicated piece of this puzzle.
+&lt;/p&gt;
+
+
+&lt;p&gt;
+Next comes the WHERE clause.  This gets somewhat complicated, and you can adjust to suit 
+your needs, I'm going to use a couple tricks for hanlding the default inputs.
+&lt;/p&gt;
+
+&lt;pre class="brush: sql"&gt;    ...
+        WHERE
+            [id] = COALESCE(@id, [id])
+            AND (
+                @name is null
+                OR    
+                @name like '%' + COALESCE(@name, [name]) + '%'
+            )
+            AND (
+                @description is null
+                OR
+                @description like '%' + COALESCE(@description, [description]) + '%'
+            )
+            AND (
+                @created_filter is null
+                OR ( @created_filter = 'ne' AND [created] &lt; @created_date AND [created] &gt;= (@created_date + 1) ) 
+                OR ( @created_filter = 'g' AND [created] &gt; (@created_date + 1) ) 
+                OR ( @created_filter = 'ge' AND [created] &gt;= @created_date ) 
+                OR ( @created_filter = 'e' AND [created] &gt;= @created_date AND [created] &lt; (@created_date + 1) )
+                OR ( @created_filter = 'le' AND [created] &lt; (@created_date + 1) )
+                OR ( @created_filter = 'l' AND [created] &lt; @created_date )
+            )
+    ...&lt;/pre&gt;
+
+&lt;p&gt;
+First, the expected @created_date filter should be the beginning of the day/date ie. the date part only, if you're 
+using UTC for date/time storage within the database, you should avoid the normalizing of the date to the date 
+portion in the filter normalization.
+&lt;/p&gt;
+
+&lt;p&gt;
+Last, but not least, you'll need to return your results...
+&lt;/p&gt;
+
+&lt;pre class="brush: sql"&gt;    /*========================================================================
+    Return Results
+    ========================================================================*/
+    -- @Row_Count output param
+    SELECT @Row_Count = COALESCE(MAX(Row_Count), 0) FROM @PagedResults;
+
+    -- Paged results set to return
+    SELECT    
+            [id]
+            ,[created]
+            ,[name]
+            ,[description]
+    FROM @PagedResults
+    ORDER BY [Row_Number];
+    ...
+&lt;/pre&gt; 
+
+&lt;p&gt;Here's the demo script for download: &lt;a href="/file.axd?file=2010%2f2%2fPagedResultDemo.sql"&gt;PagedResultDemo.sql (9.37 kb)&lt;/a&gt;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-02-23 19:08:00</pubDate>
+  <lastModified>2010-03-07 14:49:19</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>tsql-paged-result-sproc</slug>
+  <tags>
+    <tag>sql</tag>
+    <tag>t-sql</tag>
+    <tag>paging</tag>
+    <tag>stored procedure</tag>
+    <tag>sproc</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>8510a115-d169-44dc-87f0-ba38e5a77ed8</category>
+    <category>ec0b5566-5e98-49ab-9f01-d19cad275b87</category>
+    <category>267923ba-fa55-46a4-9f37-c00d844fb419</category>
+    <category>58f86560-4eae-4523-bb91-98f082fed3e0</category>
+    <category>2bddfb83-fa18-4dcb-95a0-88c9029f0282</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

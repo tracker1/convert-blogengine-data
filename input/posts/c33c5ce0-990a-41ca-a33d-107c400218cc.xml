@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Working Java on Ubuntu Gutsy 7.10 x64 (EMT64, AMD64) - Including Firefox Plugin</title>
+  <description />
+  <content>&lt;p&gt;Sun's Java doesn't have a working 64-bit plugin, and the IcedTea version included with Ubuntu Gutsy 7.10 doesn't work properly... however loading a newer version will resolve the issue.&amp;nbsp; Note, not all java applets will work, but most of the ones I have tried work without issue. [more]&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;First, you need to add the following repositories to your /etc/apt/sources.list ...&lt;/p&gt;
+&lt;pre class="brush: bash"&gt;deb http://people.ubuntu.com/~doko/ubuntu/ gutsy/ deb-src http://people.ubuntu.com/~doko/ubuntu/ gutsy/&lt;/pre&gt;
+&lt;p&gt;This can be done with vi, nano or directly through synaptic.. after you have added these, run..&lt;/p&gt;
+&lt;pre class="brush: bash"&gt;sudo apt-get update 
+sudo apt-get install icedtea-java7-bin icedtea-java7-jre icedtea-java7-plugin&lt;/pre&gt;
+&lt;p&gt;Restart Firefox and enjoy working java applets.&lt;/p&gt;
+&lt;p&gt;If you need a solution for Flash under x64, &lt;a&gt;click here.&lt;/a&gt;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-02-28 03:18:00</pubDate>
+  <lastModified>2009-06-22 19:29:33</lastModified>
+  <raters>1</raters>
+  <rating>5</rating>
+  <slug>Working-Java-on-Ubuntu-Gutsy-710-x64-(EMT64-AMD64)-Including-Firefox-Plugin</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>164f74d6-c79a-4d94-b26b-8e320be19311</category>
+    <category>5e0a23d3-93af-45f7-9d4e-9bf19666232a</category>
+  </categories>
+  <notifications />
+</post>

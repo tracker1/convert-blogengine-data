@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>ASP.Net MVC and Progressive enhancement...</title>
+  <description>Thoughts on dealing with progressive enhancement with the ASP.Net MVC framework.</description>
+  <content>&lt;p&gt;I was reading &lt;a href="http://ajaxian.com/archives/proposal-for-customizing-google-crawlable-ajax-urls/comment-page-1#comment-283325"&gt;an article&lt;/a&gt; on &lt;a href="http://code.google.com/web/ajaxcrawling/"&gt;Google's use of hash-bang&lt;/a&gt; in order to provide a consistent means of Ajaxy content for crawling/display.  There are three points to resolve here.  1. Handling those cases where someone posts an ajaxy url, with the hash endpoint to facebook or twitter so that the search engines have a convention to handle these types of urls.  2. Being able to deal with the Ajaxy endpoint, the original content and the ajax callback content.  3. Being able to deal with those browsers that don't have scripting.&lt;/p&gt;
+
+&lt;p&gt;It got me thinking, how would one could work with progressive URL's via MVC and a few thoughts occurred to me. First, if the controller name is always the first portion of the url from the application base, if the MVC routing engine could simply replace the &lt;code&gt;&lt;b&gt;?_escaped_fragment_=&lt;/b&gt;&lt;/code&gt; portion of the uri to be equal to the original route.  For example &lt;code&gt;&lt;b&gt;http://mysite/controller/action/1?_escaped_fragment_=/otheraction/2&lt;/b&gt;&lt;/code&gt; would be equivalent to &lt;code&gt;&lt;b&gt;http://mysite/controller/otheraction/2&lt;/b&gt;&lt;/code&gt; on the backend.  Second, How difficult would it be for the default view engine to be transposed in the instances of an expected response type give html, vs js.  Similar to how WCF over http handles JSON via the same endpoints as XML.  I know this has been discussed in the past.&lt;/p&gt;
+
+&lt;p&gt;Where this leads me, is thinking it might be nice to have an ASP.Net MVC 2 based framework, with conventions for handling these scenarios as a default.  I like ASP.Net MVC quite a bit, and have followed Castle and Fubu as well.  I'm merely thinking that it would be nice if there were a default starter kit towards creating a browser and search engine friendly Ajaxy application.  It really isn't easy.  I think that the google hash-bang solution leaves out the people that don't have scripting enabled, getting a hash-bang endpoint is near worthless, save for a &lt;code&gt;&lt;b&gt;&amp;lt;noscript&amp;gt;script disabled indexable links here&amp;lt;/noscript&amp;gt;&lt;/b&gt;&lt;/code&gt;.  And progressive enhancement (aka Hijax) techniques don't allow for a browser engine to properly index copy/pasted urls.  Having some level of convention to support both is necessary.  I think it's equally necessary for google to post the &lt;code&gt;&lt;b&gt;_escaped_fragment_&lt;/b&gt;&lt;/code&gt; based urls in the search results for those users who have scripting disabled.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-04-28 14:40:00</pubDate>
+  <lastModified>2010-04-28 15:01:34</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>progressive-enhancement-via-mvc</slug>
+  <tags>
+    <tag>web</tag>
+    <tag>asp.net</tag>
+    <tag>mvc</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>b759f38b-6099-4ae9-98bc-c504d2d6955b</category>
+    <category>4261ac35-19c0-4105-8403-4ee345435a66</category>
+    <category>74792ded-18cd-4dab-b1a7-05d2649feeca</category>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

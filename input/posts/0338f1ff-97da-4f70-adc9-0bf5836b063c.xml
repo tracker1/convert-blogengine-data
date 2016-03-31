@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Tables vs. CSS</title>
+  <description />
+  <content>&lt;p&gt;After reviewing the following recent blog postings (Top 30 popular websites &lt;a href="http://web2.0flow.com/top-30-popular-websites-are-not-using-tables-as-main-layout-structure/"&gt;Using CSS&lt;/a&gt; and &lt;a href="http://web2.0flow.com/top-30-popular-websites-that-still-are-using-tables-as-main-layout-structure/"&gt;Using Tables&lt;/a&gt;), I just want to state my own opinions regarding Tables vs. CSS based design. [more]&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;Okay, I will use tables for *SOME* design decisions.. if there are more than two items that need to be side by side, I will use tables&amp;hellip; I will not nest another element other than header, and anchor tags inside a table data element.&lt;/p&gt;
+&lt;p&gt;Why? Because CSS works best for an outer layout&amp;hellip; the main portions of a site can be worked out well with CSS&amp;hellip; At this point, I usually only need a main CSS sheet and one for IE6&amp;hellip; IE lower than 6 is not important&amp;hellip; Also, mixing stylesheet rules in nested tables in IE6 outside of XP will blow up, and not render if the page gets *too* big, where that is depends on the complexity of nesting and the content.. using CSS for the outer/main layout works best, sometimes based on information, tables work best for inner content&amp;hellip;&lt;/p&gt;
+&lt;p&gt;If you are incapable of realizing why tables are a bad idea for the majority of a layout/site, you are simply more of an artist than a true designer&amp;hellip; The design and development of web applications, and complex sites is best left to those with some basic understanding of an engineering, or architectural approach, which is to blend style with technique.. not all one or the other.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;I plan on following up with a general approach I tend to use with layout design...&amp;nbsp; For the most part a lot of the way I will do a site's layout is consistant... even with some varying look and feel.&amp;nbsp; I really like to see a nice clean layout from the html side... it doesn't even take a complex stylesheet to accomplish.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2007-11-17 18:07:00</pubDate>
+  <lastModified>2009-06-22 19:30:23</lastModified>
+  <raters>1</raters>
+  <rating>5</rating>
+  <slug>Tables-vs-CSS</slug>
+  <tags>
+    <tag>css</tag>
+    <tag>tables</tag>
+    <tag>web</tag>
+    <tag>design</tag>
+    <tag>development</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>e2ccd013-693f-4358-a1cf-ae5b73c1d563</category>
+    <category>9ab62308-37b0-4187-b9f4-e7a082ee4ba4</category>
+    <category>3fcd15ac-17cf-4843-91bd-5340b14b1ae7</category>
+    <category>58f86560-4eae-4523-bb91-98f082fed3e0</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

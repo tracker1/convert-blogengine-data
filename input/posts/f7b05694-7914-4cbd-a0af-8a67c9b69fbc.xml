@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>newuser09876</author>
+  <title>Mapping windows volume for keyboards without media keys</title>
+  <description />
+  <content>&lt;p&gt;Okay, I've been using this for quite a while now, but figured it should be useful for those who aren't me.  I'm currently using a &lt;a href="http://www.pckeyboard.com/"&gt;Unicomp&lt;/a&gt; &lt;a href="http://pckeyboards.stores.yahoo.net/customizer.html"&gt;Customizer 104&lt;/a&gt; key keyboard at work, and home.  These keyboards do not have media keys on them, which is fine since I rarely use anything other than the volume controls on them.&lt;/p&gt;
+&lt;p&gt;There is a program called &lt;a href="http://www.autohotkey.com/"&gt;AutoHotKey&lt;/a&gt; that can run scripts based on various keyboard inputs, or hotkey combinations.  I'm using the script below to match the Super/Windows key + [, ] and \ to volume down, up and mute respectively.&lt;/p&gt;
+&lt;pre&gt;;; Map WIN + [ to Volume Down
+#[::Send {Volume_Down 2}
+
+;; Map WIN + ] to Volume Up
+#]::Send {Volume_Up 2}
+
+;; Map WIN + \ to toggle mute
+#\::Send {Volume_Mute}&lt;/pre&gt;
+&lt;p&gt;I should state that I am not affiliated with either Unicomp or Autohotkey.  This is because it was helpful to me, and took a while to find this, and figured it would be helpful to others as well.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2011-10-07 12:22:00</pubDate>
+  <lastModified>2016-03-30 18:00:00</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Mapping-windows-volume-for-keyboards-without-media-keys</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>2ea4f69e-3f5f-4fb8-bf58-90dde4bc9029</category>
+  </categories>
+  <notifications />
+</post>

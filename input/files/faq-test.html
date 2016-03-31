@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    
+<style type="text/css">
+	.faq dt {
+		color:#444444;
+	}
+	.faq dt em {
+		/*	Force unicode font for windows machines (XP or higher) 
+			Linux/Mac should work with Sans-Serif (default). */
+		font-family:'Arial Unicode MS', Sans-Serif;
+		display:inline;
+		height:1em;
+		width:1em;
+		overflow:hidden;
+		font-style:normal;
+	}
+	.faq dt.over { color: #0000cc; }
+	
+	.faq dd {
+		margin: 0 0 0.3em 1em;
+		border-width:0 0 0 2px;
+		border-style: solid;
+		border-color: #888888;
+		padding: 0 0 0 0.5em;
+	}
+</style>
+
+</head>
+<body>
+    <form>
+    <div>
+    
+		<dl class="faq">
+			<dt>Item 1</dt>
+			<dd>
+				Description for Item 1 goes in here...
+			</dd>
+			
+			<dt>Item 2</dt>
+			<dd>
+				Description for Item 2 goes in here...
+			</dd>
+			
+			<dt>Item 3</dt>
+			<dd>
+				Description for Item 3 goes in here...
+			</dd>
+			
+			<dt>Item 4</dt>
+			<dd>
+				Description for Item 4 goes in here...
+			</dd>
+		</dl>
+    
+    </div>
+    </form>
+    
+
+   
+<script type="text/javascript" src="jquery-1.2.1.js"></script>
+<script type="text/javascript">
+	//run jQuery in compatible mode.
+	if (typeof($j) === typeof(undefined) || $j != jQuery) {
+		jQuery.noConflict();
+		var $j = jQuery;
+	}
+	
+	var Arrow = {
+		up: "&#x25B2;",
+		down: "&#x25BC;",
+		right: "&#x25B6;",
+		left: "&#x25C0;"
+	}
+
+	function enableFAQs() {
+		//$j(".faq dt em").html(Arrow.right);
+		$j(".faq dd").css("display", "none");
+		
+		var dts = $j(".faq dt");
+		dts.each(function(i) {
+			var dt = $j(this);
+			var txt = dt.html();
+
+			dt.empty()
+				.css("margin-top", (i > 0) ? "0.5em" : "0")
+				.append($j("<em />").html(Arrow.right))
+				.append(" ")
+				.append($j("<strong />").html(txt));
+		});
+		
+		dts.mouseover(function(event) {
+			$j(this).addClass("over");
+		});
+		dts.mouseout(function(event) {
+			$j(this).removeClass("over");
+		});
+		dts.click(function(event) {
+			event.stopPropagation();
+			var dt = $j(this);
+			var dd = dt.next("dd");
+			var visible = !(dd.css("display") == "none")
+
+			//close other FAQ elements
+			// $j(".faq dt em").html(Arrow.right);
+			// $j(".faq dd").css("display", "none");
+			
+			if (!visible) {
+				dd.css("display", "block");
+				dt.children("em").html(Arrow.down);
+			} else {
+				dd.css("display", "none");
+				dt.children("em").html(Arrow.right);
+			}
+		});
+	}
+
+	$j(function() {
+		enableFAQs();
+	});
+</script>
+    
+    
+</body>
+</html>

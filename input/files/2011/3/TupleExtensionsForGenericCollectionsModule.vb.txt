@@ -1,0 +1,90 @@
+Imports System.Collections.Generic
+Imports System.Runtime.CompilerServices
+Imports System.Xml
+
+Public Module TupleExtensionsForGenericCollectionsModule
+
+#Region "IList(Of Tuple(...)).Add Overloads"
+	<Extension()>
+	Public Sub Add(Of T1, T2)(ByRef list As IList(Of Tuple(Of T1, T2)), ByRef value1 As T1, ByRef value2 As T2)
+		list.Add(New Tuple(Of T1, T2)(value1, value2))
+	End Sub
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3)(ByRef list As IList(Of Tuple(Of T1, T2, T3)), ByRef value1 As T1, ByRef value2 As T2, ByRef value3 As T3)
+		list.Add(New Tuple(Of T1, T2, T3)(value1, value2, value3))
+	End Sub
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3, T4)(ByRef list As IList(Of Tuple(Of T1, T2, T3, T4)), ByRef value1 As T1, ByRef value2 As T2, ByRef value3 As T3, ByRef value4 As T4)
+		list.Add(New Tuple(Of T1, T2, T3, T4)(value1, value2, value3, value4))
+	End Sub
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3, T4, T5)(ByRef list As IList(Of Tuple(Of T1, T2, T3, T4, T5)), ByRef value1 As T1, ByRef value2 As T2, ByRef value3 As T3, ByRef value4 As T4, ByRef value5 As T5)
+		list.Add(New Tuple(Of T1, T2, T3, T4, T5)(value1, value2, value3, value4, value5))
+	End Sub
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3, T4, T5, T6)(ByRef list As IList(Of Tuple(Of T1, T2, T3, T4, T5, T6)), ByRef value1 As T1, ByRef value2 As T2, ByRef value3 As T3, ByRef value4 As T4, ByRef value5 As T5, ByRef value6 As T6)
+		list.Add(New Tuple(Of T1, T2, T3, T4, T5, T6)(value1, value2, value3, value4, value5, value6))
+	End Sub
+#End Region
+
+#Region "Queue(Of Tuple(...)).Enqueue Overloads"
+	<Extension()>
+	Public Sub Add(Of T1, T2)(ByRef que As Queue(Of Tuple(Of T1, T2)), ByRef value1 As T1, ByRef value2 As T2)
+		que.Enqueue(New Tuple(Of T1, T2)(value1, value2))
+	End Sub
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3)(ByRef que As Queue(Of Tuple(Of T1, T2, T3)), ByRef value1 As T1, ByRef value2 As T2, ByRef value3 As T3)
+		que.Enqueue(New Tuple(Of T1, T2, T3)(value1, value2, value3))
+	End Sub
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3, T4)(
+		ByRef que As Queue(Of Tuple(Of T1, T2, T3, T4)), ByRef value1 As T1, ByRef value2 As T2, ByRef value3 As T3, ByRef value4 As T4)
+		que.Enqueue(New Tuple(Of T1, T2, T3, T4)(value1, value2, value3, value4))
+	End Sub
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3, T4, T5)(ByRef que As Queue(Of Tuple(Of T1, T2, T3, T4, T5)), ByRef value1 As T1, ByRef value2 As T2, ByRef value3 As T3, ByRef value4 As T4, ByRef value5 As T5)
+		que.Enqueue(New Tuple(Of T1, T2, T3, T4, T5)(value1, value2, value3, value4, value5))
+	End Sub
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3, T4, T5, T6)(ByRef que As Queue(Of Tuple(Of T1, T2, T3, T4, T5, T6)), ByRef value1 As T1, ByRef value2 As T2, ByRef value3 As T3, ByRef value4 As T4, ByRef value5 As T5, ByRef value6 As T6)
+		que.Enqueue(New Tuple(Of T1, T2, T3, T4, T5, T6)(value1, value2, value3, value4, value5, value6))
+	End Sub
+#End Region
+
+#Region "Dictionary(Of T1, Tuple(...)).Add Oberloads"
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3)(ByRef dic As Dictionary(Of T1, Tuple(Of T2, T3)), ByRef key As T1, ByRef value1 As T2, ByRef value2 As T3)
+		dic.Add(key, New Tuple(Of T2, T3)(value1, value2))
+	End Sub
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3, T4)(ByRef dic As Dictionary(Of T1, Tuple(Of T2, T3, T4)), ByRef key As T1, ByRef value1 As T2, ByRef value2 As T3, ByRef value3 As T4)
+		dic.Add(key, New Tuple(Of T2, T3, T4)(value1, value2, value3))
+	End Sub
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3, T4, T5)(ByRef dic As Dictionary(Of T1, Tuple(Of T2, T3, T4, T5)), ByRef key As T1, ByRef value1 As T2, ByRef value2 As T3, ByRef value3 As T4, ByRef value4 As T5)
+		dic.Add(key, New Tuple(Of T2, T3, T4, T5)(value1, value2, value3, value4))
+	End Sub
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3, T4, T5, T6)(ByRef dic As Dictionary(Of T1, Tuple(Of T2, T3, T4, T5, T6)), ByRef key As T1, ByRef value1 As T2, ByRef value2 As T3, ByRef value3 As T4, ByRef value4 As T5, ByRef value5 As T6)
+		dic.Add(key, New Tuple(Of T2, T3, T4, T5, T6)(value1, value2, value3, value4, value5))
+	End Sub
+
+	<Extension()>
+	Public Sub Add(Of T1, T2, T3, T4, T5, T6, T7)(ByRef dic As Dictionary(Of T1, Tuple(Of T2, T3, T4, T5, T6, T7)), ByRef key As T1, ByRef value1 As T2, ByRef value2 As T3, ByRef value3 As T4, ByRef value4 As T5, ByRef value5 As T6, ByRef value6 As T7)
+		dic.Add(key, New Tuple(Of T2, T3, T4, T5, T6, T7)(value1, value2, value3, value4, value5, value6))
+	End Sub
+#End Region
+
+End Module

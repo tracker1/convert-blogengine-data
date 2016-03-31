@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Embedding the DLR (Dynamic Language Runtime)</title>
+  <description />
+  <content>&lt;p&gt;Okay, so it isn't so much embedding as it is hosting.&amp;nbsp; A lot of attention is going out to the use of the DLR for the upcoming Silverlight 2 release, which is great.&amp;nbsp; However, what gets lost is the simple ability to use the DLR as a scripting environment for your own projects.&amp;nbsp; [more]You can define an object model for use as at runtime, and even inject it into scripts that are set to be run.&lt;/p&gt;
+&lt;p&gt;What this comes down to, is a much easier method of adding scriptability to your own applications that anything that has come before it, at least imho.&amp;nbsp; There are quite a few projects which use everything from spidermonkey, to the MS Scripting Engine (old, activex).&amp;nbsp; What is exciting here is now you can create an environment for running scripts written in any number of languages.&amp;nbsp; A generic service engine can now provide event, service and transaction layers without the need for recompilation in order to supply simple changes or fixes.&lt;/p&gt;
+&lt;p&gt;For some further reading check out the &lt;a href="http://www.iunknown.com/2008/01/latest-dlr-host.html"&gt;DLR Hosting Spec&lt;/a&gt;. There's a lot there, but it's a really good read.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-07-07 12:03:00</pubDate>
+  <lastModified>2009-06-22 19:37:54</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Embedding-the-DLR-(Dynamic-Language-Runtime)</slug>
+  <tags>
+    <tag>dlr</tag>
+    <tag>javascript</tag>
+    <tag>ironruby</tag>
+    <tag>ironpython</tag>
+    <tag>scripting</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>4261ac35-19c0-4105-8403-4ee345435a66</category>
+    <category>a2125c63-4e24-476c-aabc-29df3ae4e1b0</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

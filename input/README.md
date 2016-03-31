@@ -1,6 +1,6 @@
 # convert-blogengine-data
 
-Converting data from BlogEngine.net for use in tracker1.info
+Legacy data/blog for frugalcoder.us, being converted for new use in tracker1.info
 
 ## LICENSE
 
@@ -13,4 +13,3 @@ without attribution.
 The parent project, and related code in the root and `lib/`
 directories are `ISC` licensed, you may use that portion as 
 you wish. 
-

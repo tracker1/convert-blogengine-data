@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Document Events In JavaScript</title>
+  <description />
+  <content>&lt;p&gt;
+Okay, I was playing around with the DOM Ready vs Window Load events with &lt;a href="http://prototypejs.org/"&gt;prototype.js&lt;/a&gt; and noticed that in my simple example, the window event actually fired before the dom event in IE8.&amp;nbsp; This could lead to some issues, especially on cached pages, so I wanted to make a note of it.
+&lt;/p&gt;
+&lt;div class="hl"&gt;
+&lt;pre style="color: #000000; background-color: #ffffff; font-size: 10pt; font-family: 'Courier New'"&gt;
+&lt;a id="l_1"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;    1 &lt;/span&gt;﻿&lt;span style="color: #0000ff; font-weight: bold"&gt;var&lt;/span&gt; ready &lt;span style="color: #ff0000"&gt;= {&lt;/span&gt; &lt;span style="color: #ec7f15"&gt;document&lt;/span&gt;&lt;span style="color: #ff0000"&gt;:&lt;/span&gt; &lt;span style="color: #0000ff; font-weight: bold"&gt;false&lt;/span&gt;&lt;span style="color: #ff0000"&gt;,&lt;/span&gt; &lt;span style="color: #ec7f15"&gt;window&lt;/span&gt;&lt;span style="color: #ff0000"&gt;:&lt;/span&gt; &lt;span style="color: #0000ff; font-weight: bold"&gt;false&lt;/span&gt; &lt;span style="color: #ff0000"&gt;};&lt;/span&gt;
+&lt;a id="l_2"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;    2 &lt;/span&gt;&lt;span style="color: #0000ff; font-weight: bold"&gt;function&lt;/span&gt; &lt;span style="color: #000000; font-weight: bold"&gt;DocumentReady&lt;/span&gt;&lt;span style="color: #ff0000"&gt;() {&lt;/span&gt;
+&lt;a id="l_3"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;    3 &lt;/span&gt;    &lt;span style="color: #ec7f15"&gt;alert&lt;/span&gt;&lt;span style="color: #ff0000"&gt;(&lt;/span&gt;&lt;span style="color: #ff0000"&gt;&amp;quot;Document Ready&amp;quot;&lt;/span&gt;&lt;span style="color: #ff0000"&gt;);&lt;/span&gt;
+&lt;a id="l_4"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;    4 &lt;/span&gt;&lt;span style="color: #ff0000"&gt;}&lt;/span&gt;
+&lt;a id="l_5"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;    5 &lt;/span&gt;&lt;span style="color: #0000ff; font-weight: bold"&gt;function&lt;/span&gt; &lt;span style="color: #000000; font-weight: bold"&gt;DocumentLoaded&lt;/span&gt;&lt;span style="color: #ff0000"&gt;() {&lt;/span&gt;
+&lt;a id="l_6"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;    6 &lt;/span&gt;    &lt;span style="color: #ec7f15"&gt;alert&lt;/span&gt;&lt;span style="color: #ff0000"&gt;(&lt;/span&gt;&lt;span style="color: #ff0000"&gt;&amp;quot;Document Loaded&amp;quot;&lt;/span&gt;&lt;span style="color: #ff0000"&gt;);&lt;/span&gt;
+&lt;a id="l_7"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;    7 &lt;/span&gt;&lt;span style="color: #ff0000"&gt;}&lt;/span&gt;
+&lt;a id="l_8"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;    8 &lt;/span&gt;&lt;span style="color: #ec7f15"&gt;document&lt;/span&gt;&lt;span style="color: #ff0000"&gt;.&lt;/span&gt;&lt;span style="color: #000000; font-weight: bold"&gt;observe&lt;/span&gt;&lt;span style="color: #ff0000"&gt;(&lt;/span&gt;&lt;span style="color: #ff0000"&gt;&amp;quot;dom:loaded&amp;quot;&lt;/span&gt;&lt;span style="color: #ff0000"&gt;,&lt;/span&gt; &lt;span style="color: #0000ff; font-weight: bold"&gt;function&lt;/span&gt;&lt;span style="color: #ff0000"&gt;() {&lt;/span&gt;
+&lt;a id="l_9"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;    9 &lt;/span&gt;    &lt;span style="color: #000000; font-weight: bold"&gt;DocumentReady&lt;/span&gt;&lt;span style="color: #ff0000"&gt;();&lt;/span&gt;
+&lt;a id="l_10"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;   10 &lt;/span&gt;    ready&lt;span style="color: #ff0000"&gt;.&lt;/span&gt;&lt;span style="color: #ec7f15"&gt;document&lt;/span&gt; &lt;span style="color: #ff0000"&gt;=&lt;/span&gt; &lt;span style="color: #0000ff; font-weight: bold"&gt;true&lt;/span&gt;&lt;span style="color: #ff0000"&gt;;&lt;/span&gt;
+&lt;a id="l_11"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;   11 &lt;/span&gt;    &lt;span style="color: #0000ff; font-weight: bold"&gt;if&lt;/span&gt; &lt;span style="color: #ff0000"&gt;(&lt;/span&gt;ready&lt;span style="color: #ff0000"&gt;.&lt;/span&gt;&lt;span style="color: #ec7f15"&gt;window&lt;/span&gt;&lt;span style="color: #ff0000"&gt;)&lt;/span&gt;
+&lt;a id="l_12"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;   12 &lt;/span&gt;        &lt;span style="color: #000000; font-weight: bold"&gt;DocumentLoaded&lt;/span&gt;&lt;span style="color: #ff0000"&gt;();&lt;/span&gt;
+&lt;a id="l_13"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;   13 &lt;/span&gt;&lt;span style="color: #ff0000"&gt;});&lt;/span&gt;
+&lt;a id="l_14"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;   14 &lt;/span&gt;Event&lt;span style="color: #ff0000"&gt;.&lt;/span&gt;&lt;span style="color: #000000; font-weight: bold"&gt;observe&lt;/span&gt;&lt;span style="color: #ff0000"&gt;(&lt;/span&gt;&lt;span style="color: #ec7f15"&gt;window&lt;/span&gt;&lt;span style="color: #ff0000"&gt;,&lt;/span&gt; &lt;span style="color: #ff0000"&gt;&amp;quot;load&amp;quot;&lt;/span&gt;&lt;span style="color: #ff0000"&gt;,&lt;/span&gt; &lt;span style="color: #0000ff; font-weight: bold"&gt;function&lt;/span&gt;&lt;span style="color: #ff0000"&gt;() {&lt;/span&gt;
+&lt;a id="l_15"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;   15 &lt;/span&gt;    ready&lt;span style="color: #ff0000"&gt;.&lt;/span&gt;&lt;span style="color: #ec7f15"&gt;window&lt;/span&gt; &lt;span style="color: #ff0000"&gt;=&lt;/span&gt; &lt;span style="color: #0000ff; font-weight: bold"&gt;true&lt;/span&gt;&lt;span style="color: #ff0000"&gt;;&lt;/span&gt;
+&lt;a id="l_16"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;   16 &lt;/span&gt;    &lt;span style="color: #0000ff; font-weight: bold"&gt;if&lt;/span&gt; &lt;span style="color: #ff0000"&gt;(!&lt;/span&gt;ready&lt;span style="color: #ff0000"&gt;.&lt;/span&gt;&lt;span style="color: #ec7f15"&gt;document&lt;/span&gt;&lt;span style="color: #ff0000"&gt;)&lt;/span&gt; &lt;span style="color: #0000ff; font-weight: bold"&gt;return&lt;/span&gt;&lt;span style="color: #ff0000"&gt;;&lt;/span&gt;
+&lt;a id="l_17"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;   17 &lt;/span&gt;    &lt;span style="color: #000000; font-weight: bold"&gt;DocumentLoaded&lt;/span&gt;&lt;span style="color: #ff0000"&gt;();&lt;/span&gt;
+&lt;a id="l_18"&gt;&lt;/a&gt;&lt;span style="color: #666666"&gt;   18 &lt;/span&gt;&lt;span style="color: #ff0000"&gt;});&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;
+The previous example shows how to handle this case.  Why is it even an issue?  Well, using the DOM ready event will allow you to hide things as soon as the tree has it.  Using the window loaded event is necessary in order to handle flowing layouts in terms of size/proportion.
+&lt;/p&gt;
+</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-09-11 17:13:00</pubDate>
+  <lastModified>2008-09-11 17:26:55</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Document Events In JavaScript</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+    <category>e2ccd013-693f-4358-a1cf-ae5b73c1d563</category>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+  </categories>
+  <notifications />
+</post>

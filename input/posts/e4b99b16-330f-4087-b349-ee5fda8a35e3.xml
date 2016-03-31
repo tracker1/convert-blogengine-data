@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>newuser09876</author>
+  <title>CSS Hacks for IE</title>
+  <description />
+  <content>&lt;p&gt;The following are a few techniques you can use to target specific IE versions via CSS markup.&lt;/p&gt;
+&lt;pre class="brush: css"&gt;TAGIDENTIFIER {
+    property:  valueA;   /* all browsers, of course */
+    property:  valueB\9; /* IE9 and below, the 9 has nothing to do with the version in place */
+    *property: valueC;   /* IE7 and below */
+    _property: valueD;   /* IE6 */
+}
+
+/* IE6 ONLY */
+    * html TAGIDENTIFIER
+
+/* IE7 ONLY */
+    *:first-child+html TAGIDENTIFIER
+
+/* Modern Browsers &amp; IE7+ */
+    html&gt;body TAGIDENTIFIER&lt;/pre&gt;
+&lt;p&gt;
+I would like to point out that using IE conditional comments is still the best way to address specific browsers, it's just worthwhile to know about these techniques.
+&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-11-01 18:24:00</pubDate>
+  <lastModified>2016-03-30 18:00:00</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>CSS-Hacks-for-IE</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>e2ccd013-693f-4358-a1cf-ae5b73c1d563</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Document Ready and Loaded Events with prototype.js</title>
+  <description />
+  <content>&lt;p&gt;Okay, I was playing around with the DOM Ready vs Window Load events with &lt;a href="http://prototypejs.org/"&gt;prototype.js&lt;/a&gt; and noticed that in my simple example, the window event actually fired before the dom event in IE8.&amp;nbsp; This could lead to some issues, especially on cached pages, so I wanted to make a note of it.&amp;nbsp; Why is it even an issue?  Well, using the DOM ready event will allow you to hide things as soon as the tree has it.  Using the window loaded event is necessary in order to handle flowing layouts in terms of size/proportion. [more]&lt;/p&gt;
+&lt;pre class="brush: js"&gt;Object.extend(document, {
+    isDocReady: false,
+    isDocLoaded: false,
+    ready: function(fn) { Event.observe(document, "doc:ready", fn); },
+    load: function(fn) { Event.observe(document, "doc:loaded", fn); }
+});
+Event.observe(document, "dom:loaded", function() {
+    Event.fire(document, "doc:ready");
+    document.isDocReady = true;
+    if (document.isDocLoaded)
+        Event.fire(document, "doc:loaded");
+});
+Event.observe(window, "load", function() {
+    document.isDocLoaded = true;
+    if (!document.isDocReady) return;
+    Event.fire(document, "doc:loaded");
+});&lt;/pre&gt;
+&lt;p&gt;The above establishes some custom events for the document object, and creates listeners that will assure that they fire in the correct order... this way I can subscribe to the new events, directly, or through the jQuery-style methods...&lt;/p&gt;
+&lt;pre class="brush: js"&gt;document.observe("doc:ready", function(){
+    alert("Ready");
+});
+document.observe("doc:loaded", function(){
+    alert("Loaded");
+});
+document.ready(function(){ alert("Ready Too!"); });
+document.load(function(){ alert("Loaded Too!"); });
+&lt;/pre&gt;
+&lt;p&gt;Much nicer being able to have both available, with a guarantee they fire in the expected oerder.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Updated 2009-06-22:  combined with the prior post.&lt;/em&gt;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-09-11 18:07:00</pubDate>
+  <lastModified>2009-06-22 19:06:57</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Document-Ready-and-Loaded-Events-with-prototypejs</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>d6ba2c0d-4280-444e-a941-5bb7b866f649</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

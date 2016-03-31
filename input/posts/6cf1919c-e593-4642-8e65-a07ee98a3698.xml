@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>C# Tip: Creating an Octal String from a Byte in C#</title>
+  <description>Okay, so C# (.Net) has some awesome functionality for creating a hex string from a numeric value.  But what if you need an octal string for a binary value.</description>
+  <content>&lt;p&gt;Okay, so C# (.Net) has some awesome functionality for creating a hex string from a numeric value.&amp;nbsp; But what if you need an octal string for a binary value.&amp;nbsp; The real key is realizing that you need to move the value by 3 bits at a time for each octal number, and to XAND the value by 7 which is the highest value an octal number can hold. [more]&lt;/p&gt;
+&lt;pre class="brush: csharp;"&gt;public static string EncodeOctalString(byte value) 
+{ 
+    //convert to int, for cleaner syntax below. 
+    int x = (int)value; 
+ 
+    //return octal encoding \ddd of the character value. 
+    return string.Format( 
+        @"\{0}{1}{2}", 
+        ((x &amp;gt;&amp;gt; 6) &amp;amp; 7), 
+        ((x &amp;gt;&amp;gt; 3) &amp;amp; 7), 
+        (x &amp;amp; 7) 
+    ); 
+}&lt;/pre&gt;
+&lt;p&gt;&lt;br /&gt;Below is the reverse method, to convert from an octal value back into a byte.&lt;/p&gt;
+&lt;pre class="brush: csharp;"&gt;public static byte DecodeOctalString(string octalValue) 
+{ 
+    int a = int.Parse(octalValue.Substring(1, 1)); 
+    int b = int.Parse(octalValue.Substring(2, 1)); 
+    int c = int.Parse(octalValue.Substring(3, 1)); 
+ 
+    return (byte)((a&amp;lt;&amp;lt;6) | (b&amp;lt;&amp;lt;3) | (c)); 
+} &lt;/pre&gt;
+&lt;p&gt;&lt;br /&gt;Hope it helps someone out there.&amp;nbsp; It's actually a problem I solved several years ago when working with inputting data into PostgreSQL.&amp;nbsp; The reverse method is what I needed today in order to be able to decode a javascript escaped string.&amp;nbsp; My next post will show what this is about.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-12-03 18:19:00</pubDate>
+  <lastModified>2009-06-22 17:50:16</lastModified>
+  <raters>1</raters>
+  <rating>1</rating>
+  <slug>C-Sharp-Convert-Between-Byte-and-Octal-String</slug>
+  <tags>
+    <tag>c#</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>b759f38b-6099-4ae9-98bc-c504d2d6955b</category>
+    <category>16235712-91fa-4450-91e0-d2b0cbe05f5c</category>
+  </categories>
+  <notifications />
+</post>

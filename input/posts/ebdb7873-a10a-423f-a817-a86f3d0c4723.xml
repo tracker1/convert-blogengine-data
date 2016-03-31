@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>JS Function arguments and optional arguments</title>
+  <description />
+  <content>&lt;p&gt;I hate to admit it, but I do read &lt;a href="http://javascript.about.com/b/"&gt;Stephen Chapman's Blog&lt;/a&gt;, and to be honest I tend to find a lot of the things he covers as incomplete, or outright not the best way to do something.  A lot of entries are simple repeats of past entries as well.  In the past I've had comments censored, specifically when he stated that you should just ignore IE in a prior post, I had a bit of a strongly worded response.  In any case, today's entry covered &lt;a href="http://javascript.about.com/library/blargs.htm"&gt;Optional Function Arguments&lt;/a&gt;.  There's one small point he missed the boat with here regarding the arguments instance.&lt;/p&gt;
+&lt;blockquote&gt;&lt;em&gt;"That is as far as the similarity to arrays goes though as none of the other methods and properties that can be used with arrays can be used with the arguments object."&lt;/em&gt;&lt;/blockquote&gt;
+&lt;p&gt;It is possible to easily convert the arguments object to an Array instance though. Here's a simple example.&lt;/p&gt;
+&lt;pre class="brush: js"&gt;function argumentsToArray() {
+
+  //convert object arguments to args Array
+  var args = Array.prototype.slice(arguments, 0);
+
+  //alerts true
+  alert(args instanceof Array);
+
+}&lt;/pre&gt;
+&lt;p&gt;&lt;br /&gt;I've thought about, and may actually do more of these annotation posts.  I've also been thinking about doing some compilation posts with information from &lt;a href="http://ajaxian.com/"&gt;Ajaxian&lt;/a&gt;, &lt;a href="http://dailyjs.com/"&gt;DailyJS&lt;/a&gt; and a few other sites.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-02-19 12:13:00</pubDate>
+  <lastModified>2010-02-19 12:36:53</lastModified>
+  <raters>1</raters>
+  <rating>4</rating>
+  <slug>js-function-arguments-as-array</slug>
+  <tags>
+    <tag>javascript</tag>
+    <tag>function</tag>
+    <tag>arguments</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+  </categories>
+  <notifications />
+</post>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>DSL, Glad I could Do It My Way</title>
+  <description>I was able to use the hardware I wanted to use, the way I wanted to use it on a Qwest DSL Line in Phoenix.</description>
+  <content>&lt;p&gt;&lt;img style="float:right;" src="/image.axd?picture=2009%2f8%2fWRT54GL-sm.png" alt="" /&gt; &lt;img style="float:right; clear:right" src="/image.axd?picture=2009%2f8%2fZoom5615.jpg" alt="" /&gt; Okay, so I've been stuck with tethering to my G1 as my main source of internet for about two months now.&amp;nbsp; It wasn't as bad as dialup, just the same, I am glad to have DSL setup in my apartment now.&amp;nbsp; I'm pretty much stuck with Qwest for my DSL service, being in Arizona, there are other carriers, but since Qwest owns the line to the CO/ATM network, it winds up being more for a personal connection if you use another ISP.&amp;nbsp; So, I made the best of it.&amp;nbsp; I'm pretty fond of being able to use 3rd party firmware, and am loyal to &lt;a href="http://www.polarcloud.com/tomato"&gt;Tomato firmware&lt;/a&gt; on the WRT54GL currently.&amp;nbsp; I've considered RouterBoard as another option as well, but the WRT is just a simpler setup for personal, and even SOHO use.&lt;/p&gt;
+&lt;p&gt;After a little bit of research on the use of PPPoE over the DSL's ATM connection, I came to find that there are differences between PPPoA, PPPoE and PPPoEoA.&amp;nbsp; PPPoA makes the authenticated connection directly over the ATM channel, this provides slightly better throughput over PPPoE, which has a lower MTU.&amp;nbsp; PPPoEoA allows for a separate router to make a PPPoE connection over an ADSL bridge modem's Ethernet to ATM.&amp;nbsp; If this all sounds confusing, it is.&amp;nbsp; [more]What it comes down to, is that Qwest supports a PPPoE connection over it's ATM DSL lines in most areas, including my apartment.&amp;nbsp; Your milage may vary here.&lt;/p&gt;
+&lt;p&gt;What this allowed me to do was use a Zoom 5615 ADSL Bridge Modem for the DSL connection.&amp;nbsp; What you first need to do is connect via Cat5 Ethernet to the model which runs on 10.0.0.2, where you can use a 255.255.255.240 bitmask, and use 10.0.0.4 for example as your local IP, no gateway or DNS entries are needed, as you will connect directly.&amp;nbsp; The modem's quick start guide gives you this information, as well as the default username (admin) and password (zoomadsl), I wasn't able to change the password, but it's not a big deal as that address block won't even be accessible without direct hardware access.&amp;nbsp; The modem needs to be set to a VPI of 0 and a VCI of 32 which is available in the basic settings.&amp;nbsp; Once this is set/saved and saved to NVRAM you should be able to check the status page, and see that your ATM connection for the modem is indeed up.&amp;nbsp; From here you will enter your DSL username and password for a PPPoE connection on your router, connected to the modem directly.&lt;/p&gt;
+&lt;p&gt;A friend of mine runs &lt;a href="http://angelfireaz.net/"&gt;a small ISP service in the Prescott area&lt;/a&gt;, his host feed is via DSL and he is wanting to use MLPPP via his carrier which runs of Qwest controlled lines.&amp;nbsp; The two lines are already setup, and in a few weeks we're going to use two of these Zoom modems, with a WRT54GL runing &lt;a href="http://fixppp.org/"&gt;Tomato/MLPPP&lt;/a&gt; firmware and see how that goes.&amp;nbsp;&amp;nbsp; If it works, it will give about 1.5MB up and about 15MB down.&amp;nbsp; The up is actually the main barrier, also being able to configure for multi-ip routing.&lt;/p&gt;
+&lt;p&gt;I will have an update on this early next month.&amp;nbsp; For the curious the WRT54GL is readily available through numerous sources, as is the Zoom 5615 ADSL Bridge Modem.&amp;nbsp; I tend to favor Amazon and Newegg, and will usually go with either based on price mainly.&amp;nbsp; It's really worth checking both for every item you purchase.&amp;nbsp; I tend to only purchase from Amazon where Prime shipping is available, since third party vendors from Amazon have mixed results. I've provided the links below for your conventience.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16833124190&amp;amp;Tpk=wrt54gl"&gt;WRT54GL on Newegg.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Linksys-Cisco-WRT54GL-Wireless-G-Broadband-Compatible/dp/B000BTL0OA/"&gt;WRT54GL on Amazon.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16825115027"&gt;Zoom 5615 on Newegg.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/Zoom-ADSL-Bridge-Modem-5615/dp/B001TGRCFA/"&gt;Zoom 5615 on Amazon.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2009-08-14 10:33:00</pubDate>
+  <lastModified>2009-08-20 10:57:43</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Qwest_DSL_PPPoEoA</slug>
+  <tags>
+    <tag>adsl</tag>
+    <tag>dsl</tag>
+    <tag>pppoe</tag>
+    <tag>pppoa</tag>
+    <tag>pppoeoa</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>164f74d6-c79a-4d94-b26b-8e320be19311</category>
+  </categories>
+  <notifications />
+</post>

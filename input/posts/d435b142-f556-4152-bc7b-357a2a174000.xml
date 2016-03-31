@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>newuser09876</author>
+  <title>Generic Literals in VB.Net 2010</title>
+  <description />
+  <content>&lt;p&gt;Okay, something very cool in VB.Net as of VS2010 is that you can use literals for assignments to generic collections...&lt;/p&gt;
+
+&lt;pre class="brush: vb"&gt;'List from Literal
+Dim myList As New List(Of Integer)() From {1,2,3,4,5}
+
+'Dictionary from Literal
+Dim myDic As New Dictionary(Of String, Integer)() From {
+    {"key1", 1},
+    {"key2", 2}
+}
+&lt;/pre&gt;
+
+&lt;p&gt;Then when trying to load with Tuple's as the value, I ran into a snag, since it didn't understand the conversion of the tuple literal values.  I found that by creating the needed extension methods into &lt;a href="/file.axd?file=2011%2f3%2fTupleExtensionsForGenericCollectionsModule.vb.txt"&gt;this module&lt;/a&gt; that I could do what I wanted to accomplish.&lt;/p&gt;
+
+&lt;pre class="brush: vb"&gt;Dim myQueue= New Queue(Of Tuple(Of Integer, Integer)) From {
+    {19, 63},
+    {20, 63}
+}&lt;/pre&gt;
+
+&lt;p&gt;As you can see, it really isn't so difficult to use, but can be really useful when using paired values in a given collection.  Generic classes such as Tuple, and Generic collections can help a lot in data iteration.&lt;/p&gt;
+
+&lt;br /&gt;
+&lt;p&gt;&lt;a href="/file.axd?file=2011%2f3%2fTupleExtensionsForGenericCollectionsModule.vb.txt"&gt;TupleExtensionsForGenericCollectionsModule.vb.txt (4.45 kb)&lt;/a&gt;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2011-03-31 12:57:00</pubDate>
+  <lastModified>2016-03-30 18:00:00</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Generic-Literals-in-VBNet-2010</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>b759f38b-6099-4ae9-98bc-c504d2d6955b</category>
+    <category>e1520256-2b95-426c-863b-727c49faa786</category>
+  </categories>
+  <notifications />
+</post>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>newuser09876</author>
+  <title>IE9 Background Gradient + Border Radius == Fail</title>
+  <description />
+  <content>&lt;div&gt;&lt;img style="float:left; margin-right: 0.5em;" src="/image.axd?picture=2010%2f9%2fbutton-test-screenshot-ie9.png" alt="ie9 rounded corner with background radius fail" /&gt;
+&lt;p&gt;Okay, I've been working on creating a CSS3 friendly version of the site where I am currently working.  I've been using the very cool &lt;a href="http://css3pie.com/"&gt;CSS3 PIE&lt;/a&gt;(Progressive IE) to bring a lot of functionality to the interface for IE.  It works natively in Firefox 3.x, Chrome, and Safari.  There is no support for background gradients in Opera 10, but the fallback doesn't look too bad for &amp;lt; 2% of users that have it.  IE 6-8 have been tricky, but I've managed to get a lot of it the way I want, with minimal JavaScript for interaction (only enough to make some UI elements bind consistently).  IE9 was just released in beta today, and I was glad to see it, and it's improved rendering enhancements.&lt;/p&gt;
+&lt;p&gt;Then I come to find out that IE9 ate my PIE.  PIE simply didn't work for the background gradients or rounded corners in IE9.  So I pushed all the behavior declarations into an &lt;code&gt;&lt;strong&gt;IE lt 9&lt;/strong&gt;&lt;/code&gt; conditional comment.  I also added another stylesheet for IE9.  From here, I proceeded to add the necessary &lt;code&gt;&lt;strong&gt;DXImageTransform.Microsoft.gradient&lt;/strong&gt;&lt;/code&gt; references for IE9, which doesn't support the &lt;code&gt;&lt;strong&gt;background: linear-gradient(...)&lt;/strong&gt;&lt;/code&gt; css directive.  You can see the results to the left, the DX transformation clobbers the rounded corners.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;EDIT: 2011-01-10&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;With IE9, you can do an inset box-shadow to accomplish a similar effect, without failing to work with the borders.  The effect is better on buttons, and supported almost everywhere, including Opera 10.5+ ... for IE6-8 you can fall back to the linear-gradient with PIE.  Also, the latest CSS3PIE disables itself for IE9, until that feature set can be flushed out.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;EDIT: 2011-09-26&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;With IE9, you can do an inline SVG background in the CSS, Microsoft even created an &lt;a href="http://ie.microsoft.com/testdrive/graphics/svggradientbackgroundmaker/default.html"&gt;SVG Gradient Background Maker&lt;/a&gt;.  It is worth noting that all the browsers (that I know of) which support CSS3 background gradients also support an SVG in the CSS directly.  If you use the generation tool, you should wrap the url text in a single-quote. In other words &lt;code&gt;url('...')&lt;/code&gt; not &lt;code&gt;url(...)&lt;/code&gt; as the tool generates.  Many CSS minifiers will have issues if the url text isn't quoted.&lt;/p&gt;
+&lt;br style="clear:left;" /&gt;&lt;/div&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-09-15 15:09:00</pubDate>
+  <lastModified>2016-03-30 18:00:00</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>IE9-Background-Gradient-2b-Border-Radius-3d3d-Fail</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>e2ccd013-693f-4358-a1cf-ae5b73c1d563</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

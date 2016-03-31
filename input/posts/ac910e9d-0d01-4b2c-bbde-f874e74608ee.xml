@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>HttpContext Items Collection</title>
+  <description />
+  <content>&lt;p&gt;Just a short little post, I do intend to followup my last post with a post with code on combining/minifying your JavaScript and CSS, this just caught my attention, and wanted to mention it.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;In the process of doing some technical screenings, it is really suprising how many people don't understand or even know about the &lt;a href="http://odetocode.com/Articles/111.aspx"&gt;HttpContext Items Collection&lt;/a&gt; in ASP.Net.&amp;nbsp; [more]Essentially, if you have any point in a request lifecycle, you need to store information to be consumed at another point, the HttpContext Items is probably at least a strong consideration of where to put that object.&amp;nbsp; In the past, I've launched several worker threads in the Page Load event, that will put their data into the HttpContext Current once they are done, for use within the controls on a page... in the PreRender, I'll wait for each of those threads to finish their work.&amp;nbsp; This is helpful for those times when you have multiple remote resources to acquire information from in order to be used within a page.&amp;nbsp; Since most of the time is spent waiting on remote resources, it's better to run them all at once, vs. running them in serial.&amp;nbsp; In parallel, the request(s) will take slightly longer than the longest request.&amp;nbsp; In serial, it would take the sum of all the remote requests.&lt;/p&gt;
+&lt;p&gt;I've also used the Context.Items to store a reference to a script object that will build a collection of scripts to be included within a page (at the bottom), so that each control can reference the scripts it needs included.&amp;nbsp; I'm now using a different technique for most of the web applications I am working on, just the same it's worth knowing.&lt;/p&gt;
+&lt;p&gt;Many developers I've seen coming from the Java world will attach items to the current thread.&amp;nbsp; This is dangerous in the scope of an ASP.Net application, as each event in the ASP.Net request lifecycle isn't guaranteed to run under the same thread, and in fact under load, may well not.&amp;nbsp; This can lead to data leaking out of the intended scope, where HttpContext's Items collection will carry forward with the request lifecycle.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-04-19 11:07:00</pubDate>
+  <lastModified>2010-04-20 10:03:15</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>HttpContext-Items-Collection</slug>
+  <tags>
+    <tag>httpcontext</tag>
+    <tag>request</tag>
+    <tag>lifecycle</tag>
+    <tag>data</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>b759f38b-6099-4ae9-98bc-c504d2d6955b</category>
+    <category>48cb218a-b8a9-4fdd-a440-910d38689262</category>
+    <category>4261ac35-19c0-4105-8403-4ee345435a66</category>
+    <category>74792ded-18cd-4dab-b1a7-05d2649feeca</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

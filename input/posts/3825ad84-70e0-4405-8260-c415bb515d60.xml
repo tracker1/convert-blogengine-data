@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Adventures in OSX86 - MSI Wind Followup</title>
+  <description />
+  <content>&lt;p&gt;A couple weeks ago I got an &lt;a href="http://www.msicomputer.com/product/p_spec.asp?model=Wind_PC&amp;amp;class=npc"&gt;MSI Wind Barebones&lt;/a&gt;, shoved 2gb of ram, a dvdrw, and an 80gb sata drive I had laying around.&amp;nbsp; I ran it with Linux + XBMC for a while, and today tried setting it up as a Hackintosh, just to see if it would work.&amp;nbsp; [more]Well, with the Kalyway 10.5.2 install everything worked, except the video resolution on it.&amp;nbsp; After updating to 10.5.3, All I needed to do was use the AppleIntelIntegratedFramebuffer.kext from 10.5.1and all is working.&amp;nbsp; Playing video with quicktime doesn't work so great at anything above standard (640/720x480) resolution, and even then can lag a bit.&amp;nbsp; &lt;a href="http://www.videolan.org/vlc/download-macosx.html"&gt;VLC&lt;/a&gt; works better, and seems capable of up to 720p (barely).&amp;nbsp; OSX seems to not run video as well as Linux did, but the setup is pretty nice.&amp;nbsp;&amp;nbsp; Will likely give XP then Vista a try before going back to Linux on this machine.&amp;nbsp;&amp;nbsp; I got it as something to play around with, and see how well it does.&lt;/p&gt;
+&lt;p&gt;It is without a doubt, usable as a general use machine (no higher end gaming, or &amp;gt; 720p video though)... For office tasks, browsing the net, and music, it works great.&amp;nbsp; Flash video seems to push it a bit much as well... on Hulu, I was only able to play their "standard" res video, hirez (480p) was too much for the little thing to handle.&amp;nbsp; Within a year, I would expect to see a dual-core atom, with a slightly higher cpu clock speed that should be a contender, as long as it gets a graphics chipset that helps with decoding tasks.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-08-28 19:26:00</pubDate>
+  <lastModified>2009-06-22 19:31:53</lastModified>
+  <raters>1</raters>
+  <rating>5</rating>
+  <slug>Adventures-in-OSX86-MSI-Wind-Followup</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>2ea4f69e-3f5f-4fb8-bf58-90dde4bc9029</category>
+    <category>0b5c5b7e-b489-46a0-a399-7f4f53b1712e</category>
+    <category>e9ddb8f8-4856-4eee-ad66-53dd304c234a</category>
+  </categories>
+  <notifications>
+    <email>ucf713@gmail.com</email>
+  </notifications>
+</post>

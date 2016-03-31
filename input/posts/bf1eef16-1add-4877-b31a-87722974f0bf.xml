@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>newuser09876</author>
+  <title>Creating JavaScript Namespaces</title>
+  <description />
+  <content>&lt;div&gt;
+&lt;p&gt;When using JavaScript these days, it is generally a good idea to namespace your javascript methods so that they don't polute the global namespace.&lt;/p&gt;
+&lt;pre class="brush: javascript"&gt;if (typeof mysite == 'undefined') var mysite = {};
+mysite.section = mysite.section || {};
+mysite.section.subNamespace = mysite.section.subNamespace || {};
+mysite.section.subNamespace.component = (function(){ ... }());
+&lt;/pre&gt;
+
+&lt;p&gt;This allows you to create a clean separation of your utilization. Although you may not want to go as deep as the example above, you can see
+how this could very well become cumbersome when you want to declare one or more namespaces.  It would be nice to have a helper method that 
+lets you simply declare namespaces.&lt;/p&gt;
+&lt;pre class="brush: javascript"&gt;//declare a single namespace
+namespace('mysite.section.subNamespace.component');
+
+//declare multiple namespaces at once
+namespace('mysite.section2', 'mysite._utilities');&lt;/pre&gt;
+
+&lt;p&gt;This works out much nicer, and is easier to repeate as-needed when creating your namespaces.  The function I am using for this is below.&lt;/p&gt;
+&lt;pre class="brush: javascript"&gt;var namespace = (function(root){
+	//regular expression to limit formatting of namespaces
+	var nsre = /^([\$\_a-z][\$\_a-z\d]*\.?)+$/i
+
+	//define returned function
+	return function(ns) {
+		var args = Array.prototype.slice.call(arguments);
+		var ret = [];
+		while (args.length) {
+			ns = genNS(args.shift());
+			if (ns) ret.push(ns);
+		}
+		if (ret.length == 0) return; //undefined, no valid input
+		if (arguments.length == 1) return ret[0]; //only a single input, return that namespace
+		return ret; //used overload for multiple namespaces, return the array/list
+	}
+	
+	//private static method to generate a single namespace
+	function genNS(ns) {
+		if (!ns.match(nsre)) return;
+		ns = ns.split('.');
+		var base = root;
+		for (var i=0; i&amp;lt;ns.length; i++) {
+			base[ns[i]] = base[ns[i]] || {};
+			base = base[ns[i]];
+		}
+		return base; //return resulting namespace object
+	}
+}(this));&lt;/pre&gt;
+
+&lt;p&gt;
+	This functionality is very useful, and is included in a number of API toolkits.
+	You could replace the &lt;code&gt;&lt;b&gt;var namespace&lt;/b&gt;&lt;/code&gt; declaration and attach it
+	to an existing object such as &lt;code&gt;&lt;b&gt;$.ns&lt;/b&gt;&lt;/code&gt;, which would 
+	attach it to an existing reference.
+&lt;/p&gt;
+&lt;p&gt;
+	If you have suggestions for future topics, feel free to leave a comment or 
+	contact me via email.
+&lt;/p&gt;
+&lt;/div&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-09-24 15:01:00</pubDate>
+  <lastModified>2016-03-30 18:00:00</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Creating-JavaScript-Namespaces</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ec0b5566-5e98-49ab-9f01-d19cad275b87</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications>
+    <email>kstrieder@gmail.com</email>
+  </notifications>
+</post>

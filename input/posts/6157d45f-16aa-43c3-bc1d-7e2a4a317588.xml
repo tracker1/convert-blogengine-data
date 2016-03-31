@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Handling Scripts in ASP.Net MVC</title>
+  <description />
+  <content>&lt;p&gt;Okay, so you have a bunch of script references, some added via your master template, others in your views.&amp;nbsp; You'd also like to be able to handle script adds in your partial views.&amp;nbsp; The problem is, you don't want your views, and partial views to know about the implementation details.&amp;nbsp; What I am going to do, is outline my solution for adding needed scripts into a given view/output without having duplicate script tags, and allowing each master, view, and partial to call for all the scripts it will need. [more]&lt;/p&gt;
+&lt;pre class="brush: csharp"&gt;public static void AddClientScript(this HtmlHelper helper, string scriptPath)
+{
+  var scripts = helper.ViewContext.HttpContext.Items["client-script-list"] as Dictionary&amp;lt;string , string&amp;gt; ?? new Dictionary&amp;lt;string , string&amp;gt;();
+			
+  string scriptFilePath = helper.ViewContext.HttpContext.Server.MapPath(scriptPath);
+  if (!File.Exists(scriptFilePath)) return;
+			
+  var fi = new FileInfo(scriptFilePath);
+			
+  if (scripts.ContainsKey(fi.FullName)) return;
+			
+  scripts.Add(fi.FullName, scriptPath);
+  helper.ViewContext.HttpContext.Items["client-script-list"] = scripts;
+}&lt;/pre&gt;
+&lt;p&gt;Each script needed will simply call the HtmlHelper extension method above.&amp;nbsp; As you can see, a generic collection is used, and stored in the HttpRequest.Current.Context.items collection.&amp;nbsp; This allows for any level of view, code behind, controller, or other instances to actually add scripts that would need to be used within the page fairly easily.&lt;/p&gt;
+&lt;pre class="brush: csharp"&gt;public static void ClientScripts(this HtmlHelper helper)
+{
+  var response = helper.ViewContext.HttpContext.Response;
+  var url = new UrlHelper(helper.ViewContext.RequestContext, helper.RouteCollection);
+  var scripts = helper.ViewContext.HttpContext.Items["client-script-list"] as Dictionary&amp;lt;string , string&amp;gt; ?? new Dictionary7lt;string , string&amp;gt;();
+			
+  response.Write("\r\n\t&amp;lt;!-- BEGIN - Html.ClientScripts() --&amp;gt;\r\n");
+  foreach (var script in scripts)
+  {
+    response.Write(string.Format(
+      "\t&amp;lt;script src=\"{0}\" type=\"text/javascript\"&amp;gt;lt;/script&amp;gt;\r\n", 
+      url.Content(script.Value)
+    ));
+  }
+  response.Write("\t&amp;lt;!-- END - Html.ClientScripts() --7gt;\r\n");
+}&lt;/pre&gt;
+&lt;p&gt;The code above shows the HtmlHelper extension method that needs to be added within the Master/View.&amp;nbsp; My own preference is to make the call directly before the closing body tag (&amp;lt;/body&amp;gt;), this is because I prefer to avoid inline scripts altogether, and include the necessary scripts at the end.&amp;nbsp; Also, I prefer to use event binding, instead of using the on* attributes within the html tags.&amp;nbsp;&amp;nbsp; By injecting scripts this way, you get a fairly clean separation of concerns, can assure that scripts necessary for a given view or partial view are included, and can utilize project level paths without issue.&lt;/p&gt;
+&lt;pre class="brush: html"&gt;--- From each view / partial view ---
+&amp;lt;%Html.AddClientScript("~/Scripts/jquery.js");%&amp;gt;
+&amp;lt;%Html.AddClientScript("~/Scripts/jquery-ui.js");%&amp;gt;
+&amp;lt;%Html.AddClientScript("~/Scripts/site.js");%&amp;gt;
+&amp;lt;%Html.AddClientScript("~/Scripts/views/myview.js");%&amp;gt;
+
+--- From the main Master/View ---
+    &amp;lt;%Html.ClientScripts();%&amp;gt;    
+lt;/body&amp;gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;-- EDIT: 2009-08-20 --&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://pietschsoft.com/"&gt;Chris Pietschmann&lt;/a&gt; made a post about his implementation for a &lt;a href="http://pietschsoft.com/post/2009/08/13/Simple-ScriptManager-for-ASPNET-MVC.aspx"&gt;SimpleScriptManager for ASP.Net MVC&lt;/a&gt; with some of the features I had mentioned.  In the comments from this post is a mention to a pretty cool project on Codeplex, &lt;a href="http://aspmvccombine.codeplex.com/"&gt;ASP.NET MVC Client-side Resource Combine&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Either of these are decent uses for within ASP.Net MVC, the actual combine project on codeplex wouldn't even be limited to use with MVC, though it makes more sense with MVC, since the ScriptManager that comes with ASP.Net Ajax is a decent solution for that paradigm.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2009-06-29 15:39:00</pubDate>
+  <lastModified>2010-09-27 10:09:29</lastModified>
+  <raters>2</raters>
+  <rating>3</rating>
+  <slug>Handling-Scripts-in-ASPNet-MVC</slug>
+  <tags>
+    <tag>c#</tag>
+    <tag>asp.net</tag>
+    <tag>mvc</tag>
+    <tag>javascript</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>74792ded-18cd-4dab-b1a7-05d2649feeca</category>
+    <category>16235712-91fa-4450-91e0-d2b0cbe05f5c</category>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+  </categories>
+  <notifications />
+</post>

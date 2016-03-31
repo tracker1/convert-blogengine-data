@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>My ALT.Net ....</title>
+  <description />
+  <content>&lt;p&gt;Okay, this is mainly out of a discussion on ##javascript on irc.freenode.org ...&amp;nbsp; I was asked specifically if I code in PHP... my response was "I can, but don't really like it."&amp;nbsp; This was followed with a question as to what I use... my response was ASP.Net w/ C# mostly...&amp;nbsp; The overall response in the channel was rather negative.&amp;nbsp; [more]I don't think people realize how nice ASP.Net is to work with, or that it can be deployed for *free* (as in open-source) thanks to the &lt;a href="http://www.mono-project.com/"&gt;Mono Project&lt;/a&gt; and mod_mono.&lt;/p&gt;
+&lt;p&gt;I recently setup a couple small applications under Ubuntu GeOS, and it worked out rather well... performance was good, and memory use wasn't *too* bad, though higher use would require more memory though. &amp;nbsp; I guess this is just a rant overall.&amp;nbsp; I love .Net, but I do understand why some people gather around open-source, and don't care for the politics out of Redmond, but to dismiss a framework out of hand just irks me.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-03-24 00:47:00</pubDate>
+  <lastModified>2009-06-22 19:20:38</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>My-ALTNet-</slug>
+  <tags />
+  <comments />
+  <categories />
+  <notifications />
+</post>

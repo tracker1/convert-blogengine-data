@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Setting up mod_mono (ASP.Net 2.0) on Ubuntu 7.10 (Gutsy Gibbon)</title>
+  <description>Instructions on setting up mod_mono under Ubuntu 7.10 (Gutsy Gibbon)</description>
+  <content>&lt;p&gt;After spending a day on this, I figured it would be worthwhile information for anyone that may be interested in configuring mod_mono2 (ASP.Net) for Ubuntu Gutsy.&amp;nbsp; I'm personally using an Ubuntu JeOS base configuration.&amp;nbsp; You may want to install your database of choice (mySQL, Firebird SQL, PostgreSQL, etc) in addition to other supported modules for apache2.&amp;nbsp;[more]&lt;/p&gt;
+&lt;p&gt;First, you will want to install the necessary software...&lt;/p&gt;
+&lt;pre class="brush: bash"&gt;sudo aptitude install apache2 mono mono-gmcs mono-utils mono-xsp2 monodoc-http libapache2-mod-mono mono-apache-server2&lt;/pre&gt;
+&lt;p&gt;Second, you will want to use the auto configuration, instead of the default configuration, this will make your life easier.&lt;span style="font-family: courier new,courier;"&gt;&lt;strong&gt;&lt;br /&gt; &lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;pre class="brush: bash"&gt;     cd /etc/apache2/mods-enabled
+    rm mod_mono*
+    ln -s ../mods-available/mod_mono_auto.* ./ &lt;/pre&gt;
+&lt;p&gt;Next, you will need to set the config file to use mod_mono2 instead of the default mod_mono...&lt;/p&gt;
+&lt;pre class="brush: bash"&gt;sudo nano mod_mono_auto.conf&lt;/pre&gt;
+&lt;p&gt;Prepend the following line to the top of the file... &lt;strong&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class="brush: bash"&gt;MonoServerPath "/usr/bin/mod-mono-server2"&lt;/pre&gt;
+&lt;p&gt;You will need to restart apache after you have made this edit, in order to actually utilize mod_mono2.&lt;/p&gt;
+&lt;pre class="brush: bash"&gt;sudo /etc/init.d/apache2 stop
+sudo /etc/init.d/apache2 start&lt;/pre&gt;
+&lt;p&gt;Now all you need to do is have a ./bin directory and a web.config file in the root of any ASP.Net 2.0 web application.&amp;nbsp; It's also worth noting that you will not be using the most current version of mod_mono when you use Gutsy, and you may wish to look at one of the many source installation instructions out there.&amp;nbsp; Me, I just wanted something simple to be able to get up and going quickly, and acknowledge that I may not have the latest and greatest compatability.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;If you are having any issues make certain that you have Apache2 configured properly, and check /var/log/apache2/error.log for any error notifications.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-02-09 17:57:00</pubDate>
+  <lastModified>2009-06-22 19:16:13</lastModified>
+  <raters>4</raters>
+  <rating>5</rating>
+  <slug>Setting-up-mod_mono-(ASPNet-20)-on-Ubuntu-710-(Gutsy-Gibbon)</slug>
+  <tags>
+    <tag>mod_mono</tag>
+    <tag>mod_mono2</tag>
+    <tag>xsp</tag>
+    <tag>xsp2</tag>
+    <tag>asp.net</tag>
+    <tag>c#</tag>
+    <tag>ubuntu</tag>
+    <tag>gutsy</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>4261ac35-19c0-4105-8403-4ee345435a66</category>
+    <category>ffa62e21-ea2f-4fde-b201-67c7c24d21a0</category>
+    <category>a2302d46-e500-41f6-b1bd-8a511fa8a41e</category>
+    <category>5e0a23d3-93af-45f7-9d4e-9bf19666232a</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications>
+    <email>andrea.bola@yahoo.it</email>
+    <email>aullidolun@6mai1.c0m</email>
+  </notifications>
+</post>

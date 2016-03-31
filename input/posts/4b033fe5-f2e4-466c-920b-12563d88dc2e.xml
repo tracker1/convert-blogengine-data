@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>newuser09876</author>
+  <title>Convert an integer to a base26 alpha string</title>
+  <description />
+  <content>&lt;div class="text"&gt;&lt;p&gt;In case you ever need to convert an integer to an alpha (such as the top of a spreadsheet). A-Z, AA-AZ etc. &lt;/p&gt;
+
+&lt;pre class="brush: js"&gt;function intToAlpha26String(input) {
+    input = (+input).toString(26);
+    var ret = [];
+    while (input.length) {
+        var a = input.charCodeAt(input.length-1);
+        if (input.length &gt; 1)
+            input = (parseInt(input.substr(0, input.length - 1), 26) - 1).toString(26);
+        else
+            input = "";
+
+        if (a &gt;= 48/*'0'*/ &amp;&amp; a &lt;= 57 /*'9'*/)
+            ret.unshift(String.fromCharCode(a + 49)); //raise to += 'a'
+        else
+            ret.unshift(String.fromCharCode(a + 10)); //raise + 10 (make room for 0-9)
+    }
+    return ret.join('').toUpperCase();
+}&lt;/pre&gt;
+
+Hope this helps, let me know if you need the reverse, may just work that one out.  Nice that JS supports some fairly broad base classifications that other languages don't.  This actually translates fairly nicely into actionscript.
+
+&lt;hr /&gt;
+T-SQL
+&lt;pre class="brush: sql"&gt;CREATE FUNCTION [dbo].[IntToBase26Alpha]
+(
+	@input AS int
+)
+RETURNS varchar(MAX)
+AS
+BEGIN
+	DECLARE @ret AS varchar(MAX)	
+	DECLARE @debug as VARCHAR(MAX);
+	
+	DECLARE @process AS int
+	DECLARE @current AS int
+	
+	SET @ret = ''
+	SET @process = CASE WHEN (@input is null or @input &lt; 1) THEN 0 ELSE @input END
+	SET @debug = ''
+	
+	WHILE (@process &gt;= 0)
+	BEGIN
+
+		SET @current = @process % 26
+		SET @process = ROUND(@process / 26, 0) - 1
+		SET @ret = CHAR(@current + 65) + @ret
+
+	END
+	
+	Return @ret
+END
+GO&lt;/pre&gt;
+
+
+&lt;p&gt;
+&lt;/div&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2011-02-24 15:18:00</pubDate>
+  <lastModified>2016-03-30 18:00:00</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Convert-an-integer-to-a-base26-alpha-string</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

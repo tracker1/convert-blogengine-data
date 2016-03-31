@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>newuser09876</author>
+  <title>Build your JS, Less and CSS files via Node.js with Visual Studio</title>
+  <description />
+  <content>&lt;p&gt;&lt;big&gt;The advice below is not what I would recommend today (late 2013), I would suggest using &lt;a href="https://github.com/wearefractal/gulp"&gt;gulp&lt;/a&gt; (gulpfile.js) script for building client-side resources, and would do this as a pre-build event, there's also grunt, but I believe that gulp is better.  There are plugins for VS (Web Essentials) that can build your .less for you, but they tend to be problematic, inconsistent, and can be outright troublesome.&lt;/big&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;In my previous article, I wanted to use NodeJS to build my .less files as part  	of my build process in Visual Studio 2010.  I've since refined this process  	slightly.  I've now placed my build scripts into the &lt;code&gt;~/build&lt;/code&gt; directory  	at the root of my web project.&lt;/p&gt;
+&lt;p&gt;I've also added a package.json file to the solution, so I can make a call to  	npm install in order to download any required node packages for the build process 	as well as creating a &lt;code&gt;build.node.js&lt;/code&gt; file for the purpose of  	compiling my less files, as well as minification and merging of files for use 	elsewhere.&lt;/p&gt;
+&lt;p&gt;In the future I'd like to expand this to include SASS and CoffeeScript support as  	well as an npm package wrapper.&lt;/p&gt;
+&lt;p&gt;Here is an example &lt;code&gt;package.json&lt;/code&gt;&lt;/p&gt;
+&lt;pre class="brush: js"&gt;{
+	"name": "My.Website"
+	,"description": "My Website"
+	,"version": "0.0.1"
+	,"author": "tracker1 (http://tracker1.info/"
+	,"dependencies":{
+	}
+	,"devDependencies": {
+		"uglify-js":"1.x.x"
+		,"less":"1.x.x"
+		,"cssmin":"0.3.x"
+		,"async":"0.1.x"
+	}
+	,"builder":{
+		"tasks":[
+			{
+				"type":"css"
+				,"minify":"both"
+				,"output":"../Content/css/main"
+				,"files":[
+					"../Content/bootstrap-less/bootstrap.less"
+					,"../Content/bootstrap-less/responsive.less"
+					,"../Content/site-less/site.less"
+				]
+			}
+			,{
+				"type":"js"
+				,"minify":"both"
+				,"output":"../Content/js/init"
+				,"files":[
+					"../Scripts/js-extensions/010-ConsoleStub.js"
+					,"../Scripts/browser-extensions/Browser.js"
+					,"../Scripts/browser-extensions/init1.js"
+					,"../Scripts/browser-extensions/css_browser_selector.js"
+					,"../Scripts/browser-extensions/modernizr-2.5.3.js"
+					,"../Scripts/browser-extensions/topscroll.js"
+				]
+			}
+			...
+		]
+	}
+}
+&lt;/pre&gt;
+&lt;p&gt;As you can see, I added a "builder" section with a number of "tasks" right now,  	the only tasks I am supporting are "js" and "css".  The minify option should be  	either &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt;, or &lt;code&gt;"both"&lt;/code&gt;.   	The process will create &lt;code&gt;outputfile.(min|full).(css|js)&lt;/code&gt; so don't  	include a file extension on the output path.&lt;/p&gt;
+&lt;p&gt;My &lt;code&gt;build.cmd&lt;/code&gt; file is now as follows, I'm including the TFS commands to checkout  	my js and css output paths, if you're using git/svn you can comment those lines  	out.&lt;/p&gt;
+&lt;pre class="brush: shell"&gt;:: Step up from ~/bin to ~/build directory
+cd ..\build
+
+:: Checkout the files to be built
+"%VS100COMNTOOLS%\..\IDE\tf" checkout /lock:none "..\Content\css\*.*"
+"%VS100COMNTOOLS%\..\IDE\tf" checkout /lock:none "..\Content\js\*.*"
+
+echo.
+echo installing package dependancies
+call npm install
+
+echo.
+echo building min/merge js and css
+node build.node.js
+echo.&lt;/pre&gt;
+&lt;p&gt;With all of that said, here is my &lt;code&gt;build.node.js&lt;/code&gt; file.&lt;/p&gt;
+&lt;pre class="brush: js"&gt;var fs = require("fs");
+var util = require("util");
+var async = require("async");
+
+var less = require("less");
+var cssmin = require("cssmin").cssmin;
+
+var jsp = require("uglify-js").parser;
+var pro = require("uglify-js").uglify;
+
+var cfg;
+
+main();
+
+function main() {
+	var pkg = JSON.parse(fs.readFileSync("package.json"),"utf8");
+	cfg = pkg.builder;
+	cfg.startDir = process.cwd();
+	runTasks();
+}
+
+function runTasks() {
+	console.log("Building CSS &amp;amp; JS files.");
+
+	//store an array of functions for running each task
+	var tasks = [];
+
+	//console.log(JSON.stringify(cfg));
+
+	//input each task definition into a runner.
+	cfg.tasks.forEach(function(t){
+		tasks.push(function(cb){
+			if (t.type == "css") return runCssTask(t,cb);
+			if (t.type == "js") return runJsTask(t,cb);
+			cb(null,-1); //unrecognized format
+		});
+	});
+	async.series(
+		tasks
+		,function(err,data) {
+			console.log("Finished building CSS &amp;amp; JS files.");
+		}
+	);
+}
+
+function runCssTask(task, cb) {
+	//data should be a collection of tree, use tree.toCSS() and tree.toCSS({compress:true}) respectively
+	var min = task.minify;
+	var full = !task.minify || task.minify === "both";
+	
+	console.log("Building " + task.output + " css");
+
+	var fx = [];
+	task.files.forEach(function(f){
+		console.log("Loading " + f);
+
+		fx.push(function(cb){
+			var fp = fs.realpathSync(f).replace(/[\\\/]+/g,'/');
+			var p = f.replace(/(\/[^\/]+)$/g,'/');
+
+			var src = fs.readFileSync(fp,'utf8');
+			var parser = new(less.Parser)({
+				paths:[p]
+				,filename:fp
+			});
+			parser.parse(src,function(err,tree){
+				if (err) return cb(err,null);
+				return cb(null, {"file":f, "css":tree.toCSS()});
+			});
+		});
+	});
+	async.series(
+		fx
+		,function(err,results) {
+			if (err) throw err; //don't continue on error
+
+			var m = [];
+			var f = [];
+
+			if (results &amp;amp;&amp;amp; results.length) {
+				results.forEach(function(item){
+					if (min) {
+						m.push("/*" + item.file + "*/\r\n");
+						m.push(cssmin(item.css));
+						m.push("\r\n\r\n");
+					}
+					if (full) {
+						f.push("/*" + item.file + "*/\r\n");
+						f.push(item.css);
+						f.push("\r\n\r\n");
+					}
+				});
+			}
+
+			//write file(s)
+			if (min) fs.writeFileSync(task.output + ".min.css", m.join(""), 'utf8');
+			if (full) fs.writeFileSync(task.output + ".full.css", f.join(""), 'utf8');
+
+			console.log("css handled for '" + task.output + "' " + results.length);
+
+			cb(null,1);
+		}
+	)
+}
+
+function runJsTask(task, cb) {
+	var min = task.minify;
+	var full = !task.minify || task.minify === "both";
+
+	console.log("Building " + task.output + " css");
+
+	var fx = [];
+	task.files.forEach(function(f){
+		fx.push(function(cb){
+			console.log("Loading " + f);
+			var ret = {"file":f};
+			var fp = fs.realpathSync(f).replace(/[\\\/]+/g,'/');
+			var p = f.replace(/(\/[^\/]+)$/g,'/');
+			
+			ret.full = fs.readFileSync(f,'utf8');
+			if (min) {
+				var ast = jsp.parse(ret.full); //parse code for initial ast
+				ast = pro.ast_mangle(ast); //get new ast with mangled names
+				ast = pro.ast_squeeze(ast); //get an ast with compression optimizations
+				ret.min = pro.gen_code(ast); //get compressed output
+			}
+			cb(null, ret);
+		});
+	});
+	
+	async.series(
+		fx
+		,function(err,results) {
+						if (err) throw err; //don't continue on error
+
+			//data should be a collection of tree, use tree.toCSS() and tree.toCSS({compress:true}) respectively
+
+			var m = [];
+			var f = [];
+
+			if (results &amp;amp;&amp;amp; results.length) {
+				results.forEach(function(item){
+					if (min) {
+						m.push(";/*" + item.file + "*/\r\n");
+						m.push(item.min);
+						m.push("\r\n\r\n");
+					}
+					if (full) {
+						f.push(";/*" + item.file + "*/\r\n");
+						f.push(item.full);
+						f.push("\r\n\r\n");
+					}
+				});
+			}
+			
+			//write file(s)
+			if (min) fs.writeFileSync(task.output + ".min.js", m.join(""), 'utf8');
+			if (full) fs.writeFileSync(task.output + ".full.js", f.join(""), 'utf8');
+
+			console.log("js handled for '" + task.output + "' " + results.length);
+			cb(null,2);
+		}
+	);
+}&lt;/pre&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2012-06-21 12:29:00</pubDate>
+  <lastModified>2016-03-30 18:00:00</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Build-your-JS-Less-and-CSS-files-via-Nodejs-with-Visual-Studio</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>e2ccd013-693f-4358-a1cf-ae5b73c1d563</category>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>5b16104a-e39c-4a97-bcea-13bd55fc552b</category>
+    <category>d3379a7d-4d21-48a5-bdc6-7012d71fa8af</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

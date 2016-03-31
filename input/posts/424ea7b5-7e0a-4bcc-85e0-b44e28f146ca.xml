@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Silverlight Dynamic Language SDK 0.3.0 Released</title>
+  <description />
+  <content>&lt;p&gt;Okay, this snuck by me a couple weeks ago, but the &lt;a href="http://www.codeplex.com/sdlsdk/"&gt;Silverlight Dynamic Languages SDK&lt;/a&gt; 0.3.0 was pushed out on August 30th, 2008.&amp;nbsp; Although the main focus of this SDK is for use in Silverlight, the DLR included in this SDK can be used to generate a nice, multi-language scripting environment for your own applications.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-09-12 08:55:00</pubDate>
+  <lastModified>2009-06-22 18:53:39</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Silverlight-Dynamic-Language-SDK-030-Released</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>a2125c63-4e24-476c-aabc-29df3ae4e1b0</category>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>0ee63713-313b-447b-957c-898e521da44d</category>
+    <category>d3379a7d-4d21-48a5-bdc6-7012d71fa8af</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+    <category>ca9e6f7d-54de-4467-b698-ca227cb684b3</category>
+  </categories>
+  <notifications />
+</post>

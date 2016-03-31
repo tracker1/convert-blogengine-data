@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Classy JavaScript - Best Practices</title>
+  <description>Best practices for defining classes, as well as utilizing namespacing in your JavaScript.</description>
+  <content>&lt;p&gt;Okay, so you really want to be able to have some of your JavaScript methods to have access to a variable that is private, but maintains state between calls.  The first piece of knowledge, is that you can have the contents of a function execute itself at runtime.&lt;/p&gt;
+
+&lt;pre class="brush: js"&gt;(function(){ /*Your actions here*/ })();&lt;/pre&gt;
+
+&lt;p&gt;This is a very common method of defining complex classes and libraries, that can have their own variables or methods that aren't otherwise available to the object model outside this closure.  When you utilize "this" within the function's closure it will be default to the global object, which in the Browser DOM is "window".&lt;/p&gt;
+
+&lt;pre class="brush: js"&gt;(function(){
+    this.test = "Test Value";
+})();
+alert(test); //alerts "Test Value"&lt;/pre&gt;
+
+&lt;p&gt;Usually when creating libraries in JavaScript it's a good idea to create namespaces for your library. [more]Below I am going to use a classic example for defining a namespace of My.Namespace.  There are helper methods out there that will walk a chain from a literal string of "My.Namespace", but I'm showing it in raw script.&lt;/p&gt;
+
+&lt;pre class="brush: js"&gt;if (typeof My == 'undefined')
+  My = {};
+if (typeof My.Namespace == 'undefined')
+  My.Namespace = {};&lt;/pre&gt;
+
+&lt;p&gt;By combining the above method, and using the Function.prototype.call method on your anonymous function, you can call the function with "this" set to your namespace.  I'll be implementing a class called "SomeClass" within "My.Namespace" below.  I'll also be showing how to create private static members and methods, allong with public static methods, and instance methods.&lt;/p&gt;
+
+&lt;pre class="brush: js"&gt;//begin private closure
+(function(){
+
+    //this is a private static member that is only available in this closure
+    var instances = 0;
+
+    //this is a private static method that can be used internally
+    function _incrementInstances() {
+        instances++;
+    }
+
+    //Define SomeClass (js uses functions as class constructors, utilized with the "new" keyword)
+    this.SomeClass = function(options) {
+        //if the function is called directly, return an instance of SomeClass
+        if (!(this instanceOf SomeClass))
+            return new SomeClass(options);
+
+        //call static method
+        _doSomething();
+
+        //handle the options initialization here
+    }
+
+    //create a public static method for SomeClass
+    this.SomeClass.getInstanceCount = function() {
+        return instances; //returns the private static member value
+    }
+
+    //create an instance method for SomeClass
+    this.SomeClass.prototype.doSomething = function() {
+      /*Do Something Here*/
+    }
+
+//end private closure then run the closure, localized to My.Namespace
+}).call(My.Namespace);&lt;/pre&gt;
+
+&lt;p&gt;The above is an example of best practices for defining a Class within a given namespace.  From here, you can instantiate an instance of "My.NameSpace.SomeClass" and utilize the public methods exposed.&lt;/p&gt;
+
+&lt;pre class="brush: js"&gt;//instantiate a SomeClass instance
+var sc = new My.Namespace.SomeClass({/* options go here */});
+
+//call SomeClass as a function, which will return an instance
+//  defined above via "(!(this instanceOf SomeClass))"
+var sc = My.Namespace.SomeClass({/* options */});
+
+//view the instance count, which uses a public static method
+//  to return a private static member.
+alert(My.Namespace.SomeClass.getInstanceCoun());&lt;/pre&gt;
+
+&lt;p&gt;From here, you may be thinking to yourself, that's a lot of typing.  This is where aliasing can come in handy, in this example inside a closure of course.&lt;/p&gt;
+
+&lt;pre class="brush: js"&gt;(function(){
+    //alias My.NameSpace
+    var m = My.NameSpace
+
+    //bad form assigning onload internally,
+    //  but that'll be for another post on event binding
+    //  Also, we could use "this.onload" but using window directly is more obvious here.
+    window.onload = function() {
+        //attach an instance of My.NameSpace.SomeClass instance to window.
+        window.sc = new m.SomeClass({}); //no long namespace name here :)
+    }
+
+})();&lt;/pre&gt;
+
+&lt;p&gt;Hopefully this post will be helpful in utilizing some privacy with your classes, and using namespaces to prevent naming collisions with other classes, and libraries.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-02-11 13:26:00</pubDate>
+  <lastModified>2010-02-13 14:31:14</lastModified>
+  <raters>1</raters>
+  <rating>5</rating>
+  <slug>js-classes</slug>
+  <tags>
+    <tag>javascript</tag>
+    <tag>class</tag>
+    <tag>object</tag>
+    <tag>closures</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+  </categories>
+  <notifications />
+</post>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Site updates...</title>
+  <description />
+  <content>&lt;p&gt;Okay, I've updated the site to &lt;a href="http://www.dotnetblogengine.net/"&gt;BlogEngine.net&lt;/a&gt; 1.5.&amp;nbsp; Beyond this i've gone through all the old posts adding a MORE tag, so that there's a tear from the main listing to the full post&amp;nbsp; From now on, only the newest post will be listed without the tear.&amp;nbsp; I've also updated all the older code samples to use a nice little script called &lt;a href="http://code.google.com/p/syntaxhighlighter/"&gt;SyntaxHighlighter&lt;/a&gt; (Okay, maybe not "little," but so worth it), far better than the tag&amp;nbsp; soup that was in there before, and degrades nicely for those with Javascript disabled (WHY?!?).&lt;/p&gt;
+&lt;p&gt;I've set the site to the *stock* theme for now, i'll try to get this modded soom.&amp;nbsp; Also, I'll be posting some updates to MySite soon, some more fun with ASP.Net MVC, Javascript goodies, and a special surprise are all in the works.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2009-06-22 19:40:00</pubDate>
+  <lastModified>2009-06-22 20:54:33</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Site-updates</slug>
+  <tags />
+  <comments />
+  <categories />
+  <notifications />
+</post>

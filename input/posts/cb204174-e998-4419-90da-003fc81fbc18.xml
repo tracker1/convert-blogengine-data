@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>newuser09876</author>
+  <title>Building Twitter Bootstrap With Visual Studio 2010</title>
+  <description />
+  <content>&lt;img src="/image.axd?picture=2012%2f6%2fvs-bootstrap.png" alt="" style="float:left; margin: 3px 1em 1em 3px" /&gt;
+
+&lt;p&gt;
+	I've been a big fan of the &lt;a href="http://chirpy.codeplex.com/"&gt;Chirpy&lt;/a&gt; Add-In for Visual Studio for a couple of 
+	years now.  Recently I started work on a project where it made sense to use
+	&lt;a href="http://twitter.github.com/bootstrap/"&gt;Twitter Bootstrap&lt;/a&gt; as a base set of CSS and JavaScript within an ASP.Net MVC 3
+	project.  Since I needed to adjust the colors, and a few other settings, I 
+	figured it would be simple enough.  Unfortunately the main .less files use 
+	&lt;code&gt;@import&lt;/code&gt; directives in order to include the necessary files in 
+	the correct order, which Chirpy doesn't seem to support.
+&lt;/p&gt;
+&lt;p&gt;	
+	I came across &lt;a href="http://www.annhoang.net/twitter-bootstrap-in-visual-studio-2010-with-chirpy-and-dotless/"&gt;another blog post&lt;/a&gt; that mentions using dotLess in the same scenario to build the .less 
+	files as a pre-build event.  I went a slightly different route.  Instead 
+	of using dotLess, I went with NodeJS and lessc as the compiler, this also 
+	allows me to use cssmin as a css minifier within the same build event.
+&lt;/p&gt;
+&lt;p&gt;	
+	First, you will want to download the latest Bootstrap source files, placing
+	the less and img folders within the same parent.  In this case, I used
+	&lt;code&gt;~/Content/bootstrap/less&lt;/code&gt; and &lt;code&gt;~/Content/bootstrap/img&lt;/code&gt;
+	for the less and img content.  I placed the js into &lt;code&gt;~/Scripts/bootstrap&lt;/code&gt;.
+&lt;/p&gt;
+&lt;p&gt;	
+	Second you will want to download and install the latest &lt;a href="http://nodejs.org/"&gt;NodeJS&lt;/a&gt; for windows. 
+	After that, from a command prompt, you're going to need to use the 
+	Node Package Manager (npm) to install the global utilities for &lt;code&gt;less&lt;/code&gt; and 
+	&lt;code&gt;cssmin&lt;/code&gt; from a command prompt.
+&lt;/p&gt;
+
+&lt;pre class="brush: shell"&gt;npm -g install less
+npm -g install cssmin&lt;/pre&gt;
+
+&lt;p&gt;	
+	Third, you'll need to setup your Post-build event. 
+	Right-click the web project, then select properties.  Then bring up the "Build Events" tab.  
+	From there, I have the following text in my "Pre-build event command line"
+&lt;/p&gt;
+	
+&lt;pre class="brush: shell"&gt;"$(ProjectDir)!PreBuild.cmd" "$(ProjectDir)" "$(DevEnvDir)"&lt;/pre&gt;
+	
+&lt;/p&gt;
+	With that in place, I added a "!PreBuild.cmd" batch file into the root of the project with the following content. 
+	(note: make sure the file is saved with DOS/ASCII encoding mode text, not UTF.  Create it in Notepad if need be)
+&lt;/p&gt;
+	
+&lt;pre class="brush: shell"&gt;@echo off
+cls
+
+echo.
+echo !PreBuild.cmd %1
+
+:: Remove quotes from project path...
+SET _projpath=%1
+SET _projpath=###%_projpath%###
+SET _projpath=%_projpath:"###=%
+SET _projpath=%_projpath:###"=%
+SET _projpath=%_projpath:###=%
+
+:: Remove quotes from _devenv path
+SET _devenv=%2
+SET _devenv=###%_devenv%###
+SET _devenv=%_devenv:"###=%
+SET _devenv=%_devenv:###"=%
+SET _devenv=%_devenv:###=%
+
+
+:: Checkout the files to be built
+"%_devenv%tf" checkout /lock:none "%_projpath%Content\bootstrap\css\*.*"
+
+
+echo.
+echo Build bootstrap.less
+call lessc "%_projpath%Content\bootstrap\less\bootstrap.less" "%_projpath%Content\bootstrap\css\bootstrap.css"
+call cssmin "%_projpath%Content\bootstrap\css\bootstrap.css" &gt; "%_projpath%Content\bootstrap\css\bootstrap.min.css"
+
+echo.
+echo Build responsive.less
+call lessc "%_projpath%Content\bootstrap\less\responsive.less" "%_projpath%Content\bootstrap\css\responsive.css"
+call cssmin "%_projpath%Content\bootstrap\css\responsive.css" &gt; "%_projpath%Content\bootstrap\css\responsive.min.css"
+&lt;/pre&gt;
+
+&lt;p&gt;	
+	With the above pre-build batch in place, the css directory will be checked out, and the bootstrap css files will 
+	be created with a minified version.
+&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2012-06-07 12:11:00</pubDate>
+  <lastModified>2016-03-30 18:00:00</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Building-Twitter-Bootstrap-With-Visual-Studio-2010</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>4261ac35-19c0-4105-8403-4ee345435a66</category>
+    <category>74792ded-18cd-4dab-b1a7-05d2649feeca</category>
+    <category>e2ccd013-693f-4358-a1cf-ae5b73c1d563</category>
+  </categories>
+  <notifications />
+</post>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>newuser09876</author>
+  <title>Creating A Modern Web Application - Part 1 (Getting Started)</title>
+  <description />
+  <content>&lt;p&gt;This series is meant to be a pragmatic look at creating a modern web application today. What this means to me is that older browsers still need to be supported. In some environments the use of Internet Explorer 6 is still well over 20%, especially in corporate environments where XP and IE6 are the standards they are bound by. Though dealing with a browser that is quickly reaching a decade in age, which is ancient by software standards that tend to churn a new generation every 2 years or so, there is hope. I'll be referencing IE versions 6-8 as IEOLD, since these really are the existing legacy of IE as it stands. IE 9 is shaping up to be a much more compliant browser that has a great UI and does a much better job of rendering content. There are a few quirks as it stands that I will point out in the next segment in this series, I'll be referring to IE9+ as IENEW.&lt;/p&gt;
+&lt;p&gt;In this exercise we will be using &lt;a href="http://dev.w3.org/html5/spec/Overview.html"&gt;HTML5&lt;/a&gt;'s DOCTYPE  tag which is very simple and straight forward. In fact it's the first DOCTYPE  I actually committed to memory, (&amp;lt;!DOCTYPE html&amp;gt;) how cool is that. HTML5 by definition is very pragmatic in and of itself. The main lesson in HTML5 is to use what works for you, as many browsers have created enhancements for their own needs and then copied them from each other.  Starting with &lt;a href="http://www.whatwg.org/"&gt;WhatWG&lt;/a&gt; and moving into the W3C's group as a movement to formalize these enhancements as a standard, that doesn't mean you shouldn't be utilizing it today. Moving forward I will be using several HTML5 tags, in addition to using CSS3 to avoid the use of images for simple gradients and rounded corners. In order to facilitate this, I'll be first adding two shining stars into my tool-belt.&lt;/p&gt;
+&lt;p&gt;The first of which is the wonderful &lt;a href="http://code.google.com/p/html5shiv/"&gt;html5shiv&lt;/a&gt;. This allows us to utilize the new tags defined as part of HTML5. As there are several new tags within the HTML5 space, it is much better to use these as a more semantic means of marking up our site, over simply using meaningless DIV tags with class attributes everywhere. The html5shiv is a fairly light script that will add support for these new tags in old IE versions (prior to 9). You will also want to take a look at &lt;a href="http://jdbartlett.github.com/innershiv/"&gt;html 5 innershiv&lt;/a&gt; if you intend to inject these new elements via the innerHTML DOM property.&lt;/p&gt;
+&lt;p&gt;The second tool we will be using is the &lt;a href="http://css3pie.com/"&gt;CSS3PIE&lt;/a&gt; (Progressive IE) HTML Component which can be used with IE versions prior to 9. By defining behaviors against elements that will utilize background gradients and rounded borders for IEOLD, we will be able to eliminate the need for the use of images, and complex layouts to achieve these commonly used effects.&lt;/p&gt;
+&lt;p&gt;Though both of these tools have been out for a while, I hope you find them useful. I'm outlining the series below, and will inject the links as these articles become live on the site. My goal is to have a the first eight articles in this series (including this one) released in the next two weeks.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Part 1 - Getting Started.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;&lt;a href="http://frugalcoder.us/post/2010/10/28/modern-web-apps-part002.aspx"&gt;Part 2 - Working with HTML5 and CSS3.&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt; In this article we'll work through how to utilize rounded corners and border radius properties as well as show how to deal with the issues that IE9 currently presents here in addition to utilizing Chrome Frame for those users that have it installed. &lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;Part 3 - Getting the page laid out.&lt;/strong&gt;&lt;br /&gt; In this article we'll work on getting the overall page layout in place. This will include standardizing on our core fonts as well as utilizing a grid to keep our stuff lined up nicely. &lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;Part 4 - Buttons, buttons and more buttons.&lt;/strong&gt;&lt;br /&gt; One of the most often stylized elements on any web based application is the button. The real question is, how we get them how we want them, along with some thoughts on tying buttons to inputs. &lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;Part 5 - Ironing out the wrinkles.&lt;/strong&gt;&lt;br /&gt; We will now work on getting things a bit better organized. We'll also deal with a few IE6 specific issues, namely the lack of attribute based selectors in CSS. &lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;Part 6 - Getting your script on.&lt;/strong&gt;&lt;br /&gt; In this article we'll get some initial functionality laid out in order to work through progressive enhancement as well as making sure to defer our scripts until after the content is ready for it. &lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;Part 7 - Holy JavaScript Tool-belt Batman.&lt;/strong&gt;&lt;br /&gt; Here I discuss my fairly comprehensive list of scripts I'll be including, as well as mention some that I'm not actively using but will be there if you need them. &lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;Part 8 - Inputs and Validation.&lt;/strong&gt;&lt;br /&gt; Now that I have my JavaScript Tool-belt in place, I'll work through dealing with some basic input validation. &lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;Part 9 - Enhancing Inputs.&lt;/strong&gt;&lt;br /&gt; Here I'll create an enhanced input that will allow for a calendar control used in conjunction with a date validated input. &lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;Part 10 - Custom Notifications.&lt;/strong&gt;&lt;br /&gt; In my current position notifications of input validation errors and other messages are shown in popover modal dialogs that purposefully interrupt the user's actions. Here we'll work through the initial creation of such a popover and extend the jQuery validation to support this behavior. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I'll be adding additional articles in the future; the topics will present themselves as this project moves forward.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-10-25 15:26:00</pubDate>
+  <lastModified>2016-03-30 18:00:00</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Creating-A-Modern-Web-Application-Part-1-(Getting-Started)</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>e2ccd013-693f-4358-a1cf-ae5b73c1d563</category>
+    <category>9ab62308-37b0-4187-b9f4-e7a082ee4ba4</category>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

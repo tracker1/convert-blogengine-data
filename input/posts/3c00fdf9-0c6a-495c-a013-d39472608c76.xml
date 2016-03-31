@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Packaging JavaScript</title>
+  <description>Some general tips on how I'm tuning for web based applications.</description>
+  <content>&lt;p&gt;I've been working on a number of web based applications recently, and have taken to using a few techniques that I thought I would share.  I won't be sharing the code so much, which is ASP.Net centric, but will discuss what I am trying to accomplish.[more]&lt;/p&gt;
+&lt;p&gt;First, I am using two &lt;span style="font-family: courier new,courier;"&gt;.ashx&lt;/span&gt; handlers, one is AllStyles.ashx, the other is &lt;span style="font-family: courier new,courier;"&gt;AllScripts.ashx&lt;/span&gt;.&amp;nbsp; They both work similarly, one for stylesheets, the other for scripts.&amp;nbsp; I have a static list of files that are to be included for the application, as well as a handful of static methods to be used within the master pages.&amp;nbsp; The master page calls a static method on the &lt;span style="font-family: courier new,courier;"&gt;AllScripts.ashx&lt;/span&gt; (for example) which will then perform one of two actions depending on the environment.&amp;nbsp; If it's in debug mode, it will include an individual script tag for each script listed.&amp;nbsp; If it's in release mode, it will include a script tag pointing to the ashx itself.&amp;nbsp; When the ashx is called, it will return a minified compilation of all of the files in the list.&amp;nbsp; I have additional logic which maintains the DateTime of the last modified file in the list, and will match that against the &lt;span style="font-family: courier new,courier;"&gt;If-Modified-Since&lt;/span&gt; header, and return a &lt;span style="font-family: courier new,courier;"&gt;304&lt;/span&gt; (unchanged) response if there's a match.&amp;nbsp; The minified version of the response is also kept in a static variable.&amp;nbsp; This could use a caching system, but since this file is relatively small, and called fairly often, I feel it isn't harmful to use a static var vs. a cached version.&lt;/p&gt;
+&lt;p&gt;What this does is reduce the number of HTTP requests, as well as return a minified version in production, while using the original, un-minified versions in development.&amp;nbsp; I have the ashx static methods check for a couple of querystring parameters.&amp;nbsp; If the querystring parameter &lt;span style="font-family: courier new,courier;"&gt;allscripts=min&lt;/span&gt;, it will use the minified/single version, regardless of environment.&amp;nbsp; If &lt;span style="font-family: courier new,courier;"&gt;allscripts=full&lt;/span&gt;, it will use the full/direct script tags, regardless of environment.&amp;nbsp; There are also querystring parameters for &lt;span style="font-family: courier new,courier;"&gt;AllScripts.ashx&lt;/span&gt; when called directly as well.&amp;nbsp; &lt;span style="font-family: courier new,courier;"&gt;?action=list&lt;/span&gt; will return a list of the included files, for example.&amp;nbsp; By adding these couple of extra features, you can still inspect the values that are being called/returned for scripts and stylesheets.&lt;/p&gt;
+&lt;p&gt;There are a couple of gotchas, however.&amp;nbsp; I'm injecting a couple of semi-colons (;) after each script file, as well as a line with a comment for the name of the file that's being included.&amp;nbsp; The css compression was a bit hairy, mainly because of the changes to relative paths regarding images.&amp;nbsp; I needed to use the base application path, and base file path against the relative path to the original css, to adjust any &lt;span style="font-family: courier new,courier;"&gt;url()&lt;/span&gt; values within the stylesheets.&amp;nbsp; That was probably the most complicated piece.&amp;nbsp; There are a number of JavaScript and CSS minifiers out there, I used fairly simple ones that didn't do code optimization, mainly whitespace and comment cleaning.&amp;nbsp; With a general minification, and HTTP compression, I find the results very acceptable, there are places to optimize further, but I find the tradeoffs to be much harder in terms of the development process.&lt;/p&gt;
+&lt;p&gt;Because I am building web applications, I am less concerned about the load time of the first page, and more concerned about performance as one navigates through the application(s).&amp;nbsp; With this in mind, I am following a fairly simple pattern, similar to the &lt;a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth"&gt;Module Pattern&lt;/a&gt;, in order to include the functionality for all pages and controls into the general include script.&amp;nbsp; What this means is after the first page is hit, each subsequent page will already have it's relevent static scripts included.&lt;/p&gt;
+&lt;p&gt;From here, the master page includes the allscripts, as well as a script entry with site-wide configuration values.&amp;nbsp; (Localization strings, url templates, site mapping, etc).&amp;nbsp; The page will include it's own activation script, to activate the module/method(s) used for the page itself, as well as the page's configuration values.&amp;nbsp; I know this post is lighter on code, and heavier on words.&amp;nbsp; I'd be happy to followup with a post including the code I am using to accomplish this, if I get enough feedback.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-04-13 10:59:00</pubDate>
+  <lastModified>2010-04-20 10:03:45</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>web-app-perf-tuning-intro</slug>
+  <tags>
+    <tag>javascript</tag>
+    <tag>web</tag>
+    <tag>applications</tag>
+    <tag>performance</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>4261ac35-19c0-4105-8403-4ee345435a66</category>
+    <category>e2ccd013-693f-4358-a1cf-ae5b73c1d563</category>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

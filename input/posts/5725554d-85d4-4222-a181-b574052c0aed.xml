@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>newuser09876</author>
+  <title>ASP.Net Grid with SqlDatasource using Stored Procedure is Blank</title>
+  <description />
+  <content>&lt;p&gt;After a lot of searching, I finally found the answer &lt;a href="http://forums.asp.net/t/951579.aspx/2/10?Using+GridView+with+stored+procedure+in+datasource+does+not+work"&gt;here&lt;/a&gt;.  It seems that when you are using an SqlDataSource that when a parameter is null, it will cancel a select by default.  You need to add the attribute of &lt;code&gt;&lt;b&gt;CancelSelectOnNullParameter="false"&lt;/b&gt;&lt;/code&gt;.  It was very frustrating, as using the SQL Server Profiler, the query wasn't even being issued, and it was a pain to track down.&lt;/p&gt;
+&lt;p&gt;I'm putting this up here, to hopefully help others with a similar situation in the future.&lt;/p&gt;
+</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2011-08-09 10:25:00</pubDate>
+  <lastModified>2016-03-30 18:00:00</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>ASPNet-Grid-with-SqlDatasource-using-Stored-Procedure-is-Blank</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>4261ac35-19c0-4105-8403-4ee345435a66</category>
+    <category>267923ba-fa55-46a4-9f37-c00d844fb419</category>
+    <category>2bddfb83-fa18-4dcb-95a0-88c9029f0282</category>
+  </categories>
+  <notifications />
+</post>

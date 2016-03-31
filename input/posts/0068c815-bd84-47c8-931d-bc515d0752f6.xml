@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Apollo.Common in Codeplex</title>
+  <description>Apollo.Common is meant to provide some easier to use functionality to enterprise applications.</description>
+  <content>&lt;p&gt;The past few weeks, I've been working on &lt;a href="http://www.codeplex.com/ApolloCommon"&gt;Apollo.Common&lt;/a&gt;, which is meant to provide some easier to use functionality to enterprise applications.&amp;nbsp; A lot of this functionality, and more is provided by the MS PnP team's Microsoft &lt;a href="http://www.codeplex.com/entlib"&gt;Enterprise Library&lt;/a&gt;.&amp;nbsp; However, ent-lib tends to be overly complex, difficult to use, and require a lot of customization before you can get moving.&amp;nbsp; I want Apollo.Common to be easy to use, implement and deploy with a minimal learning curve. [more]&lt;/p&gt;
+&lt;p&gt;Apollo.Common.Cache started off as a means of providing a simple, consistant method of accessing memcached servers in &lt;a href="http://www.apollogrp.edu/"&gt;our&lt;/a&gt; &lt;a href="http://www.phoenix.edu/"&gt;applications&lt;/a&gt;.&amp;nbsp; The cache piece is based on the BeIT memcached client, and is extended to support generics, as well as a callback pattern [&lt;span style="color: #115555"&gt;MC.Cache.Get&amp;lt;T&amp;gt;(string key, Func&amp;lt;T&amp;gt; ifNullCallback)&lt;/span&gt;], which reduces a lot of code, apposed to a Get/Check/Set/Return pattern repeated within the applications.&amp;nbsp; &lt;a href="http://www.codeplex.com/ApolloCommon/Release/ProjectReleases.aspx?ReleaseId=20680"&gt;This piece is already available&lt;/a&gt;, but as a result of working on this peice spawned two other areas of concern.&amp;nbsp; One is a common configuration library.&amp;nbsp; Another is a common logging library.&lt;/p&gt;
+&lt;p&gt;Apollo.Common.Configuration is intended to decouple settings from applications.&amp;nbsp; Allowing a single directory with configuration files to be set in a single place across an entire webfarm.&amp;nbsp; This way applications can be installed, without needed to update/edit, or otherwise change configuration files.&amp;nbsp; It also allows for common settings, such as logging, memcached, database strings, etc to be configured consistantly in different applications, on the same or different servers in a consistant way.&amp;nbsp; The configuration files can be named with a {configname}.{environment}.{application name}.{application version}.config pattern, and have narrow, and broad configuration files available.&amp;nbsp; There is an option to configure these settings within the application, or web.config files.&amp;nbsp; Environment will be determined based on the app config, environment variable, http request app hostname, machine dns name, machine name in that order.&amp;nbsp; For the machine dns name, if the name begins with QA or DEV, or has .qa or .dev in the name it will use the appropriate environment.&amp;nbsp; If it is in debug mode, it will fallthrough to LOCAL, otherwise it will fallthrough to PRODUCTION.&amp;nbsp; This happens on first access via an application, and is saved in memory.&amp;nbsp; This makes the library very flexible out of the box, while reducing pain in implementation and use. &amp;nbsp; I still have a few things to flush out, but it's going fairly smoothly.&lt;/p&gt;
+&lt;p&gt;Apollo.Common.Logging is a simple wrapper for NLog, that uses Apollo.Common.Configuration to determin the configuration file (in NLog settings format) that should be used. &amp;nbsp; This piece has the most work left to be done.&amp;nbsp; I wanted to make it as easy as possible to add logging into the application, while providing the flexibility that the common configuration piece offers.&lt;/p&gt;
+&lt;p&gt;I hope to get quite a bit more done in this library.&amp;nbsp; Including supporting a ASP.Net Session, and Cache piece within the cache library.&amp;nbsp; I've received a lot of feedback already from some of the development teams and managers here, and will work towards integrating some of the suggestions.&amp;nbsp; I've also outlined some of the todo pieces within the wiki-style pages within the codeplex project.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-12-19 04:53:00</pubDate>
+  <lastModified>2009-06-22 17:48:35</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>ApolloCommon-in-Codeplex</slug>
+  <tags>
+    <tag>enterprise library</tag>
+    <tag>enterprise</tag>
+    <tag>configuration</tag>
+    <tag>logging</tag>
+    <tag>cache</tag>
+    <tag>memcached</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>b759f38b-6099-4ae9-98bc-c504d2d6955b</category>
+    <category>48cb218a-b8a9-4fdd-a440-910d38689262</category>
+    <category>74792ded-18cd-4dab-b1a7-05d2649feeca</category>
+    <category>16235712-91fa-4450-91e0-d2b0cbe05f5c</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Single-window state machine.</title>
+  <description>Simple script to maintain a form state within a window as a given page is loaded/unloaded within a multipage app.</description>
+  <content>&lt;p&gt;I'm currently working on a project where one of the applications has a subform, or child form that has interactions that are separate from the main page within the application.  The main page is essentially a filter form, with a results grid.  Each item in the grid displays a child form, when the child form is completed, the original screen is displayed again.&lt;p/&gt;
+
+&lt;p&gt;Sounds simple enough right?  Well, the business desire is to have the filter option form keep its' settings when returning to the page.  My initial solution was to use a &lt;a href="http://jqueryui.com/demos/dialog/"&gt;jQueryUI dialog&lt;/a&gt; based option (&lt;a href="http://plugins.jquery.com/project/jquery-framedialog"&gt;via an IFrame&lt;/a&gt;).  Which works great, except in certain conditions IE7 flickers when the mouse moves in/out of the IFrame itself if there are scroll bars present. &lt;em&gt;ugh.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I didn't want to use cookies, or server-side session state as these will affect all windows using the main form.  If a user launches the app in a new window, with different filters set, I didn't want these windows to effect each other.  Then it occurred to me, I could use &lt;a href="http://en.wikipedia.org/wiki/HTTP_cookie#window.name"&gt;window.name&lt;/a&gt; to store the state of the form when entering, and leaving the page.  I tend to store an &amp;quot;__original_value__&amp;quot; for each form element when a page loads, that way its' easy enough to return to default values later on via code.&amp;nbsp; [more]&lt;/p&gt;
+
+&lt;p&gt;I'm including the jQuery code to make this work.  It's worth noting that you may have other interactions that are more complex, and you will likely want to run this script directly after jQuery is loaded, so it's the first thing run via the load event.  Also, you'll want to snag json2.js for the json parsing.&lt;/p&gt;
+
+&lt;pre class="brush: javascript"&gt;//StateMachine.js
+// TODO: create an event/message pump for adding state save/load plugins
+
+//execute closure on load via jQuery
+;$(function(){
+  //keys for state variables
+  var appName = "MY_APPLICATION";
+  var pageName = "MY_PAGE";
+
+  //state variables
+  var state, app, page;
+
+  //gets the save value for a given element
+  function valToSave(el) {
+    if (el.type == 'checkbox')
+      return !!el.checked;
+    if (el.type == 'radio')
+      return ($(el.form).find("input[@name='" + el.name + "']:checked").val();
+    return $(el).val();
+  }
+
+  //sets the value for a given element based on the form, and element state
+  function setVal(form, elstate) {
+    //get matching input for form.
+    var el = $(form).find(elstate.id ? '#'+elstate.id : "input[@name='" + elstate.name + "']");
+    
+    //if it's a checkbox, set the checked attribute
+    if (elstate.type == 'checkbox')
+      return (!!elstate.val) ? el.attr('checked', true) : el.removeAttr('checked', 'checked');
+    
+    //it's a radio
+    if (elstate.type == 'radio') {
+		//clear checked before setting the value
+		el.removeAttr('checked'); 
+		
+		//set the one with the correct value
+		return $(form).find("input[@name='" + elstate.name + "'][@value='" + elstate.val + "']").attr('checked', 'checked');
+	}
+    
+    //set the value for the field
+    return $(el).val(elstate.val);
+  }
+
+  //gets a form based on the saved form state.
+  function getForm(fstate) {
+    var f;
+    
+    //if there's an id, try getting the matching form
+    if (fstate.id) 
+      f = $('#' + fstate.id);
+    if (f.length)
+      return f.eq(0);
+      
+    //if there's a name, try getting the matching form
+    if (f.name)
+      f = $('form[name=' + fstate.name + ']');
+    if (f.length)
+      return f.eq(0);
+      
+    //if there's a form matching the index, use that
+    if (document.forms[fstate.index])
+      return document.forms[fstate.index];
+      
+    //no match
+    return null;
+  }
+  
+  //gets the state to save for a given form.
+  function getFormsState() {
+    var forms = {};
+    $.each(document.forms, function(fidx, form){
+      var f = { 'index': fidx, e:[] };
+      var radioGroups = {};
+      if (form.id) f.id = form.id;
+      if (form.name) f.name = form.name;
+      $.each(form.elements, function(eidx, el) {
+        var e = { 'index':eidx, 'type':el.type, 'name':el.name || el.id, 'val':valToSave(el) };
+
+        //set the id if it's available
+        if (el.id) e.id = el.id;
+        
+        //if it's a radio group, do specific checks to only populate the results once.
+        if (el.type == 'radio') {
+          //already handled
+          if (radioGroups[el.name]) return;
+
+          //remove id from result set, so it isn't used for matching
+          delete e.id;
+          
+          //set the value so it's already handled, for further matching radio inputs
+          radioGroups[el.name] = true;
+        }
+
+        //add the element to the stack
+        f.e.push(e);
+      });
+      forms.push(f); //add form to forms collection
+    });
+    return forms;
+  }
+
+  //sets the state of the forms based on the state input
+  function setFormState(forms) {
+    $.each(forms, function(fidx, fstate){
+      var form = getForm(fstate);
+      if (form) {
+        $.each(fstate.e, function(eidx, elstate) {
+          setVal(form, elstate);
+        });
+      }
+    });
+  }
+
+  //method to save the state
+  function saveState(){
+    //get the state of the forms to save
+    page.forms = getFormsState();
+    
+    //NOTE: Do any other state for the page saving here...
+
+    //rollup the new state.
+    app[pageName] = page;
+    state[appName] = app;
+    
+    //save the state out.
+    window.name = JSON.stringify(state);
+  }
+
+  //method to load state
+  function loadState(){
+    try {
+      state = JSON.parse(window.name);
+      app = state[appName] || {};
+      page = app[pageName] || {};
+      if (page.forms) {
+        setFormState(page.forms);
+      }
+      
+      //NOTE: Do any other state for the page loading here...
+      
+    } catch(err) {
+      state = {}; //error loading state, reset it
+      return;
+    }
+  }
+  
+  function startStateMachine() {
+    //save original values for all form elements
+    $.each(document.forms, function(fidx, form){
+      $.each(form.elements, function(eidx, el) {
+        $(el).data('__original_value__', valToSave(el));
+      });
+    });
+    
+    //bind the unload to save the state
+    $(window).bind('unload', function(){
+      saveState();
+    });
+
+    //load the saved state, if any
+    loadState();
+  }
+
+  //start the state machine events.
+  startStateMachine();
+  
+});&lt;/pre&gt;
+
+&lt;p&gt;There you have it, a fairly complete pattern for using the window.name as a state machine for multiple pages within an application.  I've only impletented the part with forms here, but it should be a nice start.&lt;/p&gt;
+</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-04-01 15:19:00</pubDate>
+  <lastModified>2010-04-13 14:07:11</lastModified>
+  <raters>1</raters>
+  <rating>4</rating>
+  <slug>window-name-state</slug>
+  <tags>
+    <tag>jquery</tag>
+    <tag>javascript</tag>
+    <tag>state</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ec0b5566-5e98-49ab-9f01-d19cad275b87</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

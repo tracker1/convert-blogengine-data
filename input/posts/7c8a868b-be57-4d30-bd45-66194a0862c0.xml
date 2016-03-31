@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Managed JScript (Bastard, red-headed step-child in the DLR)</title>
+  <description>A quick rant on the lack of attention Javascript (Managed JScript) is getting and a suggestion to change it to IronScript and MS-PL it like the other Iron brothers.</description>
+  <content>&lt;p&gt;Okay, I love Javascript.&amp;nbsp; It is hands down my favorite language (C# is a near second).&amp;nbsp; In fact, it was the first language I ever learned, even before having a good handle on html markup in the mid-90s.&amp;nbsp; I used it server-side with Livewire on Netscape server.&amp;nbsp; I transitioned to (now Cassic) ASP, and picked up vbscript (COM enumerations via JScript were so evil).&amp;nbsp; When .Net first came out, i hacked my way through using the JScript .net command-line compiler, and early ASP.Net (ASP+), after translating a litteral ton of code from VB.Net and C# samples, I caved and learned C#.&amp;nbsp; Allong the way, I picked up on several SQL Dialects, VB6, some perl and others; but I always get back to Javascript. [more]&lt;/p&gt;
+&lt;p&gt;I've really enjoyed the resurgence of Javascript in the browser settling on prototype.js for a number of&amp;nbsp; years, and more recently finding some love for jQuery (though I miss some language extensions prototype has).&amp;nbsp; The DOM in today's browsers is leaps and bounds above the bad old v4 days even without convenience libraries.&amp;nbsp; Still, Javascript is still delegated to mostly in-browser chores.&amp;nbsp; There are several nice server-side frameworks, and even scripting engines for outside the browser, but alas, no mass love.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;I started hearing about the DLR (Dynamic Language Runtime) work being done in Microsoft almost two years ago now.&amp;nbsp; With IronPython and IronRuby being the showcase members.&amp;nbsp; VBX (a VB interpreter) for the DLR being considered to be a much needed reprieve from the COM drenched VBA/VBScript.&amp;nbsp; Oh, Javascript is in there too aka Managed JScript.&amp;nbsp; Demos and code samples flourished for everything BUT Managed JScript at PDC and Mix&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;Why, I ask, is it that Javascript is so unloved by Microsoft, and even the developer community at large?&amp;nbsp; Every effort is made to abstract all consciousness of Javascript from development where it is used, and elsewhere, a distant afterthought.&amp;nbsp; Why are IronPython and IronRuby deemed worthy of FLOSS, and Managed JScript is the bastard, red-headed step-child?&amp;nbsp; I have a proposal, that MS collectively grows a pair and renames "Managed JScript" to "IronScript" and release it like it's "Iron" brethren.&amp;nbsp; Releasing the source would bring a lot of support for the outside world, and getting rid of the "J" could just be a F-U to the "Java" references and confusion altogether.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;I'm a Developer, I build Web Applications, and have for well over a decade now,&amp;nbsp; and I love Javascript.&amp;nbsp; I find the DLR compelling, and really want to see the Javascript implementation treated like a first class citizen.&amp;nbsp; Give me code, samples and howtos.&amp;nbsp; I'm going down this path anyhow, and would rather not do it alone.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2009-05-13 02:34:00</pubDate>
+  <lastModified>2009-06-26 20:01:03</lastModified>
+  <raters>4</raters>
+  <rating>5</rating>
+  <slug>managed-jscript-rant</slug>
+  <tags>
+    <tag>dlr</tag>
+    <tag>jscript</tag>
+    <tag>ironscript</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>4261ac35-19c0-4105-8403-4ee345435a66</category>
+    <category>a2125c63-4e24-476c-aabc-29df3ae4e1b0</category>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+    <category>ca9e6f7d-54de-4467-b698-ca227cb684b3</category>
+  </categories>
+  <notifications>
+    <email>andrewcsontos@hotmail.com</email>
+    <email>dody@nomadlife.org</email>
+    <email>chris@pietschsoft.com</email>
+    <email>peter.newhook@gmail.com</email>
+    <email>chakrur4i@googlemail.com</email>
+  </notifications>
+</post>

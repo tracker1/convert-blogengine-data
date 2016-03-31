@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Detect empty values in JavaScript</title>
+  <description>A simple check for valid, non-empty values in JavaScript.</description>
+  <content>&lt;p&gt;Okay, this is a quick one.  There are several states that can be considered empty in JavaScript, a non-numeric value in a number, an invalid date, and empty string, an undefined value, and a null value.  The issue is that some of these require testing against isNaN, and others will evaluate as matching null or an empty string (ex: the number zero and the boolean false).  What I wanted was a simple method to check for a non-empty object or string, here it is.&lt;p&gt;
+&lt;pre class="brush: js"&gt;function isEmpty(obj) {
+    if (typeof obj == 'undefined' || obj === null || obj === '') return true;
+    if (typeof obj == 'number' &amp;&amp; isNaN(obj)) return true;
+    if (obj instanceof Date &amp;&amp; isNaN(Number(obj))) return true;
+    return false;
+}&lt;/pre&gt;
+
+&lt;p&gt;&lt;br /&gt;
+How it works, is first it tests for an 'undefined' object, an object that is explicitly equal to null, or explicitly equal to an empty string.  If it matches, it's empty.  From here there's some more specific checking, if it's a number type of variable, and isNaN (Not a Number), then it's empty.  If it's a date, and Number(obj) (which gets the value of the date as a Number) isNaN, then it's an invalid date, and ergo isEmpty.  Otherwise the isEmpty returns false (valid, non-empty value). Hope this helps some of you. :)
+&lt;/p&gt;
+
+</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-02-15 11:14:00</pubDate>
+  <lastModified>2010-02-15 11:26:15</lastModified>
+  <raters>1</raters>
+  <rating>5</rating>
+  <slug>js-is-empty</slug>
+  <tags>
+    <tag>javascript</tag>
+    <tag>null</tag>
+    <tag>empty</tag>
+    <tag>undefined</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

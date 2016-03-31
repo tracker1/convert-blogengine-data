@@ -1,0 +1,52 @@
+h1, h2, h3, h4, h5, h6 {
+	margin:0;
+	border:0;
+	padding:0;	
+}
+
+
+/*sectioning content, (todo: use css grid) */
+.grid_4 {
+	display:block;
+	position: relative;
+	width: 400px;
+	z-index: 100;
+}
+
+/*section header, gradient with rounded top-left and top-right border*/
+hgroup {
+	display:block;
+	color: #333333;
+	padding: 0.5em 1em 0.5em 1em;
+	border: 1px solid #999;
+	-webkit-border-radius: 0.6em 0.6em 0 0;
+	-moz-border-radius: 0.6em 0.6em 0 0;
+	border-radius: 0.6em 0.6em 0 0;
+	background: #dddddd;
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0.2,#eeeeee),color-stop(0.8,#cccccc));
+	background: -moz-linear-gradient(#eeeeee, #cccccc);
+	background: linear-gradient(#eeeeee, #cccccc);
+	-pie-background: linear-gradient(#eeeeee, #cccccc);
+}
+
+/*section details/content, gradient with rounded bottom-left bottom-right border */
+details {
+	display:block;
+	color: #333333;
+	border: 1px solid #999;
+	border-width: 0 1px 1px 1px;
+	padding: 1em 1em 1em 1em;
+	-webkit-border-radius: 0 0 0.6em 0.6em;
+	-moz-border-radius: 0 0 0.6em 0.6em;
+	border-radius: 0 0 0.6em 0.6em;
+	background: #f8f8f8;
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0.2,#ffffff),color-stop(0.8,#eeeeee));
+	background: -moz-linear-gradient(#ffffff, #eeeeee);
+	background: linear-gradient(#ffffff, #eeeeee);
+	-pie-background: linear-gradient(#ffffff, #eeeeee);
+}
+
+/*details summary paragraph, good point to make a break for summary displays */
+details summary {
+	display:block;
+}

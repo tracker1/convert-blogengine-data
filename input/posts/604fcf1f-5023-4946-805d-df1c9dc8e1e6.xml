@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>EcmaScript 5's Date Extensions</title>
+  <description>This script will allow you to utilize EcmaScript 5's extensions to the Date object today.</description>
+  <content>&lt;p&gt;Okay, so you want to utilize some of the niceties of the new EcmaScript 5 extensions to Date.&amp;nbsp; Namely they've added a nice instantiation from an ISO-8601-style string, as well as a Date.prototype.toISOString method definition.&amp;nbsp; In addition there are Date.UTC and Date.now methods defined.&amp;nbsp; As the nice guys over at Mozilla have offered script based extensions to Arrays to support their method extensions there, I wanted to do something similar for Date instances.&amp;nbsp; I've managed to do this, and have had it done since the ES5 specs were released, but figured I should put this out there for anyone interested.&lt;/p&gt;
+&lt;pre class="brush: javascript"&gt;var epoch1 = new Date("1970-01-01T00:00:00.000Z");
+var epoch2 = new Date(0);
+
+if (epoch1.getTime() == epoch2.getTime())
+    alert("Epochs match!");
+    
+alert(epoch1.toString()); //localized date instance of the JS epoch
+alert(epoch2.toISOString()); // "1970-01-01T00:00:00.000Z"
+alert(epoch1 instanceof Date); // true
+alert(epoch1.constructor == Date); //true
+alert(Date.UTC(1970,0,1,0,0,0,0)); // 0&lt;/pre&gt;
+&lt;p&gt;I also have a few convenience methods for handling Microsoft's JSON encoded strings. As well as rolling a date from a "Local" or "UTC" version.&lt;/p&gt;
+&lt;p&gt;&lt;a href="/file.axd?file=2010%2f1%2fDateExtensions.js"&gt;DateExtensions.js (11.67 kb)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Edit 2010-01-08: I added missing support for .constructor == Date&lt;/em&gt;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>False</iscommentsenabled>
+  <pubDate>2010-01-07 10:44:00</pubDate>
+  <lastModified>2010-01-08 17:01:29</lastModified>
+  <raters>1</raters>
+  <rating>5</rating>
+  <slug>EcmaScript-5s-Date-Extensions</slug>
+  <tags>
+    <tag>javascript</tag>
+    <tag>date</tag>
+    <tag>echmascript5</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+  </categories>
+  <notifications />
+</post>

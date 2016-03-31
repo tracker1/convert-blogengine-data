@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>The Data Czar</title>
+  <description>Just some thoughts on how to handle data services in larger organizations.</description>
+  <content>&lt;p&gt;Far too often in large organizations there is a disconnect between different DBAs, IT staff and application developers.&amp;nbsp; I think what would be a good thing to see in increasing use would be a small handful of people that understand the mapping of various database schemas for applications within a large organization, and provide a common database interface. [more]&lt;/p&gt;
+&lt;p&gt;With the release of the &lt;a href="http://msdn.microsoft.com/en-us/data/bb931106.aspx"&gt;ADO.Net Data Services Framework&lt;/a&gt; (formerly Astoria), I think this could be a great bridge for such a beast.&amp;nbsp; Simply offering a consistant set of endpoints for data services, for use with servers within an organization, with traffic restricted is much better in my opinion than having numerous web services exposing data from one system to another.&amp;nbsp; A single interface, with a healthy redundancy that is, not to be confused with a single point of failure.&amp;nbsp; Even if actual service end points within a common interface point to various legacy systems, and webservices, it makes a decent system moving forward.&lt;/p&gt;
+&lt;p&gt;The hard part is making progress, while maintaining communications with many different teams and departments.&amp;nbsp; Such a Data Czar would have to have enough people to actually develop and maintain common interfaces, keeping communications with DBAs and IT staff in order to organize changes, as well as respond quickly to developer requests which will include scenarios that may not make it to production, and keeping track of changes that will ultimately be scrapped.&amp;nbsp; Not to mention protecting sensitive information from being directly viewable.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-11-06 00:04:00</pubDate>
+  <lastModified>2009-06-22 17:58:40</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>The-Data-Czar</slug>
+  <tags>
+    <tag>databases</tag>
+    <tag>rdbms</tag>
+    <tag>development</tag>
+    <tag>astoria</tag>
+  </tags>
+  <comments />
+  <categories />
+  <notifications />
+</post>

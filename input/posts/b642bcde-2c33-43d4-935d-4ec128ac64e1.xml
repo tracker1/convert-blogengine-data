@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>C# Tip: Don't Concatenate, Use String.Format</title>
+  <description>Using String.Format instead of inline concatenation makes code far more readable.</description>
+  <content>&lt;p&gt;Something that tends to annoy me, is seeing a ton of string concatenation, such as below.&lt;/p&gt;
+&lt;pre class="brush: csharp;"&gt;string mystring = "&amp;lt;a href="\"&amp;gt;" +
+    ResourceHelper.GetString("somestr", SiteHelper.GetCurrentCulture()) +
+    "&amp;lt;/a&amp;gt;"; &lt;/pre&gt;
+&lt;p&gt;[more]The real issue is seeing the above code all on one line, and with the various html markup intersperced with various object variables.&amp;nbsp; It can be very difficult to follow, especially when you see all this one one line, or not very well broken up.&amp;nbsp; This leads me to the happy little method known as String.Format(), which takes a format string as its' first parameter, and a set of objects as parameters to be formatted into the string.&amp;nbsp; Below is the above example rewritten to use String.Format().&lt;/p&gt;
+&lt;pre class="brush: csharp;"&gt;string mystring = string.Format(
+    "&amp;lt;a href="\"&amp;gt;{3}&amp;lt;/a&amp;gt;",
+    someObject.BasePath,
+    otherObject.SomeValue,
+    ResourceHelper.GetString("MyResourceKey", SiteHelper.GetCurrentCulture())
+); &lt;/pre&gt;
+&lt;p&gt;&lt;span&gt;[more]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The above example is much more readable.&amp;nbsp; The format string takes numbered parameters starting at 0 and can even take a format string such as for a date.&lt;/p&gt;
+&lt;pre class="brush: csharp;"&gt;string formattedString = string.Format(
+    "{0:yyyy-MM-dd}{1}{2:0,0.0000}",
+    someObject.DateTimeValue,
+    someObject.StringValue,
+    someObject.DoubleValue
+); &lt;/pre&gt;
+&lt;p&gt;As you can see, using String.Format can make your formatted text much easier to follow and read than inline concatenation.&amp;nbsp; I know the examples above apply to formatting text into html markup, and acknowledge that this isn't the *only* place where this happens, however it is one of the more common themes I see used over, and over again.&amp;nbsp; If your string floats off to the right of the screen, and you can't easily follow the concatenation, then string.Format is probably a good idea.&amp;nbsp; Especially combined with multi-line strings in C# (@"").&amp;nbsp; Note, if you need a literal curly braces symbol ("{" or "}") simply double the character up ("{{" or "}}").&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-10-24 09:57:00</pubDate>
+  <lastModified>2009-06-22 18:22:36</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>C-Tip-Dont-Concatenate-Use-StringFormat</slug>
+  <tags>
+    <tag>strings</tag>
+    <tag>c#</tag>
+    <tag>vb</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>b759f38b-6099-4ae9-98bc-c504d2d6955b</category>
+    <category>16235712-91fa-4450-91e0-d2b0cbe05f5c</category>
+  </categories>
+  <notifications>
+    <email>wightmanj@sky.com</email>
+  </notifications>
+</post>

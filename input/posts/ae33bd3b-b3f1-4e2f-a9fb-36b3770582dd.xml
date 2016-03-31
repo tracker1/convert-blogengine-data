@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>newuser09876</author>
+  <title>JSON.parseAjax Method, handling encoded dates in a JSON string.</title>
+  <description />
+  <content>&lt;div&gt;
+&lt;p&gt;
+Okay, the availability of JSON.parse and JSON.stringify is awesome in modern browsers.
+I'm including my modifications to the &lt;a href="http://json.org/"&gt;JSON.org&lt;/a&gt; &lt;a href="http://www.json.org/js.html"&gt;json2.js&lt;/a&gt; script to include a 
+method JSON.parseAjax that will revive ISO-8601 and Microsoft Ajax encoded 
+Date strings into a native Date object.  I am also checking against the IE version 
+as a bug in IE8's native JSON.parse method may raise an error that you can't catch 
+when you extend the prototype of Array, Function, Object etc.
+&lt;/p&gt;
+&lt;pre class="brush: javascript"&gt;//parse a test string, where test1 is an ISO-8601 Date, and test2 is an MS-Ajax Date
+var obj = JSON.parseAjax('{"test1":"1970-01-01T00:00:00Z", "test2":"\\\/Date(0)\\\/"}');
+
+//object was returned and test1's value equals test2's value
+alert( obj &amp;&amp; obj.test1.valueOf() == obj.test2.valueOf());&lt;/pre&gt;
+
+&lt;p&gt;
+This allows you to handle a number of different methods of returning Date-Time 
+strings from the server.  It's worth noting that you should always send date 
+times as UTC based when passing over the wire.
+&lt;/p&gt;
+&lt;p&gt;&lt;a href="/file.axd?file=2010%2f9%2fjson2-ajax.js"&gt;json2-ajax.js (15.25 kb)&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-09-28 14:37:00</pubDate>
+  <lastModified>2016-03-30 18:00:00</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>JSONparseAjax-Method-handling-encoded-dates-in-a-JSON-string</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

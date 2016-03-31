@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Trim Strings In JavaScript</title>
+  <description />
+  <content>&lt;p&gt;Okay, so you want to trim a string in JavaScript/JScript/EcmaScript, but you find that the functionality just isn't built in.&amp;nbsp; Here's a quick little snippet that will add said functionality pretty easily. [more]&lt;/p&gt;
+&lt;pre class="brush: js"&gt;if (!String.prototype.trim)
+    String.prototype.trim = function() {
+        return this.toString().replace(/^[\s\r\n]*([\w\W]*?)[\s\r\n]*$/, "$1");
+}
+&lt;/pre&gt;
+&lt;p&gt;Also... here's a library for &lt;a href="http://www.JavascriptToolbox.com/lib/date/"&gt;extending JS's Date class&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In addition to these little quickies, take a look at &lt;a href="http://www.prototypejs.org/"&gt;prototype.js&lt;/a&gt; or &lt;a href="http://jquery.com/"&gt;jQuery&lt;/a&gt;.  Both of these frameworks provide some cool things, and though they overlap in terms of functionality, both work very well.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-08-27 12:33:00</pubDate>
+  <lastModified>2009-06-22 19:33:06</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Trim-Strings-In-JavaScript</slug>
+  <tags>
+    <tag>javascript</tag>
+    <tag>prototype</tag>
+    <tag>jquery</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>a2125c63-4e24-476c-aabc-29df3ae4e1b0</category>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+  </categories>
+  <notifications />
+</post>

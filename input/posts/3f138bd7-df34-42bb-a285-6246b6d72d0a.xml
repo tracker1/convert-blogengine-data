@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Development Environments, What a pain...</title>
+  <description>Just a quick rant about setting up development environments.</description>
+  <content>&lt;p&gt;Okay, as of today I'll be spending about two days a week dedicated to &lt;a href="http://www.opencampfire.net/"&gt;OpenCampfire.Net&lt;/a&gt;, which in and of itself is pretty cool.&amp;nbsp; Well, my first task is to setup my development environment.&amp;nbsp; I've decided to use Microsoft's Virtual PC 2007 as my host environment, since most of my development time will be done in a windows host, and a windows client.&amp;nbsp; As you can see from my &lt;a href="http://code.google.com/p/open-campfire/wiki/DevelopmentEnvironmentSetup"&gt;setup list&lt;/a&gt; so far, there's a lot to do.&amp;nbsp; I started off around 9am, and it's now 3:30 in the afternoon, and I am just finishing off my Visual Studio 2008 install. [more]&lt;/p&gt;
+&lt;p&gt;&lt;img style="float: right" src="/image.axd?picture=vpc-vs08.jpg" alt="" /&gt;&lt;/p&gt;
+&lt;p&gt;I know that everyone uses different tools depending on a given project, and different applications save there settings in different places, but it just isn't fun babysitting an install all day.&amp;nbsp; Of course one nice thing, is once you have your baseline applications setup, you can simply copy your virtual drive, and use this as a baseline in the future.&amp;nbsp; I've been using my win2003 + vs2005 baseline for a couple years now, and it's worked well.&amp;nbsp; This is using win2008 with vs2008 though, and is going to be geared towards more modern development tasks.&amp;nbsp;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;It would be nice if you MS had a way to "unlicense" your software, including windows in these VMs and allow for redistribution.&amp;nbsp; Though given that some of the software I am installing is under various different licenses this may never actually be practical, it's just a pipe dream I guess.&lt;/p&gt;
+&lt;p style="clear: both; font-size: 1pt"&gt;&amp;nbsp;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-07-01 15:30:00</pubDate>
+  <lastModified>2009-06-22 19:36:59</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Development-Environments-What-a-pain</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>0ee63713-313b-447b-957c-898e521da44d</category>
+    <category>d3379a7d-4d21-48a5-bdc6-7012d71fa8af</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+    <category>ca9e6f7d-54de-4467-b698-ca227cb684b3</category>
+  </categories>
+  <notifications />
+</post>

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Refactoring</title>
+  <description>Just a few quick notes on refactoring.</description>
+  <content>&lt;p&gt;Okay, there are two main reasons to refactor.&amp;nbsp; The first is clarity of code.&amp;nbsp; Since we have a working base, we can now concentrate on making our logic readable, breaking major blocks of code into separate methods, as well as possibly change how certain calls work.&amp;nbsp; The second major reason to refactor is for performance or scale.&amp;nbsp; One needs to first realize that scale and performance aren't always the same thing.&amp;nbsp; Scaling is about consistency, where performance is about speed.&amp;nbsp; The two often have the same result, but not always. [more] As an example, using out of process ASP.Net Sessions scales better, but the performance of a single connection is slower.&lt;/p&gt;
+&lt;p&gt;When refactoring for readability it often comes down to utilizing the framework and, or the language being used.&amp;nbsp; Often there are language constructs or framework objects and methods that can increase clarity.&lt;/p&gt;
+&lt;pre class="brush: csharp"&gt;try
+{
+    if (Context.Items["SomeValue"] != null)
+        someVar = int.Parse(Context.Items["SomeValue"]);
+    else
+        someVar = 0;
+}
+catch (Exception)
+{
+    someVar = 0;
+}&lt;/pre&gt;
+&lt;p&gt;The above example is fairly common in C# (.Net) code.  This is because many people don't know about the TryParse methods that were added in .Net version 2.&lt;/p&gt;
+&lt;pre class="brush: csharp"&gt;int.TryParse(Context.Items["SomeValue"].ToString(), someVar);&lt;/pre&gt;
+&lt;p&gt;Just that small piece of knowledge about the framework being used can mean a lot less code.  This example doesn't really improve performance, so much as readability.  This is because it mearly abstracts your logic out.  Just the same, imagine having to validate a dozen numeric inputs in a row.&lt;/p&gt;
+&lt;p&gt;As to performance, there is another new development in .Net that can help a lot.  A project I am working on was using a DataTable in memory as retreived from a database call using a DataAdapter to store said settings in memory.  When looking up a particular value the .Select() method of the DataTable was being called with the given search value for the key.  This is relatively quick, until you consider that this was being called a few dozen times per page, on a site with many thousands of simultaneous users.  Below is the logic for the before.&lt;/p&gt;
+&lt;pre class="brush: csharp"&gt;public static string GetConfigValue(string key)
+{
+    string ret = null;
+    DataTable dtConfigSettings = GetConfig();
+    if (key != string.Empty)
+    {
+        DataRow[] drs = dtConfigSettings.Select("KeyName='" + key + "'");
+        if (drs != null &amp;amp;&amp;amp; drs.Length != 0)
+            ret = drs[0]["KeyValue"].ToString();
+    }
+    return ret;
+}&lt;/pre&gt;
+&lt;p&gt;And here is the logic after...&lt;/p&gt;
+&lt;pre class="brush: csharp"&gt;public static string GetConfigValue(string key)
+{
+    string ret = null;
+    Dictionary settings = GetConfig();
+    try {
+        ret = settings[key.ToString().Trim().ToLower()]; //avoid excessive check/get, rely on exception.
+    } catch(Exception ex) {
+        EventLogger.HandleException(ex, "Log Only Policy");
+    }
+
+    return ret;
+}&lt;/pre&gt;
+&lt;p&gt;Basically this comes down to, "don't use a dump truck to deliver your mail."&amp;nbsp; The DataTable is a fairly large object, and using the .Select() method a lot more overhead than using what equates to a hash-table index lookup.&amp;nbsp; Now, you may notice that I use a try/catch block in place of checking to see if a given key exists.&amp;nbsp; This is because I expect the key to be there every time, and only need the catch block as a bit of protection.&amp;nbsp; Checking on settings.ContainsKey() would mean the index for the Dictionary would be searched twice.&amp;nbsp; Because this method is called many times, by many users, on many pages, even the near insignificant amount of performance difference in the before and after of this method add up to seconds on the load of various pages.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-11-19 19:29:00</pubDate>
+  <lastModified>2009-06-22 20:41:21</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Refactoring</slug>
+  <tags>
+    <tag>refactoring</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>b759f38b-6099-4ae9-98bc-c504d2d6955b</category>
+    <category>48cb218a-b8a9-4fdd-a440-910d38689262</category>
+  </categories>
+  <notifications />
+</post>

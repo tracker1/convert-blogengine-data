@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Getting the Server-Side Offset to the JavaScript Epoch in C#</title>
+  <description>Sometimes you just need to get the usable offset from the server-side point of view in JavaScript.</description>
+  <content>&lt;p&gt;Just in case anyone else needs it, here's my method for getting the millisecond offset of a server's local time to UTC time in milliseconds, for use in client-side JavaScript.&lt;/p&gt;
+&lt;pre class="brush: csharp"&gt;private int ServerSideJsUtcOffset
+{
+    get {
+        DateTime epoch = new DateTime(1970,1,1);
+        int offset = (int)epoch.ToUniversalTime().Subtract(epoch).TotalMilliseconds;
+        return offset;
+    }
+}&lt;/pre&gt;
+&lt;p&gt;There's really not much to it, it's mainly so that I can handle converting serialized dates to a proper local time on the client.  The DateTime objects in question are stored in a database as the UTC date-time, via an ORM tool, and sent to the client with System.Web.Script.Serialization.JavaScriptSerializer.  All the server-side code uses the same ORM tool, and all the client-side JSON is processed via the same local parser.  So it was simply easier adjusting the client-side parser than it was to adjust the server-side class hierarchy.&lt;/p&gt;
+&lt;p&gt;I should note that I could have set the initial date to DateTime.Now instead of implicitely using the JS epoch, as the difference would be the same for any localized DateTime, just felt the clarity was worth it.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2009-09-03 16:50:00</pubDate>
+  <lastModified>2009-09-03 17:31:19</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>javascript-server-utc-offset-csharp</slug>
+  <tags>
+    <tag>javascript</tag>
+    <tag>csharp</tag>
+    <tag>c#</tag>
+    <tag>offset</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>b759f38b-6099-4ae9-98bc-c504d2d6955b</category>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+  </categories>
+  <notifications />
+</post>

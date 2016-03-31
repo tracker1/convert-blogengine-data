@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>C# Tip: Use StringBuilder</title>
+  <description>It's easy to overlook some of the built in functionality in the .Net framework.  In this entry I cover the use of StringBuilder instead of appending to existing string variables</description>
+  <content>&lt;p&gt;Okay, as an extension to the last post on String.Format, I'm doing a quick introduction to the System.Text.StringBuilder class.&amp;nbsp; Why, you ask.&amp;nbsp; Because when you append to a string, there is a lot of memory being allocated, transferred and dumped behind the scenes.&amp;nbsp; Say you have a string of "My string is" and you want to append " cool." what happens is a new string is allocated in memory, with enough space for the original string, and the appended value.&amp;nbsp; Then the original string is copied to the beginning, and the appended string is copied after.&amp;nbsp; This is very inneficient.&amp;nbsp; StringBuilder pre-allocates additional space, and handles the concatenation behind the scenes. [more]&lt;/p&gt;
+&lt;pre class="brush: csharp;"&gt;using System.Text;
+
+namespace MyDemo
+{
+    class MyClass
+    {
+        public string MyMethod()
+        {
+            StringBuilder s = new StringBuilder();
+            s.Append("My string is");
+            s.Append(" cool");
+            return s.ToString();
+        }
+    }
+}&lt;/pre&gt;
+&lt;p&gt;In the above example, you can see that it isn't at all difficult to use StringBuilder.  You do need to remember to use the ToString() method to retrieve the internal value back as a string.  There is one cool feature of StringBuilder that is related to the last post, that is the AppendFormat() method.&lt;/p&gt;
+&lt;pre class="brush: csharp;"&gt;s.AppendFormat(
+    "It is now {0}.",
+    DateTime.Now
+);&lt;/pre&gt;
+&lt;p&gt;With AppendFormat, you can add values into your StringBuilder class, as you would with a String.Format.&amp;nbsp; Now, if you want some similar functionality in JavaScript, you can always use an array, in place of a StringBuilder.&amp;nbsp; And use the push() method.&amp;nbsp; Once you have your array filled, you can use the join("") method, you need to use an empty string as the argument, as the default is a comma.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-11-05 18:31:00</pubDate>
+  <lastModified>2009-06-22 18:04:26</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>C-Tip-Use-StringBuilder</slug>
+  <tags>
+    <tag>strings</tag>
+    <tag>c#</tag>
+    <tag>stringbuilder</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>b759f38b-6099-4ae9-98bc-c504d2d6955b</category>
+    <category>16235712-91fa-4450-91e0-d2b0cbe05f5c</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications>
+    <email>wightmanj@sky.com</email>
+  </notifications>
+</post>

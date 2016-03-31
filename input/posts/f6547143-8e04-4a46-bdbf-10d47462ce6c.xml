@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Compressing Bytes In .Net</title>
+  <description />
+  <content>&lt;p&gt;Okay, this started when I wanted to store a bit of JSON that gets rendered into the ASP.Net cache.&amp;nbsp; Each entry would be unique to a given user, and I wanted to save a little memory, each entry would be about 8KB in size.&amp;nbsp; I looked into this and found the System.IO.Compression namespace that is available in .Net 3.5.&amp;nbsp; I created a small class with some helper extensions to be able to compress/decompress an array of byte, and handle to/from a native string.&amp;nbsp; Here's what I came up with.&lt;/p&gt;
+&lt;div&gt;&lt;br /&gt;&lt;em&gt;CompressionExtensions.cs&lt;/em&gt;&lt;/div&gt;
+&lt;pre class="brush: js"&gt;using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.IO.Compression;
+
+namespace Sample
+{
+    public static class CompressionExtensions
+    {
+        const int KB = 1024;
+
+        public static byte[] Compress(this byte[] input)
+        {
+            using (var ms = new MemoryStream(input.Length + 8))
+            {
+                ms.Write(BitConverter.GetBytes(input.Length), 0, 4); //record original length
+
+                if (input.Length &amp;lt; KB)
+                {
+                    //if less than 1KB, don't compress original
+                    ms.Write(input, 0, input.Length);
+                    return ms.ToArray().Take(input.Length + 4).ToArray();
+                }
+
+                //compress the original input
+                using (var ds = new DeflateStream(ms, CompressionMode.Compress))
+                {
+                    //send the original input to the compressed stream
+                    ds.Write(input, 0, input.Length);
+
+                    //add null padding. the decompress gets wonky without it.
+                    ds.Write(new byte[4], 0, 4);
+                    ds.Flush();
+                    ms.Flush();
+                    return ms.ToArray();
+                }
+            }
+        }
+
+        public static byte[] Decompress(this byte[] input)
+        {
+            if (input == null || input.Length &amp;lt; 4)
+                throw new ApplicationException("Invalid compressed bytes, no length header.");
+        
+            var bitlen = BitConverter.ToInt32(input, 0);
+
+            //if less than 1KB, return the non-compressed original
+            if (bitlen &amp;lt; KB) return input.Skip(4).ToArray();
+
+            var buffer = new byte[bitlen];
+            using (var ms = new MemoryStream(input.Length - 4))
+            {
+                ms.Write(input, 4, input.Length - 4);
+                ms.Flush();
+                ms.Seek(0, SeekOrigin.Begin);
+                using (var ds = new DeflateStream(ms, CompressionMode.Decompress))
+                {
+                    //this always returns a -1 for the first read
+                    //    subsequent reads will work properly
+                    ds.ReadByte();
+
+                    //read the input stream into the return buffer
+                    if (bitlen &amp;gt; ds.Read(buffer, 0, bitlen))
+                        throw new ApplicationException("Invalid compressed bytes.");
+                }
+            }
+
+            //only return the number of bytes originally saved, trim excess
+            return buffer;
+        }
+
+        public static byte[] ToCompressedBytes(this string input)
+        {
+            return Encoding.UTF8.GetBytes(input).Compress();
+        }
+
+        public static string ToDecompressedString(this byte[] b)
+        {
+            return Encoding.UTF8.GetString(b.Decompress());
+        }
+    }
+}&lt;/pre&gt;
+&lt;p&gt;I found that without adding some padding of at least two null bytes, the decompression of the data would sometimes give me an invalid final byte.  I also push in a 4-byte length header for a sanity check.  This also helps me to not compress anything under 1KB in size, where compression really doesn't work very well.&lt;/p&gt;
+&lt;p&gt;The conversion of the string to UTF8 helps more with strings that will mostly contain values within the ASCII character set.  It is worth noting that if there are mostly multibyte characters, the byte array itself could get bloated.  For my usage, I'm getting an 8KB string down to around 2KB, you could extend this to support UTF8/Unicode encoding by appending a character to the end before compressing.  This may be useful if the string is &amp;gt;2KB and more than 1/3 is multibyte characters, this would take a little more CPU time to inspect the input string in this case.&lt;/p&gt;
+&lt;p&gt;Your milage may vary.  Void where prohibited.  Quantities limited.  Some restrictions may apply. &lt;small&gt;&lt;em&gt;Batteries not included.&lt;/em&gt;&lt;/small&gt;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2009-08-20 10:57:00</pubDate>
+  <lastModified>2009-08-20 11:11:02</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>compressing-bytes-in-dotnet</slug>
+  <tags>
+    <tag>c#</tag>
+    <tag>compression</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>b759f38b-6099-4ae9-98bc-c504d2d6955b</category>
+    <category>48cb218a-b8a9-4fdd-a440-910d38689262</category>
+    <category>16235712-91fa-4450-91e0-d2b0cbe05f5c</category>
+    <category>8510a115-d169-44dc-87f0-ba38e5a77ed8</category>
+    <category>a2302d46-e500-41f6-b1bd-8a511fa8a41e</category>
+  </categories>
+  <notifications />
+</post>

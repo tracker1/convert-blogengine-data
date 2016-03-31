@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Prism + Meebo == Great, Portable IM Solution</title>
+  <description />
+  <content>&lt;p&gt;I know I'm not the first person to note &lt;a href="http://www.meebo.com/"&gt;Meebo&lt;/a&gt;, and I know a lot of people are aware of &lt;a href="http://labs.mozilla.com/2007/10/prism/"&gt;Prism &lt;/a&gt;(formerly WebRunner) from Mozilla.&amp;nbsp; The combination just happens to work very well, if only there were an option to group the window notifications to a single system tray icon.&amp;nbsp; As having the main meebo window minimized, with the list popped out, and discussions popped out, leads to a few entrys in the taskbar. [more]&lt;/p&gt;
+&lt;p&gt;&lt;img style="float: right" src="/image.axd?picture=prism_meebo.jpg" alt="" width="375" height="275" /&gt;That's honestly about my only complaint here.&amp;nbsp; I've been using &lt;a href="http://pidgin.im/"&gt;Pidgin&lt;/a&gt; (formerly Gaim) quite a bit, but find the macport for it isn't working, though I haven't tried fink yet.&amp;nbsp; it's just another option for those of us looking to take our stuff with us, and using more than one platform.&lt;/p&gt;
+&lt;p style="clear: right; visibility: hidden"&gt;.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-06-23 12:53:00</pubDate>
+  <lastModified>2009-06-22 19:39:18</lastModified>
+  <raters>1</raters>
+  <rating>5</rating>
+  <slug>Prism-Meebo-3d3d-Great-Portable-IM-Solution</slug>
+  <tags>
+    <tag>im</tag>
+    <tag>messaging</tag>
+    <tag>windows</tag>
+    <tag>linux</tag>
+    <tag>osx</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>f4ccdf18-f963-4860-9ad6-4b0bd4cbb830</category>
+    <category>0b5c5b7e-b489-46a0-a399-7f4f53b1712e</category>
+    <category>ca9e6f7d-54de-4467-b698-ca227cb684b3</category>
+  </categories>
+  <notifications />
+</post>

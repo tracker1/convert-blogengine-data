@@ -1,0 +1,29 @@
+{
+  "name": "convert-blogengine-data",
+  "private": "true",
+  "version": "1.0.0",
+  "description": "Convert old frugalcoder.us data for use with new tracker1.info",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tracker1/convert-blogengine-data.git"
+  },
+  "author": "Michael J. Ryan <tracker1@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tracker1/convert-blogengine-data/issues"
+  },
+  "homepage": "https://github.com/tracker1/convert-blogengine-data#readme",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.6.5",
+    "babel-preset-es2015-node5": "^1.2.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "cheerio": "^0.20.0",
+    "js-yaml": "^3.5.5",
+    "mz": "^2.4.0"
+  }
+}

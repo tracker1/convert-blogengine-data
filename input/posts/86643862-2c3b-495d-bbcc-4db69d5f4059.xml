@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>MySite - Part 1</title>
+  <description>My goal is to create a personal website application that implements the features needed, and wanted for someone who wants to create a personal site that extends beyond just a blogging engine.  I've been wanting to work with ASP.Net MVC and some other technologies, so I'll be focusing on using them in MySite.</description>
+  <content>&lt;p&gt;My goal is to create a personal website application that implements the features needed, and wanted for someone who wants to create a personal site that extends beyond just a blogging engine.&amp;nbsp; I've been wanting to work with ASP.Net MVC and some other technologies, so I'll be focusing on using them in MySite. [more]&lt;/p&gt;
+&lt;p&gt;I'll be wanting to implement the following features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minimal CMS interface.&lt;/li&gt;
+&lt;li&gt;The ability to run in a single publisher site configuration, as well as a family and friends mode.&lt;/li&gt;
+&lt;li&gt;A public gallery, with user-customizable areas, and images available in multiple areas.&lt;/li&gt;
+&lt;li&gt;A public comment system that allows for OpenID posting, as well as post validation.&lt;/li&gt;
+&lt;li&gt;A resume builder.&lt;/li&gt;
+&lt;li&gt;A blog engine, with the features available in &lt;a href="http://www.dotnetblogengine.net/"&gt;BlogEngine.Net&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;Downloadable Themes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I intend to use the following technologies:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ASP.Net MVC&lt;/li&gt;
+&lt;li&gt;SQLite.Net&lt;/li&gt;
+&lt;li&gt;jQuery&lt;/li&gt;
+&lt;li&gt;OpenID &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I realize there is a &lt;a href="http://www.asp.net/downloads/starter-kits/personal/"&gt;Personal Site Starter Kit for ASP.Net&lt;/a&gt;, though it does have several flaws.&amp;nbsp; Firstly, it's designed in such a way that it expects most users to have an account in the system.&amp;nbsp; I feel that a personal website first, and formost should concentrate on what it will offer the public.&amp;nbsp;  &lt;img style="float: right; margin-left: 1em; margin-bottom: 0.5em" src="/image.axd?picture=New+ASP.Net+MVC+Web+Application.png" alt="" /&gt; Second, it doesn't contain any kind of blog tie in, which is a pretty serious shortcoming.&amp;nbsp; My goal will be to create something similar to the Personal Website Starter Kit, but add the missing blogging functionality, as well as make the internal login process more for accounts that will be publishing content.&amp;nbsp; Content publishers will use internal accounts for logging in.&amp;nbsp; For posting comments and other visitor functions, I'll be incorporating &lt;a href="http://openid.net/"&gt;OpenID&lt;/a&gt;.&amp;nbsp; I'll be making a control for logging in that should make it more transparent for users of existing OpenID providers, which now includes Yahoo, AOL, and Microsoft's Live.&amp;nbsp; Pretty much everyone online has an OpenID, even if they don't know it.&lt;/p&gt;
+&lt;p&gt;I've decided to use SQLite.Net as the database, since it is light, portable, and cross-platform.&amp;nbsp; This will probably not scale to epic proportions, but should do well enough for most blogs.&amp;nbsp; In terms of behavior and configuration, I'll be referencing several other blog posts.&amp;nbsp; Here are a few worth looking at.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://pietschsoft.com/post/2008/08/Custom-Themes-in-ASPNET-MVC-Updated-for-Preview-5.aspx"&gt;Using themes in ASP.Net MVC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.hanselman.com/blog/jQueryToShipWithASPNETMVCAndVisualStudio.aspx"&gt;jQuery to ship with ASP.Net MVC and Visual Studio&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://haacked.com/archive/2008/11/05/donut-caching-in-asp.net-mvc.aspx"&gt;Donut Caching in ASP.Net MVC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://blog.maartenballiauw.be/post/2008/07/01/Extending-ASPNET-MVC-OutputCache-ActionFilterAttribute-Adding-substitution.aspx"&gt;ASP.Net MVC OutputCache Substitution&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://amrelsehemy.net/post/2008/09/21/Introducing-jBlogMvc.aspx"&gt;jBlogMVC, a blog engine in ASP.Net MVC with jQuery&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://aspalliance.com/1630_Building_a_Simple_Blog_Engine_with_ASPNET_MVC_and_LINQ__Part_4"&gt;Building a Simple Blog Engine with ASP.NET MVC and LINQ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The above are just some considerations in terms of creating this application.&amp;nbsp; If you aren't familiar with ASP.Net MVC, you can check out some of the videos on the &lt;a href="http://www.asp.net/MVC/"&gt;ASP.Net MVC website&lt;/a&gt;.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;To get started, the following items need to be downloaded and installed.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Visual Studio 2008 or the free &lt;a href="http://www.microsoft.com/express/vwd/"&gt;Visual Web Developer 2008 Express&lt;/a&gt;&amp;nbsp;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.asp.net/MVC/"&gt;ASP.Net MVC Beta&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://sqlite.phxsoftware.com/"&gt;SQLite.Net Data Provider&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;jQuery and the Visual Studio documentation file from the &lt;a href="http://docs.jquery.com/Downloading_jQuery"&gt;jQuery website&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There may well be more tools needed, but this is where I am starting from.&amp;nbsp; I first create my ASP.Net MVC Web Application in Visual Studio. After creating the MVC app, I select to create an associated unit testing project.&amp;nbsp; After this, I add a MySite.Data project to the solution as well.&lt;/p&gt;
+&lt;p&gt;My next post will contain my plans for organizing data, and starting the creation of the data access later.&amp;nbsp; I won't be using the Entity framework, or LINQ simply because I intend to have separate databases for sitewide configuration and authentication, with each content user having their own separate database.&amp;nbsp; This may be a somewhat premature optimization, but should allow for slightly better scaling with the SQLite database(s).&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-11-11 22:14:00</pubDate>
+  <lastModified>2009-06-22 17:55:37</lastModified>
+  <raters>2</raters>
+  <rating>4.5</rating>
+  <slug>MySite-Part-1</slug>
+  <tags>
+    <tag>mysite</tag>
+    <tag>blog</tag>
+    <tag>asp.net</tag>
+    <tag>mvc</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>b759f38b-6099-4ae9-98bc-c504d2d6955b</category>
+    <category>48cb218a-b8a9-4fdd-a440-910d38689262</category>
+    <category>4261ac35-19c0-4105-8403-4ee345435a66</category>
+    <category>74792ded-18cd-4dab-b1a7-05d2649feeca</category>
+    <category>8510a115-d169-44dc-87f0-ba38e5a77ed8</category>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ec0b5566-5e98-49ab-9f01-d19cad275b87</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

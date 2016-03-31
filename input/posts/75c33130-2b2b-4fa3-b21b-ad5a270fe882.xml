@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Turning a Dictionary List into a FAQ with jQuery</title>
+  <description>Today I had to create a FAQ page.  In order to make this work nicely I started with a simple Dictionary List markup, and some jQuery sugar to make an expand/collapse list.</description>
+  <content>&lt;p&gt;Today I had to create a FAQ page.&amp;nbsp; In order to make this work nicely I started with a simple Dictionary List markup, and some jQuery sugar to make an expand/collapse list.&amp;nbsp; Although I love prototype.js, jQuery's nesting and inline DOM object creation really comes in handy. [more]&lt;/p&gt;
+&lt;p&gt;Here is the html markup for the dictionary list (DL)&lt;/p&gt;
+&lt;pre class="brush: html"&gt;&amp;lt;dl class="faq"&amp;gt;
+    &amp;lt;dt&amp;gt;Item 1&amp;lt;/dt&amp;gt;
+    &amp;lt;dd&amp;gt;
+        Description for Item 1 goes in here...
+    &amp;lt;/dd&amp;gt;
+
+    &amp;lt;dt&amp;gt;Item 2&amp;lt;/dt&amp;gt;
+    &amp;lt;dd&amp;gt;
+        Description for Item 2 goes in here...
+    &amp;lt;/dd&amp;gt;
+&amp;lt;/dl&amp;gt;&lt;/pre&gt;
+&lt;p&gt;The following style will presume that each DT (Dictionary Term) will have an EM tag for the arrow marker, and a STRONG tag for the actual text. The EM tag is forced to a unicode font, so that it will display properly and consistantly in Windows, you could also use images in place of the triangle characters in order to match your UI better.&lt;/p&gt;
+&lt;pre class="brush: css"&gt;.faq dt {
+    color:#444444;
+}
+.faq dt em {
+    /*  Force unicode font for windows machines (XP or higher)
+        Linux/Mac should work with Sans-Serif (default). */
+    font-family:'Arial Unicode MS', Sans-Serif;
+    display:inline;
+    height:1em;
+    width:1em;
+    overflow:hidden;
+    font-style:normal;
+}
+.faq dt.over { color: #0000cc; }
+ 
+.faq dd {
+    margin: 0 0 0.3em 1em;
+    border-width:0 0 0 2px;
+    border-style: solid;
+    border-color: #888888;
+    padding: 0 0 0 0.5em;
+}
+&lt;/pre&gt;
+&lt;p&gt;Now for the javascript, We need to define the Arrow unicode characters to their html counterparts for easier use in the rest of the script.&lt;/p&gt;
+&lt;pre class="brush: js"&gt;var Arrow = {
+    up: "&amp;amp;#x25B2;",
+    down: "&amp;amp;#x25BC;",
+    right: "&amp;amp;#x25B6;",
+    left: "&amp;amp;#x25C0;"
+}
+&lt;/pre&gt;
+&lt;p&gt;the enableFAQs function below is the bulk of the logic, I'll break it down inline...&lt;/p&gt;
+&lt;pre class="brush: js"&gt;function enableFAQs() {&lt;/pre&gt;
+&lt;p&gt;First, we want to hide all the dictionary definitions (answers).&lt;/p&gt;
+&lt;pre class="brush: js"&gt;    $j(".faq dd").css("display", "none");&lt;/pre&gt;
+&lt;p&gt;Next we create a shortcut matching all the dictionary terms within the FAQs. and for each term, we will replace the plain text with an EM tag with the arrow character, and a STRONG tag with the original text.&lt;/p&gt;
+&lt;pre class="brush: js"&gt;    var dts = $j(".faq dt");
+    dts.each(function(i) {
+        var dt = $j(this);
+        var txt = dt.html();
+ 
+        dt.empty()
+            .css("margin-top", (i &amp;gt; 0) ? "0.5em": "0")
+            .append($j("&amp;lt;em /&amp;gt;").html(Arrow.right))
+            .append(" ")
+            .append($j("&amp;lt;strong /&amp;gt;").html(txt));
+    });&lt;/pre&gt;
+&lt;p&gt;Then we assign some mouseover/out logic.&lt;/p&gt;
+&lt;pre class="brush: js"&gt;    dts.mouseover(function(event) {
+        $j(this).addClass("over");
+    });
+    dts.mouseout(function(event) {
+        $j(this).removeClass("over");
+    });&lt;/pre&gt;
+&lt;p&gt;Next comes the fun part, the click event handler... First we need to get a handle on the dictionary term (DT) and the dictionary definition (DD) so we can set them appropriately.  After this, I create a local variable as to if the DD is currently visible.  After this, I have some commented out methods in case you want to collapse other members before changing the visibility.  After that I set the visibility of the DD tag, as well as changing the marker to the appropriate arrow.&lt;/p&gt;
+&lt;pre class="brush: js"&gt;    dts.click(function(event) {
+        event.stopPropagation();
+        var dt = $j(this);
+        var dd = dt.next("dd");
+        var visible = !(dd.css("display") == "none")
+
+        //uncomment to auto-close other FAQ elements
+        // $j(".faq dt em").html(Arrow.right);
+        // $j(".faq dd").css("display", "none");
+ 
+        if (!visible) {
+            dd.css("display", "block");
+            dt.children("em").html(Arrow.down);
+        } else {
+            dd.css("display", "none");
+            dt.children("em").html(Arrow.right);
+        }
+    });
+}
+&lt;/pre&gt;
+&lt;p&gt;After this, we simply use the DOM ready method from jquery to initialize the FAQs.&lt;/p&gt;
+&lt;pre class="brush: js"&gt;$j(function() {
+    enableFAQs();
+});&lt;/pre&gt;
+&lt;p&gt;Hopefully this will be helpful to everyone out there.  It took me a little while to get this all working as I want it, and I am not the most familiar with all of jQuery's methodology, which is what took me a while.&lt;/p&gt;
+&lt;p&gt;&lt;a rel="enclosure" href="/file.axd?file=faq-test.html"&gt;faq-test.html (2.62 kb)&lt;/a&gt;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-10-01 14:59:00</pubDate>
+  <lastModified>2009-06-22 18:49:51</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>Turning-a-Dictionary-List-into-a-FAQ-with-jQuery</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ec0b5566-5e98-49ab-9f01-d19cad275b87</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Browser detection script</title>
+  <description>Simple browser detection script file.  Javascript detection of your current browser.</description>
+  <content>&lt;div&gt;
+&lt;div&gt;
+&lt;p&gt;This javascript will add a global &lt;code&gt;&lt;b&gt;browser&lt;/b&gt;&lt;/code&gt; object, with properties to match the current browser version.&lt;/p&gt;
+&lt;p&gt;Note: it does use &lt;code&gt;&lt;b&gt;navigator.userAgent&lt;/b&gt;&lt;/code&gt; strings for version detection.  It should be used for resolving browser UI quirks, not in place of feature testing.&lt;/p&gt;
+&lt;p&gt;You can output the detection (after it is loaded) to say a div with an id of diagnostics via:&lt;/p&gt;
+&lt;/div&gt;
+&lt;pre class="brush: javascript"&gt;jQuery(function($){
+    var bl = $('&amp;lt;dl&amp;gt;&amp;lt;/dl&amp;gt;');
+    for (var x in browser) {
+        if (!isNaN(browser[x] || undefined)) {
+            bl.append(
+                $('&amp;lt;dt&amp;gt;&amp;lt;/dt&amp;gt;').text(x)
+            ).append(
+                $('&amp;lt;dd&amp;gt;&amp;lt;/dd&amp;gt;').text(browser[x])
+            );
+        }
+    };
+    $('#diagnostics')    .append('&amp;lt;br /&amp;gt;&amp;lt;br /&amp;gt;')
+                        .append(bl)
+                        .append('&amp;lt;br class="clear" /&amp;gt;&amp;lt;br /&amp;gt;');
+});&lt;/pre&gt;[more]
+&lt;div&gt;&lt;p&gt;&lt;b&gt;Browser Detection Script&lt;/b&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;pre class="brush: javascript"&gt;/*============================================================================
+Copyright (c) 2010, Michael J. Ryan  http://tracker1.info/
+All rights reserved.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+THE POSSIBILITY OF SUCH DAMAGE.
+------------------------------------------------------------------------------
+
+Browser matching for various browser.
+
+    browser.ie
+    browser.gecko
+        browser.firefox
+    browser.khtml
+        browser.webkit
+            browser.chrome
+            browser.safari
+    browser.opera
+
+recommended:
+    use browser.gecko over browser.firefox
+    use browser.webkit over browser.chrome or browser.safari
+
+============================================================================*/
+(function(b){
+    if (!navigator) return;
+
+    //browsermatch method...
+    function bm(re) {
+        var m = (navigator &amp;&amp; navigator.userAgent &amp;&amp; navigator.userAgent.match(re));
+        return (m &amp;&amp; m[1]);
+    }
+
+    //setup browser detection
+    b.ie = parseFloat(bm(/MSIE (\d+\.\d+)/)) || null;
+    b.gecko = parseFloat(bm(/Gecko\/(\d+)/)) || null;
+    b.ff = parseFloat(bm(/Firefox\/(\d+\.\d+)/)) || null;
+    b.khtml = parseFloat(bm(/\((KHTML)/) &amp;&amp; 1) || null;
+    b.webkit = parseFloat(bm(/AppleWebKit\/(\d+\.\d+)/));
+    b.chrome = parseFloat(b.webkit &amp;&amp; bm(/Chrome\/(\d+\.\d+)/)) || null;
+    b.safari = parseFloat(b.webkit &amp;&amp; bm(/Safari\/(\d+\.\d+)/) &amp;&amp; bm(/Version\/(\d+\.\d+)/)) || null;
+    b.opera = parseFloat(bm(/Opera\/(\d+\.\d+)/) &amp;&amp; bm(/Version\/(\d+\.\d+)/)) || bm(/Opera\/(\d+\.\d+)/) || null;
+
+    //delete empty values
+    for (var x in b) {
+        if (b[x] === null)
+            delete b[x];
+    }
+
+    //disable IE matching for older Opera versions.
+    if (b.opera &amp;&amp; b.ie) delete b.ie;
+}(this.browser = this.browser || {}));&lt;/pre&gt;
+
+&lt;/div&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-09-13 15:07:00</pubDate>
+  <lastModified>2010-09-15 11:34:04</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>browser-detection</slug>
+  <tags>
+    <tag>javascript</tag>
+    <tag>browser</tag>
+    <tag>detection</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>@DesertCodeCamp, I am so sorry...</title>
+  <description>A brief apology to the desert code camp attendees that were signed up for my sessions on mongodb and nodejs, with reference points to the materials I was deriving my presentation from.</description>
+  <content>&lt;p&gt;Last night, I was working on my presentations for &lt;a href="http://desertcodecamp.com/"&gt;Desert Code Camp&lt;/a&gt;, all night.I honestly fell asleep around 5am and didn't wake up until around 3.&amp;nbsp; I had all my test data setup for &lt;a href="http://www.mongodb.org/"&gt;MongoDB&lt;/a&gt;,&amp;nbsp; I had utilized a lot of the presentation resources from the &lt;a href="http://www.10gen.com/event_mongosf_10apr30"&gt;MongoSF&lt;/a&gt; conference.&amp;nbsp; Specifically re-tooling the "&lt;a href="http://github.com/mdirolf/shell_presentation/blob/master/slides.js"&gt;powerpoint replacement&lt;/a&gt;" script from &lt;a href="http://dirolf.com/"&gt;Michael Dirolf&lt;/a&gt;.&amp;nbsp; I've got about 2-3 pages of samples and notes here on that I'd like to cover.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;Around 1am I was going over the node.js stuff for that presentation, amazing how much pain one mistake can bring (entered "kiwi.requires('express/plugins')" instead of just "requires(...)".&amp;nbsp; The nodejs demo was made with parts from &lt;a href="http://barkingiguana.com/"&gt;Craig R. Webster&lt;/a&gt;'s "&lt;a href="http://barkingiguana.com/~craig/talks/2010/nodejs-introduction"&gt;Getting Started With Node.js&lt;/a&gt;", and some parts centering on use of express/haml/sass thanks to the post from &lt;a href="http://howtonode.org/express-mongodb"&gt;How To Node&lt;/a&gt; on "&lt;a href="http://howtonode.org/express-mongodb"&gt;Blog rolling with MongoDB express and Node.js&lt;/a&gt;".&amp;nbsp; I had meant to get a bit in on the &lt;a href="http://commonjs.org/"&gt;CommonJS&lt;/a&gt; plugin conventions and a some templating with the haml and sass support, there wouldn't be time to tie it in to mongo.&lt;/p&gt;
+&lt;p&gt;The monday demo for &lt;a href="http://groups.google.com/group/javascript-az"&gt;JavaScriptAZ&lt;/a&gt; is supposed to be on jQueryUI, but I'm going to use a lot of the material here for the first meeting in June on server-side-javascript.&amp;nbsp; I'm open to swapping those around if people are interested, so it isn't as far away.&lt;/p&gt;
+&lt;p&gt;I'm making this post, containing links to those resources I was deriving my presentations from, so the information is at least out there.&amp;nbsp; The stuff on node.js is harder to track down, as unfortunately the node.js site doesn't link to outside demos much at all, and some of the documentation, even the api docs are hard to follow.&amp;nbsp; MongoDB's site does better, but there's still a few rough edges in how the JS console (reference client) documentation is organized.&amp;nbsp; If you have any questions, feel free to email me.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2010-05-15 15:42:00</pubDate>
+  <lastModified>2010-05-15 16:54:01</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>sorry-desert-code-camp</slug>
+  <tags>
+    <tag>mongodb</tag>
+    <tag>node.js</tag>
+    <tag>haml</tag>
+    <tag>sass</tag>
+    <tag>desertcodecamp</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>f4ccdf18-f963-4860-9ad6-4b0bd4cbb830</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications>
+    <email>bobby.borszich@gmail.com</email>
+  </notifications>
+</post>

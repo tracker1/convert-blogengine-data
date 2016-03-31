@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>AnkhSVN 2.0 Available</title>
+  <description />
+  <content>&lt;p&gt;Not sure how this snuck by me without notice, but the 2.0 release of &lt;a href="http://ankhsvn.open.collab.net/servlets/ProjectHome"&gt;Ankh SVN&lt;/a&gt; is out, and pretty much rocks.&amp;nbsp; It's now an SCC adapter, instead of a VS Plugin.&amp;nbsp; This means better VS integration.&amp;nbsp; Not to mention Diff and Merge now works as you would expect.&amp;nbsp; Worth the upgrade, uninstall your old version first.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-09-24 08:54:00</pubDate>
+  <lastModified>2009-06-22 18:52:48</lastModified>
+  <raters>1</raters>
+  <rating>5</rating>
+  <slug>AnkhSVN-20-Available</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>3fcd15ac-17cf-4843-91bd-5340b14b1ae7</category>
+    <category>d3379a7d-4d21-48a5-bdc6-7012d71fa8af</category>
+  </categories>
+  <notifications />
+</post>

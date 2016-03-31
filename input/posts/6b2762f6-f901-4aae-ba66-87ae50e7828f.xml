@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>A better solution for PC Gaming...</title>
+  <description />
+  <content>&lt;p&gt;Through much pain and heartache, it can be said that modern PC Gaming is faulty... Mainly through complex DRM systems that make the entire experience difficult to say the least.&amp;nbsp; From having to deal with multiple DRM systems that may conflict with eachother, let alone any CD/DVD burning software on your computer.&amp;nbsp; Let alone the frustration that comes from dealing with foreign telephone support, and the thick accents that come with it. [more]&lt;/p&gt;
+&lt;p&gt;What would be interesting would be to distribute the "must have" new PC gaming titles on a USB memory device with built in hardware encryption.&amp;nbsp; Upon plugin, a loader software could come up, and copy the asset files (maps, music, models and skins) to the hard drive, while keeping access to the game's actual runtime engine on the device, protected from access via a standard filesystem interface.&amp;nbsp; Only making the engine itself available through the device's interface, and exist in memory. Perhaps a hardware check to make sure that access is via the device, and not a memory dump.&lt;/p&gt;
+&lt;p&gt;With such a system, there would be room to update the engine itself, while leaving the majority of the game's files available on the hard disk, and when running, loading the engine into memory, so that cheaper/slower flash memory could be used on said device.&amp;nbsp; The issues to overcome are getting 4-8GB of flash memory in quantities sufficient, and for a cost not too much of an exponentially higher cost than DVD ROM distribution.&amp;nbsp; Though a slightly higher hurdle to overcome than some of the DRM systems, it's less likely to interfere with other software, more likely to actually prevent duplication by raising the bar beyond simple software hacks.&amp;nbsp; Eliminate the need for keyed entry of long serial keys, while otherwise improving the overall experience to the customer, let alone allowing for returns which don't happen with CD/DVDs software simply because of how easy it is to duplicate the media.&lt;/p&gt;
+&lt;p&gt;The down sides are this would likely lock the game to windows, or at least only targetted platforms, and probably never able to be run through systems such as WINE on Linux.&amp;nbsp; This is an absolute trade off, and one that may well be necessary in order to improve PC gaming.&amp;nbsp; Another option would be to include the OS on the drive with a bootable OS. However this would really require the Graphics and Audio systems to come up with a common, BIOS/EFI level hardware interface to support such a system.&amp;nbsp; A new VESA-Like standard of hardware supported interfaces for graphics and 3D.&lt;/p&gt;
+&lt;p&gt;It's unlikely for the various hardware chipset manufacturers to actually cooperate on such a venture, and surely the Patent system would be abused in any process to devise such a system, if the high definition format war is any example.&amp;nbsp; I honestly feel that it is time for the hardware manufacturers to step forward and create a common set of higher level interfaces to support a method for being able to have a gaming OS.&lt;/p&gt;
+&lt;p&gt;This rant is really based on a few articles from the recent CPU Magazine I read.&amp;nbsp; I feel that USB media for game distribution is an idea whose time has come, and that moving forward a "Gaming OS" and hardware support for such a beast is a real need.&amp;nbsp; This is not a bash against Windows so much as a means to "future-proof" the ability to actually PLAY the games you buy today, and in the future.&amp;nbsp; It's fairly obvious that the USB interface is going to be around for a while, and that the cost for flash based memory will continue to advance in capacity, and decrease in cost.&amp;nbsp; Not to mention that running closer to the metal will give the best performance, and with fairly common interfaces for gaming controllers the norm, the user experience could be much better.&amp;nbsp; With virtualization such a "Gaming OS" could even run on top of your existing OS today as well as fifteen years from now, let alone virtualization support with future game consoles.&amp;nbsp; Look at the number of cartridge game systems that are simply landfill today.&amp;nbsp; Check out the market for older games and emulation software for modern operating environments.&amp;nbsp; It only makes sense to take these steps now, as a more future proof path.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-04-22 10:35:00</pubDate>
+  <lastModified>2009-06-22 19:18:58</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>A-better-solution-for-PC-Gaming</slug>
+  <tags />
+  <comments />
+  <categories>
+    <category>c1634b2b-612e-4c1e-8a68-5d876e51a257</category>
+    <category>17ad4b29-3481-449c-b8fa-180baf551eea</category>
+    <category>f4ccdf18-f963-4860-9ad6-4b0bd4cbb830</category>
+    <category>ca9e6f7d-54de-4467-b698-ca227cb684b3</category>
+  </categories>
+  <notifications />
+</post>

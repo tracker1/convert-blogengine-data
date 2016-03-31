@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>MySite - Part 2 - Theming Support</title>
+  <description>I've modified an ASP.Net MVC project to allow for a better support of theming.  This allows for a fallback to using views from a default theme, while still using other resources from the set theme.</description>
+  <content>&lt;p&gt;Okay, I lied.&amp;nbsp; I really wanted to figure out how to get theming to work the way I wanted.  As you can see to the right, I created a "Theme" folder, where I have a "Default" and in this case a "Red" theme.&amp;nbsp; Under the theme's folder, I moved the Content, and Views folders.&amp;nbsp; My goal was to allow for a fallback to using a View from the Default theme, but still allow for the appropriate masterpage to be applied from the theme's folder if one existed.&amp;nbsp; In this case, you can see that there is an Index view for the Home controller within the Default theme, but there is no matching view in the Red theme. [more]&lt;/p&gt;
+&lt;p&gt;&lt;img style="border: 1px solid #000000; float: right; margin-left: 1em; margin-bottom: 0.5em" src="/image.axd?picture=Project-Tree.png" alt="Project Tree" /&gt;&lt;/p&gt;
+&lt;p&gt;I started off with the view engine from &lt;a href="http://pietschsoft.com/post.aspx?id=5a6945d0-933a-4971-aac1-13dcd73711d9"&gt;Chris Pietschmann's post&lt;/a&gt; on the issue of theming.&amp;nbsp; The two things that weren't addressed in his post were how to account for falling back to Default (though there is a search pattern), and more importantly, how to apply the correct masterpage to a number of views within the default fallback. [more]&lt;/p&gt;
+&lt;p&gt;The first part was easy enough, I simply added a "Default" search to his existing methods.&amp;nbsp; The second part is where things got tricky.&amp;nbsp; Thankfully the &lt;a href="http://www.codeplex.com/aspnet"&gt;ASP.Net MVC Framework's source code&lt;/a&gt; is available for study, which was really helpful in inheriting enough functionality from the WebFormViewEngine and WebFormView classes to make this theming work the way I wanted it to.&lt;/p&gt;
+&lt;p&gt;What I did was to add an override for the CreateView method on the view engine class that used my own view class, which inherited from the WebFormView.&amp;nbsp; In order to make the view work, I lifted a few internal classes (namely the BuildManager) from the MVC project.&amp;nbsp; I found that the name of the MasterPageFile within the page class wasn't available until fairly low in the event chain.&lt;/p&gt;
+&lt;pre class="brush: csharp"&gt;override public void Render(ViewContext viewContext, TextWriter writer)
+{
+    if (viewContext == null)
+    {
+        throw new ArgumentNullException("viewContext");
+    }
+
+    object viewInstance = BuildManager.CreateInstanceFromVirtualPath(ViewPath, typeof(object));
+    if (viewInstance != null)
+    {
+        ViewPage viewPage = viewInstance as ViewPage;
+        if (viewPage != null)
+        {
+            RenderViewPage(viewContext, viewPage);
+            return;
+        }
+    }
+
+    base.Render(viewContext, writer);
+}&lt;/pre&gt;
+&lt;p&gt;As you can see, within the MySiteView class I had to override the Render method for the view I follow the same logic as within the WebFormView class' Render method up to the point where the RenderViewPage method is called, which is where the real magic happens.&lt;/p&gt;
+&lt;pre class="brush: csharp"&gt;private void RenderViewPage(ViewContext context, ViewPage page)
+{
+    if (!String.IsNullOrEmpty(MasterPath)) {
+        page.MasterLocation = MasterPath;
+    } else {
+        if (HttpContext.Current.Items["themeName"].ToString() != "Default" &amp;amp;&amp;amp; page.TemplateSourceDirectory.Contains("/Themes/Default/"))
+            page.PreInit += new EventHandler(delegate(object sender, EventArgs e){
+                //test for Default theme path, and replace with current theme
+                string defaultthemepath = string.Format("{0}Themes/Default/", page.Request.ApplicationPath);
+                if (!string.IsNullOrEmpty(page.MasterPageFile) &amp;amp;&amp;amp; page.MasterPageFile.ToLower().StartsWith(defaultthemepath.ToLower()))
+                {
+                    string newMaster = string.Format(
+                        "~/Themes/{0}/{1}",
+                        HttpContext.Current.Items["themeName"],
+                        page.MasterPageFile.Substring(defaultthemepath.Length)
+                    );
+                    if (File.Exists(page.Server.MapPath(newMaster)))
+                        page.MasterLocation = newMaster;
+                }
+            });
+    }
+
+    page.ViewData = context.ViewData;
+    page.RenderView(context);
+}&lt;/pre&gt;
+&lt;p&gt;If there wasn't a match for a MasterPage, the user isn't using the Default engine and the view came from the Default theme, I inject an anonymous delegate into the page's PreInit event since the value for the MasterPageFile isn't available until this point.&amp;nbsp; What I do then, is check and see if there is a corresponding MasterPage within the current theme, and use that instead.&amp;nbsp; This makes the whole thing work as I would expect.&lt;/p&gt;
+&lt;p&gt;One other point of code was to make the theme settable, and changable from a number of places.&amp;nbsp; What I did to support this was create an Application_BeginRequest method within the project's Global.asax.cs file.&amp;nbsp; You can see how this works below.&lt;/p&gt;
+&lt;pre class="brush: csharp"&gt;protected void Application_BeginRequest(Object Sender, EventArgs e)
+{
+    SetTheme();
+}
+
+private void SetTheme()
+{
+    //set the theme for the ViewEngine to utilize.
+    HttpContext context = HttpContext.Current;
+    if (context.Items.Contains("theme")) context.Items.Remove("theme");
+    context.Items.Add(
+        "themeName",
+        CheckTheme(context.Request.QueryString["theme"])
+            ?? CheckTheme(context.Request.Form["theme"])
+            ?? CheckTheme(context.Request.Headers["theme"])
+            ?? CheckTheme((context.Request.Cookies["theme"] == null) ? "" : context.Request.Cookies["theme"].Value)
+            ?? CheckTheme((context.Session == null) ? "" : context.Session["theme"] as string)
+            ?? CheckTheme(ConfigurationSettings.AppSettings["theme"])
+            ?? "Default"
+   );
+}
+
+private string CheckTheme(string themeName)
+{
+    if (!string.IsNullOrEmpty(themeName))
+    {
+        var path = HttpContext.Current.Server.MapPath(string.Format(
+            "~/Themes/{0}",
+            themeName
+        ));
+        if (Directory.Exists(path))
+            return themeName;
+    }
+    return null;
+}
+
+private string CheckTheme(HttpCookie cookie) {
+    if (cookie != null)
+        return CheckTheme(cookie.Value);
+    return null;
+}&lt;/pre&gt;
+&lt;p&gt;With the functionality changes I've made, I can now move forward with some refactoring, and segmentation of logic.&amp;nbsp; I haven't created any tests for this either, as it was essentially an experiment on getting the theming to work the way I wanted it to.&amp;nbsp; It's nice that the ASP.Net MVC framework from Microsoft allows for the level of modification that it does.&amp;nbsp; It would be nice to see similar functionality baked in though.&amp;nbsp; I'm including my solution's source code, as it is right now below.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;a rel="enclosure" href="/file.axd?file=MySite.zip"&gt;MySite.zip (181.33 kb)&lt;/a&gt;&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-11-13 14:55:00</pubDate>
+  <lastModified>2009-06-22 20:31:38</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>ASPNet-MVC-Theming</slug>
+  <tags>
+    <tag>mysite</tag>
+    <tag>blog</tag>
+    <tag>asp.net</tag>
+    <tag>mvc</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>48cb218a-b8a9-4fdd-a440-910d38689262</category>
+    <category>74792ded-18cd-4dab-b1a7-05d2649feeca</category>
+  </categories>
+  <notifications />
+</post>

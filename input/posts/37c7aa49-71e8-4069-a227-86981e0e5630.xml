@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>Stubbing out the console object so Firebug statements can be left in place</title>
+  <description>Just a quick snippet in javascript so that console statements meant for firebug's window.console object can be left in place.</description>
+  <content>&lt;p&gt;Okay, so you love the Firebug Console, and related output to the console tab within Firebug.&amp;nbsp; Don't we all, however there is a minor problem in leaving in all your log, and debug (etc) statements, and that is the fact that the console object doesn't exist in other browsers, or Firefox without Firebug.&amp;nbsp; You will want to put the script segments below into a file that is called before other scripts on your page. [more]&lt;/p&gt;
+&lt;p&gt;First, I create a simple stub function off of the existing Function class, this allows for a single point of reference for empty functions, without generating a new Function instance for each method it gets used as.&lt;/p&gt;
+&lt;pre class="brush: js"&gt;(function(){
+	//stub out firebug console object
+	//		will allow console statements to be left in place
+	if (typeof Function.empty != 'function') Function.empty = function(){};
+
+	if (typeof console == 'undefined') console = {};
+
+	if (typeof console.log == 'undefined') console.log = Function.empty;
+
+	if (typeof console.debug == 'undefined') console.debug = log;
+
+	if (typeof console.info == 'undefined') console.info = log;
+
+	if (typeof console.warn == 'undefined') console.warn = log;
+
+	if (typeof console.error == 'undefined') console.error = log;
+
+	if (typeof console.assert == 'undefined') console.assert = function(){
+		var args = Array.prototype.slice.call(arguments);
+		var parm = args.shift();
+		if (!parm) {
+			console.error(arguments);
+			throw new Error("Assert failed.");
+		}
+	};
+
+	if (typeof console.dir == 'undefined') console.dir = function(input) { 
+		if (typeof JSON != 'undefined' &amp;&amp; typeof JSON.stringify == "function")
+			console.log( JSON.stringify(input) );
+		else
+			console.log(input.toString());
+	};
+
+	if (typeof console.dirxml == 'undefined') console.dirxml = console.dir;
+
+	if (typeof console.trace == 'undefined') console.trace = Function.empty;
+	if (typeof console.group == 'undefined') console.group = Function.empty;
+	if (typeof console.groupCollapsed == 'undefined') console.groupCollapsed = Function.empty;
+	if (typeof console.groupEnd == 'undefined') console.groupEnd = Function.empty;
+	if (typeof console.time == 'undefined') console.time = Function.empty;
+	if (typeof console.timeEnd == 'undefined') console.timeEnd = Function.empty;
+	if (typeof console.profile == 'undefined') console.profile = Function.empty;
+	if (typeof console.profileEnd == 'undefined') console.profileEnd = Function.empty;
+	if (typeof console.count == 'undefined') console.count = Function.empty;
+
+	function log() {
+		if (typeof JSON != "undefined" &amp;&amp; typeof JSON.stringify == "function") return console.log(JSON.stringify(arguments));
+		return console.log(arguments.toString());
+	}
+}());&lt;/pre&gt;
+&lt;p&gt;&lt;b&gt;Updated 2011-12-16:&lt;/b&gt; I extended this to include a bit more functionality for those browsers with console.log, but not much else.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2009-07-22 10:52:00</pubDate>
+  <lastModified>2011-12-16 10:07:02</lastModified>
+  <raters>1</raters>
+  <rating>5</rating>
+  <slug>firebug_console_stub</slug>
+  <tags>
+    <tag>javascript</tag>
+    <tag>firefox</tag>
+    <tag>firebug</tag>
+    <tag>window.console</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>e8ec79a6-7f5d-46e5-b7d5-0a35e8e08c95</category>
+    <category>ae364b53-e11b-4d02-9d51-b2accb9a63e9</category>
+  </categories>
+  <notifications />
+</post>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<post>
+  <author>tracker1</author>
+  <title>The Data Hive</title>
+  <description>The future of scaling data, creating a Data Hive.  When you need to do logging, or write reports, have the data cache out to the rdbms, instead of the other way around.</description>
+  <content>&lt;p&gt;I've had some ideas bouncing around in the back of my head for a few days now.&amp;nbsp; One is that when using an application, specifically a large-scale web application, having a traditional RDBMS backend is a point of limitation in terms of scale.&amp;nbsp; RDBMS systems are really good for being able to aggregate data, and create reporting interfaces, but it isn't so great from being able to use structured object data on the front end.&amp;nbsp; Now I'm talking about going beyond ORM mappers, and even beyond an Object Database here.&amp;nbsp; What I see coming in the future is a Data Hive. [more]&lt;/p&gt;
+&lt;p&gt;Think about being able to request a serialized object view.&amp;nbsp; You request the object based on the type, and an identifier.&amp;nbsp; You don't care where it was stored, or even so much how it was stored in terms of the front end, you want your data.&amp;nbsp; On the backend the hive client makes a request to the hive, that gets spread through the hive members, and one of said members makes a response stating it has said object/data.&amp;nbsp; Then a more static connection is made to retreive this piece of data.&amp;nbsp; Possibly having the hive traffic on a separate network, with very low level broadcast network calls for the request/response.&amp;nbsp; I realize that this may be very chatty in terms of traffic, especially when more than one resource will actually have the data being requested.&lt;/p&gt;
+&lt;p&gt;The hard part will be having the most used data distributed in such a way that it is both widely available.&amp;nbsp; In addition to distributing load to all the hive nodes.&amp;nbsp; Also worth thinking about is how to replicate data to different networks, that will reside in different locations.&amp;nbsp; In essense what is needed is something that is fast, reliable and scalable.&amp;nbsp; Something like Memcached, with redundancy, and persistance added to it.&lt;/p&gt;
+&lt;p&gt;Some things to consider are...&amp;nbsp; How to search for specific data, and maintaining lists, and updating said lists (indexes) within the hive.&amp;nbsp; How to manage scaling deeper as well as wider.&amp;nbsp; Having relays from one hive, to another, for the purpose of extending the data storage to deeper levels, in addition to wide hives.&amp;nbsp; How to segment which data gets replicated, and/or passed to which layered hives. &amp;nbsp; X-Tree indexing of paths, perhaps.&amp;nbsp; X being the unknown, not for a cool version "X".&amp;nbsp; As whatever is used needs to have some dynamic redundancy to allow for multiple storage and query paths.&lt;/p&gt;
+&lt;p&gt;Most of these thoughts come from the fact that many large scale sites are using things like memcached, to store rendered content because the backend is too sluggish to keep up, instead of rethinking how to store things on the backend. &amp;nbsp; You can add additional read-only databases for replication, then you are replicating data in excess of what is needed.&amp;nbsp; You can separate data into paired nodes, then it's more difficult to get related data, without a worse performance hit, and loose the biggest benefits of RDBMS/SQL databases.&amp;nbsp; You can pre-render content, or objects into a caching layer, but then you lose the persistance, and have to create fallbacks.&amp;nbsp; I think the future is a better data interface that simply scales.&amp;nbsp; When you need to do logging, or write reports, have the data cache out to the rdbms, instead of the other way around.&lt;/p&gt;</content>
+  <ispublished>True</ispublished>
+  <iscommentsenabled>True</iscommentsenabled>
+  <pubDate>2008-11-11 00:19:00</pubDate>
+  <lastModified>2009-06-22 17:58:18</lastModified>
+  <raters>0</raters>
+  <rating>0</rating>
+  <slug>The-Data-Hive</slug>
+  <tags>
+    <tag>databases</tag>
+    <tag>architecture</tag>
+    <tag>scaling</tag>
+  </tags>
+  <comments />
+  <categories>
+    <category>48cb218a-b8a9-4fdd-a440-910d38689262</category>
+    <category>8510a115-d169-44dc-87f0-ba38e5a77ed8</category>
+  </categories>
+  <notifications />
+</post>
